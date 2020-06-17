@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>js + css3 水波纹效果</title>
+    <style type="text/css">
+        *{
+            margin:0; padding:0; border:0;
+            font: 14px/1.5 "PingFangSC", Helvetica, Arial, Simsun, Sans-serif;
+            border-radius:4px;
+            box-sizing: border-box;  outline: none;
+        }
+
+        .ripple-ele-wall {
+            position: relative;
+            cursor:pointer;
+            background-color: lightgray;
+            width:180px; height:40px;
+            margin-left: 10em;  margin-top:5em;
+        }
+
+        .ripple-container {
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+
+        .ripple {
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border-radius: 50%;
+            background-color: #000;
+        }
+
+        .ripple.animate-transition{
+            transition: transform 1.2s cubic-bezier(0, 0, 0.2, 1),
+                        width 1.2s cubic-bezier(0, 0, 0.2, 1),
+                        height 1.2s cubic-bezier(0, 0, 0.2, 1),
+                        opacity 1.2s cubic-bezier(0, 0, 0.2, 1);
+            /*
+                此时在通过js添加(animate-transition)class时，已经添加的style设置的样式有:
+                width: 368.782px;
+                height: 368.782px;
+                transform: translate(-50%, -50%) scale(1, 1);
+             */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="ripple-ele-wall"></div>
+    <div class="ripple-ele-wall"></div>
+    <div class="ripple-ele-wall"></div>
+
+    <script type="text/javascript" src="global-functions-new.js"></script>
+    <script type="text/javascript">
+
+        window.onload = function(){
+
+            var position = {
+                curOffset : ""
+            };
+            var rippleConfigMap = {
+
+                // 帧数: 控制点击之后在哪个刷新周期内产生波纹
+                frameCount: 1,
+
+                // 创建2个span(ripple-container + ripple)元素
+                createHtml: function(rippleWall){
+
+                    // 1st-span水波纹元素的容器，控制点击时波纹的边界。有 overflow, hidden样式
+                    var rippleContainer = document.createElement("span");
+                    rippleContainer.className = addClass("ripple-container", rippleContainer);
+                    // 2nd-span水波纹元素
+                    var rippleEle = document.createElement("span");
+                    rippleEle.className = addClass("ripple", rippleEle);
+
+                    rippleContainer.appendChild(rippleEle);
+
+                    rippleWall.appendChild(rippleContainer);
+                },
+
+
+                // 初始化创建元素的样式
+                initEleStyle: function(event, rippleWall){
+                    var ripContainerEle = rippleWall.getElementsByClassName("ripple-container")[0],
+                        rippleEle = rippleWall.getElementsByClassName("ripple")[0];
+
+                    var rect, x, y, scaleSty, radius;
+
+                    // ClientRect {top: 70, right: 320, bottom: 110, left: 140, width: 180, height:40}
+                    rect = rippleWall.getBoundingClientRect();
+                    // console.log(rect);
+
+                    // radius是圆形水波纹的半径(r): 因为用rect求出的是rippleWall的宽和高，用勾股定理(a² + b² = c²)
+                    // 求出c²然后开根(Math.sqrt())便求出波纹的半径
+                    var rectWid = rect.width,
+                        rectHei = rect.height;
+                    radius = Math.sqrt(rectWid*rectWid + rectHei*rectHei);
+
+
+                    // P370.鼠标事件都是在浏览器视口中的特定位置上发生的。这个位置信息保存着事件对象
+                    // 的clientX 和 clientY 属性。所有浏览器都支持这两个属性，它们的值表示事件发生时鼠标
+                    // 指针在视口中的水平和垂直坐标。
+                    x = event.clientX - rect.left;
+                    y = event.clientY - rect.top;
+
+
+                    position.curOffset = "translate(" + x + "px, " + y + "px)";
+                    console.log(this.curOffset);
+
+                    // 注意scale前有空格
+                    scaleSty = " scale(0.001, 0.001)";
+
+                    // transform: translate(10px, 20px) 定义2D转换
+                    // transform(改变) 多个值之间用空格分割,
+                    // transform: translate(x,y) scale(0.001, 0.001)
+                    var transformSty = position.curOffset + ' translate(-50%, -50%)' + scaleSty;
+
+                    // 给水波纹元素(ripple-ele)设置style样式
+                    rippleEle.style.width = radius *2 + 'px';
+                    rippleEle.style.height = radius *2 + 'px';
+                    rippleEle.style.opacity = "0.4" ;
+                    rippleEle.style.transform = transformSty;
+                    console.log(rippleEle.style.transform);
+
+                    if(hasClass("animate-transition", rippleEle)){
+                        rippleEle.className = removeClass("animate-transition", rippleEle);
+                    }
+
+
+                    // 给span(ripple-container)元素设置宽和高，等于ripple-ele-wall的宽高
+                    ripContainerEle.style.width = rectWid + "px";
+                    ripContainerEle.style.height = rectHei + "px";
+
+                    // 给元素添加初始化样式(init element style)是在点击时由事件调用的，点击事件又
+                    //  需要初始化方法获取的"点击鼠标的当前位置"，所以需要把此值返回
+                },
+
+
+                // 点击水波纹效果
+                fnRippleEffect: function (rippleWall) {
+                    var rippleEle = rippleWall.getElementsByClassName("ripple")[0];
+                    var frameCount = this.frameCount;
+                    var rippleAnimate = function(){
+                        if ( frameCount-- > 0) {
+                            console.log(frameCount);
+                            requestAnimationFrame(rippleAnimate);
+                        } else {
+                            // 开始动画: 首先设置style: transform: translate(-50%, -50%) scale(1, 1);
+                            var scaleSty = " scale(1, 1)";
+                            console.log("fnRippleEffect函数中的position.curOffset值为 " + position.curOffset);
+                            rippleEle.style.transform = position.curOffset + ' translate(-50%, -50%)' + scaleSty;
+
+                            if(hasClass("animate-transition", rippleEle) === false){
+                                rippleEle.className = addClass("animate-transition", rippleEle);
+                            }
+                            frameCount = rippleConfigMap.frameCount;
+                            console.log("else中的frameCount " + frameCount);
+                        }
+                    };
+                    rippleAnimate();
+                },
+
+
+                // 隐藏水波纹元素
+                fnHideRippleEle: function(rippleWall){
+                    var rippleEle = rippleWall.getElementsByClassName("ripple")[0];
+                    setTimeout(function() {
+                        rippleEle.style.opacity = '0';
+                    }, 0)
+                }
+            };
+
+
+
+            // 获取div(ripple-ele-wall)元素: 目的只是存放创建的水波纹元素(命名随意)
+            var rippleWall  = getClassName("ripple-ele-wall");
+            var i = 0,
+                len = rippleWall.length;
+            for(; i < len; i++){
+
+                // 首先调用创建span的方法
+                rippleConfigMap.createHtml(rippleWall[i]);
+
+                rippleWall[i].index = i;
+                EventUtil.addHandler(rippleWall[i], "mousedown", function(event){
+                    var index = this.index;
+                    event = EventUtil.getEvent(event);
+                    rippleConfigMap.initEleStyle(event, rippleWall[index]);
+                    rippleConfigMap.fnRippleEffect(rippleWall[index]);
+
+                });
+                EventUtil.addHandler(rippleWall[i], "mouseup", function(){
+                    rippleConfigMap.fnHideRippleEle(this);
+                });
+
+            }
+        };
+    </script>
+</body>
+</html>

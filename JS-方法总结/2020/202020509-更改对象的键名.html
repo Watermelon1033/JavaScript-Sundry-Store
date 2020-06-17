@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var results = [];
+        var data = {
+            "sectors": [
+                {"name":"新科技","value":"bbb8620e62c1f0699f55ca7ee39c0bc2"},{"name":"企业服务","value":"d76bb316e2c861568076180df7ee4c40"},{"name":"医疗健康","value":"3672dbf1a829e39dc6c1cba17f9ed6b5"}
+            ]
+        }
+        JSON.parse(data);
+        function mixin(results, data) {
+            let receiver = {};
+            // for (let i = 0; i < data.sectors.length; i++) {
+            //     let item = data.sectors[i];
+            //     Object.keys(item).forEach(function(key) {
+            //         if (key === 'id') {
+            //             receiver['value'] = item[key]
+            //         }
+            //         else {
+            //             receiver[key] = item[key];
+            //         }
+            //     })
+            //     results.push(receiver);
+            //     receiver = {};
+            // }
+            data.sectors.map(function(item) {
+                Object.keys(item).forEach(function(key) {
+                    if (key === 'id') {
+                        receiver['value'] = item[key]
+                    }
+                    else {
+                        receiver[key] = item[key];
+                    }
+                })
+                results.push(receiver);
+                receiver = {};
+            })
+        }
+        mixin(results, data);
+        console.log(results);
+
+
+        let book = {
+            title: 'Professional JavaScript',
+            authors: ['Nicholas C. Zakas'],
+            edition: 3,
+            year: 2011
+        }
+        // {"title":"Professional JavaScript","authors":["Nicholas C. Zakas"],
+        //  "edition":3,"year":2011}
+        let jsonText = JSON.stringify(book);
+        console.log(jsonText);    
+    </script>
+</body>
+</html>
