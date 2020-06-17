@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回调函数</title>
+</head>
+<body>
+    <script>
+        function doSomething(msg, callback) {
+            console.log("msg: ", msg);
+            if (typeof callback == "function") {
+                // (1)
+                callback();
+
+                // 利用 apply() 调用匿名函数
+                // callback.apply();
+            }
+        }
+
+        doSomething("第一个参数", function() {
+            console.log("匿名函数实现回调");
+        });
+
+        /*
+         * - (1) 为什么可以直接使用 callback() 这种格式调用匿名函数？
+         *    A: 这种方式就和使用 "函数表达式" 创建函数，然后调用一样。
+         */
+        let aa = function create() {
+            console.log("函数表达式创建函数");
+        };
+        aa();
+
+
+        /** ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+        // 使用 apply / call 函数来改变 this 指向
+        // this 详解:《Javascript设计模式与编程实践》\第1部分--基础知识\第2章\第2章--this.md
+        let clientData = {
+            id: 96564,
+            fullName: "Not Set",
+            setUserName: function(firstName, lastName) {
+                this.fullName = firstName + " " + lastName;
+            }
+        };
+
+        function getUserInput(firstName, lastName, callback, obj) {
+            // code ......
+            // 调用回调函数存储
+            callback.apply(obj, [firstName, lastName])
+        }
+        getUserInput("Barack", "Obama", clientData.setUserName, clientData);
+        console.log(clientData.fullName);
+    </script>
+</body>
+</html>

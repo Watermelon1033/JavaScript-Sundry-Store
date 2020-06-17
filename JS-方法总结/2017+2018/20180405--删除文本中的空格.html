@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>删除复制文本中的空格</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            font-size: 14px;
+        }
+        .container {
+            width: 600px;
+            margin: 60px auto;
+            min-height: 660px;
+            padding: 50px;
+            background:#fafafa;
+            box-shadow: 0 0 6px 1px #ccc;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <p id="content">
+
+        </p>
+        <p id="result" style="margin-top:30px;"></p>
+
+    </div>
+
+    <script type="text/javascript">
+        window.onload = function () {
+
+            // string.substring(): 第一个参数指定子字符串的开始位置，第二个参数（在指定的情况下）表示子字符串到哪里结束
+
+            /*
+            * 两个用于访问字符串中特定字符的方法是： charAt() 和 charCodeAt() 。
+            * 这两个方法都接收一个参数，即基于 0 的字符位置。其中， charAt() 方法
+            * 以单字符字符串的形式返回给定位置的那个字符（ECMAScript 中没有字符类型）。例如：
+            * var stringValue = "hello world";
+            * alert(stringValue.charAt(1)); //"e"
+            * */
+
+
+            var getId = function (ele) {
+                return document.getElementById(ele);
+            }
+
+            // \s: 匹配一个空白字符
+            var str = getId("content").innerHTML;
+            getId("result").innerHTML = str.replace(/\s+/g, "");
+
+        }
+    </script>
+</body>
+</html>

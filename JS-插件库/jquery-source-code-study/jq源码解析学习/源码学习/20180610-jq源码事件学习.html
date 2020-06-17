@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>事件</title>
+    <style type="text/css">
+        #div1 {
+            width: 200px;
+            height: 200px;
+            background: lightsalmon;
+            border-radius: 6px;
+            margin: 20px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="div1"></div>
+
+    <ul>
+        <li>111</li>
+        <li>222</li>
+        <li>333</li>
+        <li>444</li>
+        <li>555</li>
+    </ul>
+
+    <script type="text/javascript" src="jquery-v2.0.3.js"></script>
+    <script>
+
+        /*
+        * jQuery.fn.extend({
+            hover: function( fnOver, fnOut ) {
+                return this.mouseenter( fnOver ).mouseleave( fnOut || fnOver );
+            },
+
+            bind: function( types, data, fn ) {
+                return this.on( types, null, data, fn );
+            },
+            unbind: function( types, fn ) {
+                return this.off( types, null, fn );
+            },
+
+            delegate: function( selector, types, data, fn ) {
+                return this.on( types, selector, data, fn );
+            },
+            undelegate: function( selector, types, fn ) {
+                // ( namespace ) or ( selector, types [, fn] )
+                return arguments.length === 1 ? this.off( selector, "**" ) : this.off( types, selector || "**", fn );
+            }
+        });
+        *
+        * */
+
+        // on() 事件在 5029 line
+        $("#div1").on( "click", { name: "Hello" }, function (event) {
+            console.log( event.data.name )
+        } )
+
+        // 还有这种操作
+        $("#div1").on( {
+            "click": function () {
+                console.log( 123 );
+            },
+            "mouseover": function () {
+                console.log( "4456" );
+            }
+        } )
+
+
+
+        // 事件委托 : 6732 line
+        $("ul").delegate("li", "click", function () {
+            $(this).css("background", "#ccc");
+        })
+
+        // 因为 delegate 内部调用的时 on() 所以上面的时间委托也可以写成这样
+        $("ul").on( "click", "li", {name: "Hello"}, function () {
+            $(this).css("background", "#ccc");
+        })
+
+    </script>
+</body>
+</html>

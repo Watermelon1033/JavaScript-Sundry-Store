@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>性能测试</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var sum = 0;
+        var LENGTH = 1000000;
+        var arr = new Array(LENGTH);
+        for(var i=0; i<LENGTH; ++i){
+            arr[i] = Math.random();
+        }
+
+        console.time('sum-loop-1');
+        sum = 0;
+        for(var i=0; i<LENGTH; ++i){
+            sum+= arr[i];
+        }
+        console.timeEnd('sum-loop-1');
+
+
+
+        // 测试代码执行时间的封装方法 -- 《高性能 javascript》
+        const Timer = {
+            data: {},
+            start(key) {
+                this.data[key] = new Date();
+            },
+            stop(key) {
+                let time = this.data[key];
+                if (time) {
+                    this.data[key] = new Date() - time;
+                }
+                // console.log(this.data[key]);
+            },
+            getTime(key) {
+                return this.data[key] + "ms";
+            }
+        };
+        // 测试console.log(i)
+        Timer.start("Test");
+        for (var i=0; i< 100000; i++) {
+
+        }
+        Timer.stop("Test");
+        console.log("The time is: ", Timer.getTime("Test"));
+
+
+    </script>
+</body>
+</html>

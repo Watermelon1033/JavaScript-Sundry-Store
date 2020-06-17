@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script type="text/javascript">
+
+        /**
+         * 描述: 两个数组对比，得到数组中不重复的项
+         * 20190312 根据亮仔返回，发现这种数组去重的一个 bug (tips: 不建议使用这种方法)
+         */
+        /*var arr1 = ["i", "b", "c", "d", "e", "f","x"]; //数组A
+        var arr2 = ["a", "b", "c", "d", "e", "f", "g"];//数组B
+        var temp = []; //临时数组1
+        var temparray = [];//临时数组2
+
+        for (var i = 0; i < arr2.length; i++) {
+            //巧妙地方：把数组B的值当成临时数组1的键并赋值为真
+            temp[arr2[i]] = true;
+        }
+        console.log("temp: ", temp);
+
+        for (var i = 0; i < arr1.length; i++) {
+            if (!temp[arr1[i]]) {
+                // 巧妙地方：同时把数组A的值当成临时数组1的键并判断是否为真，如果不为真说明没重复，就合并到
+                // 一个新数组里，这样就可以得到一个全新并无重复的数组
+                temparray.push(arr1[i]);
+            }
+        }
+        console.log("temparray: ", temparray);
+        console.log(temparray.join(",") + "");*/
+
+
+
+
+        /**
+         * 描述: added in 20190314
+         * 数组去重
+         */
+        var newArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+        var saveWeek = [4, 6, 8, 2, 1, 13];
+
+        let copy = [].concat(newArray);
+        console.log("copy: ", copy);
+
+        for (let i = 0; i < newArray.length; i++) {
+            for (let j = 0; j < saveWeek.length; j++) {
+                // 如果 newArray 的 i 项和遍历 saveWeek 数组中的某一项(j)相等，
+                // 那么用 splice() 方法移除这项。
+                if (newArray[i] === saveWeek[j]) {
+                    newArray.splice(i, 1)
+                }
+            }
+        }
+        console.log("newArray: ", newArray);
+
+        // https://blog.csdn.net/q1056843325/article/details/73277063
+
+    </script>
+</body>
+</html>

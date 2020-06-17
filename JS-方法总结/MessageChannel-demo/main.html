@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MessageChannel 是什么</title>
+</head>
+<body>
+    <script>
+        /**
+         *   MessageChannel(信息通道) 接口是信道通信 API 的一个接口，它允许我们创建一个新的信道并通过信道的
+         * 2个 MessagePort 属性来传递数据。
+         *   简单来说， MessageChannel 创建了一个通信的管道，这个管道有2个口子，每个口子都可以通过
+         * postMessage 发送数据，而一个口子只要绑定了 onmessage 回调方法，就可以接收从另一个口子
+         * 传过来的数据。
+         */
+
+        // 例 1
+        let channel2 = new MessageChannel();
+        let port1 = channel2.port1;
+        let port2 = channel2.port2;
+        port1.onmessage = function(event) {
+            console.log("port1收到来自port2的数据: ", event.data);
+        };
+
+        port2.onmessage = function(event) {
+            console.log("port2收到来自port1的数据: ", event.data);
+        };
+
+        port1.postMessage("发送给port2");
+        port2.postMessage("发送给port1");
+
+
+
+
+
+
+
+
+        // MessageChannel 用法很简单，但是功能却不可小觑。 例如当我们使用多个 web worker 并想要在两个 web
+        // worker 之间实现通信的时候，messageChannel 就可以派上用场:
+        let worker1 = new Worker("worker1.js");
+        let worker2 = new Worker("worker2.js");
+        let channel = new MessageChannel();
+        worker1.postMessage("port1", [channel.port1]);
+        worker2.postMessage("port2", [channel.port2]);
+        worker2.onmessage = function(event) {
+            console.log(event.data);
+        };
+
+    </script>
+</body>
+</html>

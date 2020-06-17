@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script type="text/javascript">
+    $('#file_upload').uploadifive({
+        'auto': false,                              //设置auto为true，当文件被添加至上传队列时，将会自动上传
+        'buttonClass': 'btn',                       //为上传按钮添加类名
+        'buttonText': '选择图片',                    //定义显示在默认按钮上的文本
+        'dnd': true,                                //如果设置为 false ， 拖放功能将不被启用
+        'fileObjName': '11',                        //定义上传数据处理文件中接收数据使用的文件对象名
+        'fileSizeLimit': 1000,                      //上传文件大小限制,单位KB
+        'fileType': 'image',                        //允许上传的文件类型
+        'checkScript': 'check-exists.php',          //定义检查目标文件夹中是否存在同名文件的脚本文件路径
+        'formData': {'timestamp': '', 'token': ''}, //定义在文件上传时需要一同提交的其他数据对象
+        'height': 20,                               //上传按钮的高度（单位：像素）
+        'width': 100,                               //上传按钮的宽度（单位：像素）
+        'itemTemplate': '',                         //指定上传队列的HTML
+        'method': 'post',                           //上传文件的提交方法，取值‘post‘或‘get‘。
+        'multi': true,                              //设置值为false时，一次只能选中一个文件
+        'overrideEvents': ['onProgress'],           //该项定义了一组默认脚本中你不想执行的事件名称
+        'queueSizeLimit': 12,                       //上传队列中一次可容纳的最大条数
+        'removeCompleted': true,                    //不设置该选项或者将其设置为false，将使上传队列中的项目始终显示于队列中，直到点击了关闭按钮或者队列被清空
+        'simUploadLimit': 10,                       //所述多个文件同时上传 ， 可以在任何给定时间
+        'truncateLength': 1,                        //截断文件名字符
+        'uploadLimit': 2,                           //定义允许的最大上传数量
+        'queueID': 'queue',                         //queueID选项允许你设置一个拥有唯一ID的DOM元素来作为显示上传队列的容器
+        'uploadScript': 'up.ashx',                  //服务器处理脚本的路径
+        'onAddQueueItem': function (file) {
+            // alert('The file ' + file.type + ' was added to the queue!');
+        },
+        //将一个新文件添加到上传队列时触发
+        'onCancel': function () {
+            alert('The file ' + file.name + ' was cancelled!');
+        },//设置onCancel选项，在文件上传被取消时，将允许运行一个自定义函数
+        'onCheck': function (file, exists) {
+            if (exists) {
+                alert('The file ' + file.name + ' exists on the server.');
+            }
+        },//当检测该文件已存在时执行
+        'onClearQueue': function (queue) {
+            queue.css('border', '2px solid #F00');
+        },//设置onClearQueue选项，上传队列清空（激活cancel方法）时，将允许运行一个自定义函数
+
+        'onDestroy': function () {
+            alert('Oh noes!  you destroyed UploadiFive!');
+        },//销毁Uploadify实例（调用destroy方法）时触发该事件
+
+        'onDrop': function (file, fileDropCount) {
+            alert(fileDropCount + ' files were dropped onto the queue.');
+        },//当文件被放到该队列文件
+
+        'onError': function (errorType) {
+            alert('The error was: ' + errorType);
+        },//选择文件发生错误时执行
+
+        'onFallback': function () {
+            alert('Oops!  You have to use the non-HTML5 file uploader.');
+        },//浏览器检测不到兼容时触发该事件
+
+        'onInit': function () {
+            alert('Add files to the queue to start uploading.');
+        },//调用Uploadify初始化结束时触发该事件
+
+        'onProgress': function (file, e) {
+            if (e.lengthComputable) {
+                var percent = Math.round((e.loaded / e.total) * 100);
+            }
+            file.queueItem.find('.fileinfo').html(' - ' + percent + '%');
+            file.queueItem.find('.progress-bar').css('width', percent + '%');
+        },//上传进度更新时触发该事件
+
+        'onQueueComplete': function (uploads) {
+            alert(uploads.successful + ' files were uploaded successfully.');
+        },//队列中的所有文件被处理完成时触发该事件
+
+        'onSelect': function (queue) {
+            alert(queue.queued + ' files were added to the queue.');
+        },//每添加一个文件至上传队列时触发该事件
+
+        'onUpload': function (filesToUpload) {
+            alert(filesToUpload + ' faddfd.');
+        },//上传操作时触发
+
+        'onUploadComplete': function (file, data) {
+            alert('The file ' + file.name + ' uploaded successfully.');
+        },//每一个文件上传完成都会触发该事件，不管是上传成功还是上传失败
+
+        'onUploadFile': function (file) {
+            alert('The file ' + file.name + ' is being uploaded.');
+        }   //开始上传时触发
+
+    });
+
+</script>
+</body>
+</html>

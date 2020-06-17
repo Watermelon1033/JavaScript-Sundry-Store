@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        let fn = function() {
+            // 将 arguments (类数组对象)转换为数组
+            const args = Array.prototype.slice.call(arguments);
+            // const args = [].slice.call(arguments);
+
+            // - ES6 的写法 (1) 
+            //    + const args = [...arguments];
+            // - ES6 的写法 (2): 
+            //    + Array.from() 方法把类数组转换为数组 
+            //   (《深入理解ES6》\10-chapter-改进后的数组功能\10th-改进后的数组功能.js)
+            //    + const args = Array.from(arguments);
+
+            console.log(args instanceof Array);
+
+            /*
+                // - ES5 通过 concat()方法克隆数组: concat()方法设计初衷是连接2个数组，
+                //   如果调用时不传递参数就会返回当前数组的副本。
+                let arr1 = ["purple", "yellow", "white"];
+                let arr2 = arr1.concat();
+                console.log(arr2);          // [ 'purple', 'yellow', 'white' ]
+                // ES6 通过不定元素的语法来实现克隆数组
+                let [...cloneArr1] = arr1;
+                console.log(cloneArr1);     // [ 'purple', 'yellow', 'white' ]
+                console.log("------------------");
+            */
+
+            const ary = args.concat();
+            // 给数组排序
+            ary.sort((a, b) => {
+                return a - b;
+            });
+            console.log("ary sort: ", ary);
+            // 移除最后一项
+            ary.pop();
+            // 移除第一项
+            ary.shift();
+
+            /*
+                // 移除第一项和最后一项后开始求和
+                let total = 0;
+                for (let i = 0; i < ary.length; i++) {
+                    total += ary[i];
+                }
+                // 最后求平均数
+                return (total / ary.length).toFixed(2);
+            */
+
+            // 优化上面一段 (即: 更简洁的写法)
+            return (eval(ary.join("+")) / ary.length).toFixed(2);
+
+        };
+        fn(10, 9.8, 9.5, 8.7, 8.8, 8, 9.2, 8.9);
+
+
+        // 仿写一个 Array 数组的 slice 方法
+        Array.prototype.mySlice = function() {
+            let newArray = [];
+            for (let i = 0; i < this.length; i++) {
+                newArray.push(this[i]);
+            }
+            return newArray;
+        };
+        let ary = [10, 20, 40, 6.6];
+        console.log("ary.mySlice()", ary.mySlice()); // [10, 20, 40, 6.6]
+
+        // ["l", "i", "h", "a", "i", "l", "e"]
+        console.log("[].slice.call('lihaile')", [].slice.call('lihaile'));
+    </script>
+</body>
+</html>

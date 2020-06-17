@@ -1,0 +1,2470 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>9-16-批量转账到银行卡</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="static/css/global.css">
+    <link rel="stylesheet" type="text/css" href="static/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="static/css/head-footer-css.css">
+    <link rel="stylesheet" type="text/css" href="static/css/batch-main-left-css.css">
+    <link rel="stylesheet" type="text/css" href="static/css/batch-main-right-css.css">
+    <link rel="stylesheet" type="text/css" href="static/css/batch-main-add-bank-card-popups-css.css">
+    <link rel="stylesheet" type="text/css" href="static/css/province-city-switch-css.css">
+    <link rel="stylesheet" type="text/css" href="static/css/water-ripple-effect-css.css">
+    <link rel="stylesheet" type="text/css" href="static/css/delete-contact-person-popups-css.css">
+
+    <script type="text/javascript" src="static/js/jq/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/scrollreveal/scrollreveal.min.js"></script>
+    <script type="text/javascript" src="static/js/global-functions.js"></script>
+
+    <style type="text/css">
+        html, body{height:100%;}
+    </style>
+
+    <script type="text/javascript">
+        window.sr = ScrollReveal();
+
+        /* 全局java路径 */
+        //var java_file_path = "<%=path%>";
+        var java_file_path = "static";
+        //var java_img_path = "<%=static_path %>";
+        var java_img_path = "static";
+    </script>
+
+    <script type="text/javascript" src="static/js/header-footer-shell-js.js"></script>
+    <script type="text/javascript" src="static/js/header-footer-js.js"></script>
+</head>
+
+<body>
+    <div class="pos-relative min-hei-100">
+        <!--头部 header wall ~~ start -->
+        <div class="header-wall over-hid"></div>
+        <!--头部 header wall ~~ over-->
+
+
+        <!--中间主体 main : main-wall div必须加overflow:hidden-->
+        <div class="main-wall over-hid">
+            <div class="main margin-auto white-bg box-sha-grey over-hid">
+                <!--主体头部 main-head-->
+                <div class="main-head over-hid">
+                    <div class="main-head-title pos-relative text-center white-font let-spa-1px">
+                        <span>批量转账到银行卡</span>
+                        <span class="triangle-up-left dis-block pos-absolute right-0 bottom-0"></span>
+                    </div>
+                </div>
+                <!--主体头部 main-head-->
+
+                <!--服务器返回错误提示弹框-->
+                <div class="error-box-wall pos-relative over-hid">
+                    <div class="service-error-box text-center margin-auto white-font over-hid">
+                        <!--  <i class="fa fa-exclamation-triangle mar-rig-10" aria-hidden="true"></i>-->
+                        <span class="error-tips-font margin-auto let-spa-1px"></span>
+                        <i class="fr fa fa-times service-error-icon" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <!--服务器返回错误提示弹框-->
+
+                <!--批量转账模块 batch transfer module -->
+                <div class="batch-module over-hid">
+                    <!-- 左边~74% -->
+                    <div class="fl batch-module-left over-hid">
+                        <!--1st-line.批量转账到-->
+                        <div class="batch-every-line">
+                            <div class="fl public-batch-left-font" style="letter-spacing:0;">批量转账到：</div>
+                            <div class="fl public-batch-module over-hid linear-gradient-to-fcf">
+                                <a href="javascript:">
+                                    <span class="fl text-center pos-relative over-hid batch-to-bank choose-one-selected">
+                                            银行卡<label class="choose-one-sel-triangle"></label>
+                                    </span>
+                                </a>
+                                <a href="javascript:">
+                                    <span class="fl text-center pos-relative over-hid batch-to-purse choose-one-default">
+                                            智付钱包账号<label class="choose-one-sel-triangle dis-none"></label>
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <!--1st-line.批量转账到-->
+
+
+                        <!--2nd-line.收款信息-->
+                        <div class="batch-every-line over-hid">
+                            <div class="fl public-batch-left-font">收款信息：</div>
+
+                            <div class="fl public-batch-module over-hid ">
+                                <!--收款人信息:头部-->
+                                <div class="payee-info-head mar-bot-20 over-hid linear-gradient-to-fcf">
+                                    <ul>
+                                        <li class="payee-name ">姓名</li>
+                                        <li class="payee-bank-card-info">银行卡信息</li>
+                                        <li class="payee-money">转账金额</li>
+                                        <li class="payee-remark">备注</li>
+                                    </ul>
+                                </div>
+                                <!--收款人信息:头部-->
+
+                                <!--动态创建收款人信息整行 add payee wall  -->
+                                <div class="add-payee-wall wid-100-per">
+                                </div>
+                                <!--动态创建收款人信息整行 add payee wall  -->
+
+
+                                <!--增加收款人~批量导入~下载模板——按钮-->
+                                <div class="three-function-btn mar-top-20 mar-bot-20 over-hid">
+                                    <p class="add-payee-btn function-btn-default ripple-wall">
+                                        <i class="fa fa-plus fa-lg font-icon"></i>
+                                        <label>增加收款人</label>
+                                    </p>
+                                    <p class="batch-importBtn function-btn-default ripple-wall">
+                                        <i class="fa fa-arrow-circle-o-up fa-lg font-icon"></i>
+                                        <label>批量导入</label>
+                                    </p>
+                                    <p class="download-template-btn  function-btn-default ripple-wall">
+                                        <i class="fa fa-arrow-circle-o-down fa-lg  font-icon"></i>
+                                        <label>
+                                            <a href="javascript:">下载模板</a>
+                                        </label>
+                                    </p>
+                                </div>
+                                <!--增加收款人~批量导入~下载模板——按钮-->
+
+                                <!---批量上传错误展示-->
+                                <div class="batchImpErrShowDiv overflowHid" style="height:60px; background-color:#f7f7f7;">
+                                    <div id="uploadProgressBar"></div><!-- 上传进度调 -->
+                                </div>
+                                <!---批量上传错误展示-->
+
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <!--2nd-line.收款信息-->
+
+
+                        <!--3rd-line.到账时间-->
+                        <div class="batch-every-line">
+                            <div class="fl public-batch-left-font">到账时间：</div>
+                            <div class="fl public-batch-module over-hid">
+                                <p class="over-hid linear-gradient-to-fcf transfer-to-time-wall">
+                                    <span class="transfer-time two-hours-arrive-span choose-one-selected"
+                                          data-selected-flag="1" data-type="1">
+                                        实时到账 (2小时)
+                                        <label class="choose-one-sel-triangle"></label>
+                                    </span>
+                                    <span class="transfer-time twenty-four-hours-arrive-span choose-one-default"
+                                          data-selected-flag="0" data-type="0">
+                                        普通到账 (24小时)
+                                        <label class="choose-one-sel-triangle dis-none"></label>
+                                    </span>
+                                </p>
+                                <p class="font-12 mar-top-10 let-spa-1px" style="color:green;">
+                                    <span>温馨提示：节假日期间，交易额度在5万元以上的，除工行、农行、建行、中行、中信、兴业当天处理，其他银行则顺延至下一个工作日处理。</span>
+                                </p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <!--3rd-line.到账时间-->
+
+
+                        <!--4th-line.账户详情-->
+                        <div class="batch-every-line">
+                            <div class="fl public-batch-left-font">账户详情：</div>
+                            <div class="fl public-batch-module">
+                                <div class="mar-bot-5 over-hid let-spa-1px total-payment-wall linear-gradient-to-fcf">
+                                    <!--付款总额 total payment-->
+                                    <p class="fl wid-36-per font-bold">
+                                        <span>付款总额：</span>
+                                        <span class="font-16 red-font fontWeight total-payment"></span>
+                                        <span>元</span>
+                                    </p>
+                                </div>
+                                <div class="mar-bot-5 over-hid">
+                                    <!--当前付款笔数: current number of payments-->
+                                    <p class="fl wid-36-per">
+                                        <span class="">付款笔数：</span>
+                                        <span class="blue-font font-16 number-of-payments"></span>
+                                        <span>笔</span>
+                                    </p>
+
+                                    <!--单日剩余交易笔数: one day remaining number of payment-->
+                                    <p class="fl">
+                                        <span class="">单日剩余交易笔数：</span>
+                                        <span class="blue-font font-16 one-day-remain-pay-num"></span>
+                                        <span>笔</span>
+                                    </p>
+                                </div>
+                                <div class="mar-bot-5 over-hid">
+                                    <!--可用余额 available balance-->
+                                    <p class="fl wid-36-per">
+                                        <span class="">可用余额：</span>
+                                        <span class="red-font font-16 available-balance"></span>
+                                        <span>元</span>
+                                    </p>
+                                    <!--单日剩余可转金额 one day remaining amount-->
+                                    <p class="fl">
+                                        <span class="">单日剩余可转金额：</span>
+                                        <span class="font-16 red-font one-day-remain-pay-money"></span>
+                                        <span>元</span>
+                                    </p>
+                                </div>
+                                <div class=""> <!--不能给overflow:hidden;给了绝对定位的下拉出不来-->
+                                    <!--服务费: service charge-->
+                                    <div class="fl wid-36-per">
+                                        <span>服务费&nbsp;&nbsp;&nbsp;&nbsp;：</span>
+                                        <span class="red-font font-16 service-charge">0.00</span>
+                                        <span>元</span>
+                                    </div>
+
+                                    <!-- 收费规则: charging rule ~~ start -->
+                                    <div class="fl wid-36-per dark-grey-font pos-relative">
+                                        <span class="dis-block cur-point line-hei-28 charge-rule wid-26-per let-spa-2px blue-font">收费规则</span>
+                                        <div class="pos-relative charge-tip-box dis-none">
+                                            <div class="pos-absolute bor-dark-grey bor-rad-2px white-bg text-center"
+                                                 style="left:-20px; top:12px; width:462px;">
+                                                <p class="triangleIcon2"></p>
+                                                <table class="dark-grey-font"
+                                                       style="border-collapse: collapse; width:100%; font-size:13px;">
+                                                    <tbody>
+                                                    <tr>
+                                                        <!--规定单元格可横跨的列数。-->
+                                                        <th colspan="4">服务费采用单笔收费累加计算，以下为单笔收费标准：</th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>到账时间</td>
+                                                        <td>服务费率</td>
+                                                        <td>收费下限</td>
+                                                        <td>收费上限</td>
+                                                    </tr>
+                                                    <tr class="charge-table-second-tr">
+                                                        <td>实时到账<!-- 实时到账--></td>
+                                                        <td class="two-hour-fee"></td>
+                                                        <td class="two-hour-min-fee"></td>
+                                                        <td class="two-hour-max-fee"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-center">普通到账<!-- 普通到账--></td>
+                                                        <td class="twenty-hour-four-fee"></td>
+                                                        <td class="twenty-hour-four-min-Fee"></td>
+                                                        <td class="twenty-hour-four-max-fee"></td>
+                                                    </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- 收费规则: charging rule ~~ over -->
+
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <!--4th-line.账户详情-->
+
+                        <form action="https://www.baidu.com/" method="post" id="only-one-form">
+                            <!--定义保存最终数据的隐藏域-->
+                            <input type="hidden" class="saveAllDataInput" name="batchTransfer">
+                            <input type="hidden" name="clientSessionToken" value="${serverSessionToken}">
+                            <!--定义保存最终数据的隐藏域-->
+
+                            <!--确定转账按钮-->
+                            <div class="mar-top-50">
+                                <div class="fl line-hei-40 hei-40 text-right" style="margin-left:17%;"></div>
+                                <div class="fl over-hid mar-bot-60">
+                                    <p id="confirm-transfer-btn" class="public-next-btn next-btn-selected" >确认转账</p>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <!--确定转账按钮-->
+                        </form>
+
+                    </div>
+                    <!-- 左边~74% -->
+
+                    <!-- 右边~25% -->
+                    <div class="fr batch-module-right pos-relative over-hid">
+                        <!--向单人转账~~start-->
+                        <div class="right-public-div over-hid">
+                            <div class="right-public-p-wall public-p-wall-default transfer-to-single">
+                                <a href="javascript:">
+                                    <p>
+                                        <i class="fa fa-user-circle-o fa-lg mar-left-30" aria-hidden="true"></i>
+                                        <span>向单人转账</span>
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                        <!--向单人转账~~over-->
+
+
+                        <!-- 最近转账人 recently transfer person ~~板块start -->
+                        <div class="right-public-div recent-transfer-per-wall" data-animation-flag="0">
+                            <!--点击事件绑定在 recent-transfer-per-div 上-->
+                            <div class="right-public-p-wall public-p-wall-default pos-relative recent-transfer-per-div">
+                                <!-- 最近转账人-按钮~start -->
+                                <p class="recent-transfer-p">
+                                    <i class="fa fa-user-plus fa-lg mar-left-30" aria-hidden="true"></i>
+                                    <span>最近转账人</span>
+                                    <!-- 向下: fa-chevron-down  向上: fa-chevron-up -->
+                                    <i class="fa fa-chevron-down arrow-icon-i"></i>
+                                </p>
+                                <!-- 最近转账人-按钮~over -->
+
+                                <!-- 字体图标 朝上的三角-->
+                                <i class="fa fa-sort-asc fa-2x pos-absolute font-icon-up-triangle dis-none"
+                                   aria-hidden="true"></i>
+                            </div>
+
+                            <!-- 最近转账人-下拉~start -->
+                            <div class="recent-transfer-ul-wall">
+                                <ul class="recent-transfer-ul public-ul-module-style"></ul>
+                                <p class="recent-trans-two-btn-wall">
+                                    <span class="recent-selected-all-btn">全选</span>
+                                    <span class="recent-cancel-selected-btn">取消全选</span>
+                                </p>
+                            </div>
+                            <!-- 最近转账人-下拉~over -->
+                        </div>
+                        <!-- 最近转账人 recently transfer person ~~板块over -->
+
+
+                        <!-- 常用联系人 contact person ~~板块start -->
+                        <div class="right-public-div contact-per-wall">
+                            <!--点击事件绑定在 contact-person-div 上: 添加:public-p-wall-clicked样式 -->
+                            <div class="right-public-p-wall public-p-wall-default pos-relative frequent-contact-person-div ">
+                                <!-- 常用联系人-按钮~start -->
+                                <p class="contact-per-p">
+                                    <i class="fa fa-users fa-lg mar-left-30" aria-hidden="true"></i>
+                                    <span>常用联系人</span>
+                                    <i class="fa fa-chevron-down arrow-icon-i"></i>
+                                </p>
+                                <!-- 常用联系人-按钮~over -->
+
+                                <!-- 字体图标 朝上的三角-->
+                                <i class="fa fa-sort-asc fa-2x pos-absolute font-icon-up-triangle dis-none"
+                                   aria-hidden="true"></i>
+                            </div>
+
+                            <!-- 常用联系人模块-下拉~start -->
+                            <div class="frequent-contacts-module" data-animation-flag="0">
+                                <!--搜索框-->
+                                <p class="search-bar-wall">
+                                    <input type="text" placeholder="搜索：姓名、银行名称、卡号" class="search-bar-input">
+                                    <span><i class="fa fa-search grey-font search-bar-icon"></i></span>
+                                </p>
+
+                                <div class="five-group-module-wall"></div>
+                            </div>
+                            <!-- 常用联系人模块-下拉~over -->
+                        </div>
+                        <!-- 常用联系人 contact person ~~板块over -->
+                    </div>
+                    <!-- 右边~25% -->
+                </div>
+                <!--批量转账模块 batch transfer module -->
+            </div>
+        </div>
+        <!--中间主体 main ~~ over -->
+
+        <!-- 页脚 footer ~~ start -->
+        <div class="footer-wall pos-absolute"></div>
+        <!-- 页脚 footer ~~ over -->
+
+
+        <!--黑色全屏弹出窗口 black full screen popups-->
+        <div class="black-full-screen-popups dis-none"></div>
+        <!--黑色全屏弹出窗口 black full screen popups-->
+
+        <!--添加"银行卡信息"弹框 add bank card information popups-->
+        <div class="add-bank-card-popups dis-none">
+            <!--弹框头部-->
+            <div class="popups-main-head over-hid">
+                <p class="fl popups-main-head-title pos-relative text-center white-font let-spa-1px">
+                    <span class="let-spa-1px popups-main-head-font-span"></span>
+                    <span class="triangle-up-left dis-block pos-absolute right-0 bottom-0"></span>
+                </p>
+                <p class="popups-close-btn" >
+                    <i class="grey-cross-icon"></i>
+                </p>
+            </div>
+
+            <!--弹框中部板块 add bank card information box center plate-->
+            <div class="add-bank-card-popups-main">
+
+                <!--收款人姓名-->
+                <div class="same-css-line card-name-module over-hid dis-none" data-click-flag="0">
+                    <div>姓名：</div>
+                    <div class="over-hid">
+                        <input type="text" class="card-name-input" placeholder="收款人姓名">
+                        <span class="popups-error-span card-name-error-span"></span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <!--收款人姓名-->
+
+                <!--收款人卡号-->
+                <div class="same-css-line over-hid">
+                    <div>银行卡号：</div>
+                    <div class="over-hid">
+                        <input type="text" class="bank-card-input" placeholder="收款人卡号">
+                        <span class="popups-error-span bank-card-error-span"></span>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <!--收款人卡号-->
+
+                <!--开户银行-->
+                <div class="same-css-line">
+                    <div>开户银行：</div>
+                    <div class="pos-relative">
+                        <!--保存值-->
+                        <div class="fl">
+                            <p class="public-save-val-wall save-open-bank-p">
+                                <span class="save-open-bank-span">点击选择</span>
+                                <span><i class="triangle-down"></i></span>
+                            </p>
+                            <p class="popups-error-span open-bank-error-span"></p>
+                        </div>
+                        <!--保存值-->
+
+                        <ul class="public-drop-down-module dis-none open-bank-ul">
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <!--开户银行-->
+
+                <!--所在省市-->
+                <div class="prov-city-module dis-none">
+                    <div>所在省市：</div>
+                </div>
+                <!--所在省市-->
+
+                <!--开户支行-->
+                <div class="same-css-line open-branch-bank-module dis-none">
+                    <div>开户支行：</div>
+                    <div class="pos-relative">
+                        <!--保存所选支行部分-->
+                        <div class="fl">
+                            <p class="public-save-val-wall save-branch-bank-p">
+                                <span class="save-branch-bank-span">点击选择</span>
+                                <span><i class="triangle-down"></i></span>
+                            </p>
+                            <p class="popups-error-span branch-error-span"></p>
+                        </div>
+                        <!--保存所选支行部分-->
+
+                        <!--开户支行下拉模块-->
+                        <ul class="public-drop-down-module open-branch-bank-ul dis-none">
+                        </ul>
+                        <!--开户支行下拉模块-->
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <!--开户支行-->
+
+                <!--分组-->
+                <div class="same-css-line add-group-module over-hid dis-none" data-click-flag="0">
+                    <div>分组：</div>
+                    <div class="over-hid popups-five-group-wall">
+                        <p class="every-group-wall" data-group-flag=1>
+                            <span class="popups-group-icon-span">
+                                <i class="fa fa-circle-o" aria-hidden="true" data-icon-flag="0"></i>
+                            </span>
+                            <span class="every-group-font">公司</span>
+                        </p>
+                        <p class="every-group-wall" data-group-flag=2>
+                            <span class="popups-group-icon-span">
+                                <i class="fa fa-circle-o" aria-hidden="true" data-icon-flag="0"></i>
+                            </span>
+                            <span class="every-group-font">朋友</span>
+                        </p>
+                        <p class="every-group-wall" data-group-flag=3>
+                             <span class="popups-group-icon-span">
+                                <i class="fa fa-circle-o" aria-hidden="true" data-icon-flag="0"></i>
+                            </span>
+                            <span class="every-group-font">家人</span>
+                        </p>
+                        <p class="every-group-wall" data-group-flag=4 >
+                             <span class="popups-group-icon-span">
+                                <i class="fa fa-circle-o" aria-hidden="true" data-icon-flag="0"></i>
+                            </span>
+                            <span class="every-group-font">合作伙伴</span>
+                        </p>
+                        <p class="every-group-wall blue-font" data-group-flag=5 >
+                            <span class="popups-group-icon-span">
+                                <i class="fa fa-check-circle" aria-hidden="true" data-icon-flag="1"></i>
+                            </span>
+                            <span class="every-group-font">未分组</span>
+                        </p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <!--分组-->
+
+
+                <!--确定-->
+                <div class="same-css-line over-hid">
+                    <div style="border:0; background-color:#fff;"></div>
+                    <div class="over-hid">
+                        <input type="button" class="mar-top-20 public-next-btn next-btn-default popups-confirm-btn" value="确定">
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <!--确定-->
+            </div>
+        </div>
+        <!--"添加银行卡信息"/"新增联系人"~弹框 add bank card / add contact person box-->
+
+
+        <!--删除常用联系人弹框 delete contact person box-->
+        <div id="delete-contact-per-popups" class="dis-none">
+            <div class="popups-main-head over-hid">
+                <p class="fl popups-main-head-title pos-relative text-center white-font let-spa-1px">
+                    <span class="let-spa-1px popups-main-head-font-span">删除常用联系人</span>
+                    <span class="triangle-up-left dis-block pos-absolute right-0 bottom-0"></span>
+                </p>
+                <p id="del-cont-per-popups-close-btn">
+                    <i class="grey-cross-icon"></i>
+                </p>
+            </div>
+
+            <div id="delete-contact-per-main">
+                <p id="confirm-del-tips-font">您确定要删除以下常用联系人？</p>
+                <!--保存要删除的li-->
+                <ul id="save-del-li-wall"></ul>
+                <p class="text-center white-font del-popups-btn-wall">
+                    <!--确定confirm + 取消 cancel-->
+                    <span id="del-per-confirm-btn">确定</span>
+                    <span id="del-per-cancel-btn">取消</span>
+                </p>
+            </div>
+        </div>
+        <!--删除常用联系人弹框 delete contact person box-->
+    </div>
+
+
+    <!-- 加载json -->
+    <script type="text/javascript" src="static/js/json/recent-transfer-person-json.js"></script>
+    <script type="text/javascript" src="static/js/json/user-available-balance-json.js"></script>
+    <script type="text/javascript" src="static/js/json/two-hours-arrive-json.js"></script>
+    <script type="text/javascript" src="static/js/json/twenty-four-hours-arrive-json.js"></script>
+    <script type="text/javascript" src="static/js/json/open-bank-json.js"></script>
+    <script type="text/javascript" src="static/js/json/straight-bank-json.js"></script>
+    <script type="text/javascript" src="static/js/json/open-branch-bank-json.js"></script>
+    <script type="text/javascript" src="static/js/json/province-city-json.js"></script>
+    <script type="text/javascript" src="static/js/json/frequent-contacts-person-json.js"></script>
+    <script type="text/javascript" src="static/js/json/batch-upload-json.js"></script>
+    <!-- 加载json -->
+
+
+    <script type="text/javascript" src="static/js/batch-main-module-js.js"></script>
+    <script type="text/javascript" src="static/js/batch-add-bank-card-popups-js.js"></script>
+    <script type="text/javascript" src="static/js/province-city-two-level-linkage.js"></script>
+    <script type="text/javascript" src="static/js/batch-right-transfer-module-js.js"></script>
+    <script type="text/javascript" src="static/js/water-ripple-effect-js.js"></script>
+
+    <script type="text/javascript">
+
+        EventUtil.addHandler(document, "DOMContentLoaded", function(){
+
+        });
+
+        // 加载头部和尾部html
+        var headerWall= $(".header-wall")[0];
+        var footerWall= $(".footer-wall")[0];
+
+        headerFooterConfigMap.createHeaderHtml(headerWall, java_file_path, java_img_path);
+        headerFooterConfigMap.createFooterHtml(footerWall, java_file_path);
+
+        var merchantId = "${isMerchantUser}";
+        var $merchantLogin = $(".merchant-login");
+        if(parseInt(merchantId) === 1){
+            $merchantLogin.removeClass("dis-none");
+        }
+
+        // 头部消息通知
+        // fnHeaderMsgTipsNum(java_file_path);
+
+
+        // 首先加载: 创建"省市二级切换html"的方法
+        var $provCityModule = $(".prov-city-module");  // 最外面的用来添加"二级切换"的div
+        // 创建下拉省市模块
+        var $twoLevelLinkage = $(".two-level-linkage-wrapped");
+        if ($provCityModule.children($twoLevelLinkage)) {
+            $provCityModule[0].removeChild($provCityModule[0].lastChild);
+        }
+        $provCityModule[0].appendChild(twoLevelLinkageConfigMap.createProvCityShellHtml());
+
+
+        // 元素配置: 统一获取页面中需要到的元素
+        var eleConfigMap = {
+
+            // 服务器错误弹框
+            serErrorBox:            $(".service-error-box")[0],             // 找到存放服务器错误的div
+            errorTipsFont:          $(".error-tips-font")[0],               // 存放错误提示文字的span框
+            serErrorIcon:           $(".service-error-icon")[0],            // 服务器错误提示弹框中的X号按钮
+
+            // 动态创建行--模块
+            addPayeeWall:           $(".add-payee-wall")[0],                // 动态创建行包围框
+
+            // "增加收款人/批量上传/下载模板"3个功能按钮
+            addPayeeBtn:            $(".add-payee-btn")[0],
+            batchImportBtn:         $(".batch-importBtn")[0],
+            downloadTempBtn:        $(".download-template-btn")[0],
+
+            /*uploadProgressBar:      getId("upload-progress-bar"),              // 上传进度条div*/
+
+
+            // "2小时/24小时"到账时间
+            $transferTime:          $(".transfer-time"),
+            twoHoursArrSpan:        $(".two-hours-arrive-span")[0],
+            twentyFourHoursArrSpan: $(".twenty-four-hours-arrive-span")[0],
+            $transTimeTwoLabel:     $(".transfer-to-time-wall label"),
+
+
+            // 账户信息
+            totalPaymentSpan:       $(".total-payment")[0],                 // 付款总额span
+            curPayNumberSpan:       $(".number-of-payments")[0],            // 付款笔数span
+            oneDayRemainPayMoneySpan:$(".one-day-remain-pay-money")[0],     // 当日剩余可转金额span
+            availableBalanceSpan:   $(".available-balance")[0],             // 可用余额span
+            oneDayRemainPayNumSpan: $(".one-day-remain-pay-num")[0],        // 当日剩余交易笔数span
+            serviceChargeSpan:      $(".service-charge")[0],                //服务费span
+
+
+            // 页面底部的"确定转账按钮"
+            onlyForm:               getId("only-one-form"),
+            confirmBtn:             getId("confirm-transfer-btn"),
+
+
+            /*--------------------添加联系人弹框element ~~ start ------------------------*/
+
+            fullScreenPopups:       $(".black-full-screen-popups")[0],      // 全屏弹框
+            addBankCardPopups:      $(".add-bank-card-popups")[0],          // 中部"添加银行卡信息"弹框
+
+            // 弹框--头部提示span
+            popupsHeadFontSpan:     $(".popups-main-head-font-span")[0],    // 弹框头部提示汉字
+
+            // 弹框--收款人姓名
+            popupsCardNameModule:   $(".card-name-module")[0],              //
+            cardNameInput:          $(".card-name-input")[0],               // 收款人姓名表单
+            cardNameErrorSpan:      $(".card-name-error-span")[0],             // 收款人姓名错误提示span
+
+            // 弹框--银行卡号
+            bankCardInput:          $(".bank-card-input")[0],               // 保存银行卡号input
+            bankCardErrorSpan:      $(".bank-card-error-span")[0],
+
+            // 弹框--开户银行
+            saveOpenBankP :         $(".save-open-bank-p")[0],              // 保存开户银行的P标签
+            saveOpenBankSpan:       $(".save-open-bank-span")[0],           // 保存开户银行银行值span
+            openBankErrorSpan:      $(".open-bank-error-span")[0],
+            openBankUl:             $(".open-bank-ul")[0],                  // 开户银行Ul
+
+            // 弹框--所在省市
+            saveProvCityWall:       $(".save-prov-city-wall")[0],
+            saveProvCityP:          $(".save-prov-city-p")[0],              // 保存省市的p标签
+            provCityErrorSpan:      $(".prov-city-error-span")[0],
+            provCityDropDownModule: $(".prov-city-drop-down-module")[0],    // 省市下拉模块
+            provCityTitleWall:      $(".prov-city-title-wall")[0],          // 下拉"省市标题"包围框
+            provCityWall:           $(".prov-city-wall")[0],                // 下拉模块中的省市包围框
+            provLiWall:             $(".province-li-wall")[0],              // 4个板块省份外围的包围框
+            showCityUl:             $(".current-show-city-ul")[0],          // 加载的所有城市li外围的包围框
+
+            // 弹框--开户支行
+            openBranchBankModule:   $(".open-branch-bank-module")[0],
+            saveBranchBankP:        $(".save-branch-bank-p")[0],
+            saveBranchBankSpan:     $(".save-branch-bank-span")[0],
+            branchErrorSpan:        $(".branch-error-span")[0],
+            openBranchBankUl:       $(".open-branch-bank-ul")[0],
+
+            $popupsErrorSpan:       $(".popups-error-span"),                // 弹框--错误提示框公共class
+
+            // 弹框--分组
+            popupsAddGroupModule:   $(".add-group-module")[0],              // 分组模块
+            fiveGroupP:             $(".every-group-wall"),                 // 5个分组
+            fiveGroupIconSpan:      $(".popups-group-icon-span"),           // 5个圆圈icon外的span
+
+            // 弹框--确定按钮
+            popupsConfirmBtn:       $(".popups-confirm-btn")[0],
+
+
+            /*--------------------添加联系人弹框element ~~ over ------------------------*/
+
+
+
+            /*--------------------删除联系人弹框element ~~ start ------------------------*/
+            delContactPerPopups:        getId("delete-contact-per-popups"),      // 删除常用联系人弹框
+            delContPerPopupsCloseBtn:   getId("del-cont-per-popups-close-btn"),  // 关闭"删除常用联系人"按钮
+            saveDelLiWall:              getId("save-del-li-wall"),               // 保存要删除的li(只是副本extend)的ul
+            delPerConfirmBtn:           getId("del-per-confirm-btn"),            // 删除常用联系人弹框中的"确定"按钮
+            delPerCancelBtn:            getId("del-per-cancel-btn"),             // 删除常用联系人弹框中的"取消"按钮
+            /*--------------------删除联系人弹框element ~~ over ------------------------*/
+
+
+
+
+            /*--------------------页面右侧版块element ~~ start ------------------------*/
+            // 向单人转账
+            transferToSingle:       $(".transfer-to-single")[0],
+
+            // 最近转账人
+            recentTransWall:        $(".recent-transfer-per-wall")[0],      // 最外围div(下拉展示和隐藏)
+            recentTransPerDiv:      $(".recent-transfer-per-div")[0],
+            recentTransUlWall:      $(".recent-transfer-ul-wall")[0],       // 最近转账人下拉Ul外的包围框
+            recentTransUl:          $(".recent-transfer-ul")[0],            // 最近转账人下拉ul
+
+            recentSelAllBtn:        $(".recent-selected-all-btn")[0],       // 全选按钮
+            recentCancelSelBtn:     $(".recent-cancel-selected-btn")[0],    // 取消全选按钮
+
+
+            // 常用联系人
+            freqContactPerDiv:      $(".frequent-contact-person-div")[0],
+            frequentContactsMod:    $(".frequent-contacts-module")[0],//常用联系人下拉模块(展示和隐藏)
+
+            $rightPublicPWall:      $(".right-public-p-wall"),              //
+            $arrowIconI:            $(".arrow-icon-i"),                     // i标签向下向上的箭头符号:2个
+            $upTriangle:            $(".font-icon-up-triangle"),            // 向上的白色三角形:2个
+
+            fiveGroupWall:          $(".five-group-module-wall")[0],        // 5个组的包围框
+
+            /*--------------------页面右侧版块element ~~ over ------------------------*/
+
+        };
+
+        // 判断浏览器
+        mainModuleConfigMap.fnJudgeBrowser();
+
+
+        // "批量上传"json数据:
+        // !? 神奇的bug，明明json在最上面加载了，但是在chrome中这行写在window.onload中却找不到  ?!
+        var batchUploadJson = batchUploadJson.csvObjList;
+
+
+        window.onload = function(){
+
+            // 服务器返回错误弹框: 点击X号关闭弹框
+            $(function () {
+                EventUtil.addHandler(eleConfigMap.serErrorIcon, "click", function () {
+                    eleConfigMap.errorTipsFont.innerHTML = "";
+                    basicAnimation(eleConfigMap.serErrorBox, {height: 0}, 2)
+                })
+            });
+
+
+            /**
+             * --------------------- recharge-main-module-js.js ~~ start ---------------------
+             */
+
+            // 1.给页面下部的"账户详情中的span"和"2小时到账span"赋值
+            mainModuleConfigMap.fnSetAccountInformationSpan(java_file_path);
+
+
+            // 2.给收费规则中 "24小时到账"的3个span赋值
+            mainModuleConfigMap.fnTwentyFourChargeSpan(java_file_path);
+
+
+
+            // 4-1.打开页面动态创建3行
+            for(var i=0; i<3; i++){
+                //console.log(mainModuleMap.createLineMethod(i));
+                eleConfigMap.addPayeeWall.appendChild(mainModuleConfigMap.createLineMethod());
+            }
+            var oDynamicCreateLine = getClassName("dynamic-create-line");
+            revealFun(oDynamicCreateLine);
+            // 调用ScrollReveal动态显示，上面立即创建的2行
+            function revealFun(oDynamicCreateLine){
+                for(var i=0, len=oDynamicCreateLine.length; i<len; i++){
+                    sr.reveal(oDynamicCreateLine[i], {
+                        origin:     "bottom",
+                        distance:   "30px",
+                        opacity:    0,
+                        scale:      1,
+                        delay:      (i+1)*300,
+                        easing:     "ease-in-out",
+                        reset:      false,
+                        duration:   400
+                    });
+                }
+            }
+
+            // 4-2.给创建的行设置需要的公共属性
+            mainModuleConfigMap.setPropertyForLine(eleConfigMap.addPayeeWall);
+
+
+
+            /**
+             * ---addPayeeWall上添加事件~~点击X号删除行+点击银行卡信息弹出弹框+弹框填好信息写值+计算金额的事件...ect...---
+             */
+            EventUtil.addHandler(eleConfigMap.addPayeeWall, "click", function(event){
+                event = EventUtil.getEvent(event);
+                var target = EventUtil.getTarget(event);
+
+                var curErrorSpan;
+                // 1.先隐藏服务器返回的错误 和 "收款人表单"/"转账金额表单" 下的错误清空
+                //mainModuleConfigMap.hideServerErrorBox();
+                if (target.tagName.toLowerCase() === "input") {
+                    curErrorSpan = target.nextSibling;
+                    //备注下无错误提示span,所以先判断错误提示span是否存在
+                    if(curErrorSpan){
+                        if (curErrorSpan.innerHTML !== "") {
+                            curErrorSpan.innerHTML = ""; //如果不为空就直接清空
+                        }
+                    }
+                }
+
+                // 2.如果当前点击对象target为bank-card-p(银行卡信息p),利用事件冒泡点击弹出弹框
+                if (target.tagName.toLowerCase() === "p" && hasClass("bank-card-p", target)) {
+                    // 0.如果当前的bank-card-p的下个同级元素bankCardErrSpan有错误的话，点击错误隐藏
+                    if(target.nextSibling.innerHTML !== ""){
+                        target.nextSibling.innerHTML = "";
+                    }
+                    // 1st.首先判断当前bankCardP的data-flag的值是不是为0，如果为0就直接加载弹框。清除bank-card-p下面的值，在弹框点击确定时。
+                    var curDataFlag = parseInt(target.getAttribute("data-flag"));
+                    if (parseInt(curDataFlag) === 0) {
+                        // 给当前target设置唯一标示符(GUID: global unique identifier),用于确定当前target为众行中的哪一行。(1.)当点击弹框中的确定按钮时移除.(2)点击弹框X号时也要移除.
+                        target.setAttribute("data-guid", "GUID");
+
+                        // 全局弹框的最外围包围函数
+                        fnPopupsWrapped(target);
+                    }
+                }
+                // 2-2.如果当前target下已经有创建的3个span,利用addPayeeWall实时捕获可事实找到添加进来的span(第一版这里走了弯路)
+                if (target.tagName.toLowerCase() === "span" && hasClass("bank-card-p", target.parentNode)
+                    && parseInt(target.parentNode.getAttribute("data-flag")) === 1) {
+                    target.parentNode.setAttribute("data-guid", "GUID");
+                    // 全局弹框的最外围包围函数
+                    fnPopupsWrapped(target.parentNode);
+                }
+
+                // 3.如果当前target为转账金额input(transfer-amount-input)在第一步时已经清空了错误提示，所以不再添加点击事件
+                // 3-1."转账金额表单"blur/mouseleave事件(内部包含: a.验证金额的判断。 b.实时金额 和 付款总金额的判断)
+                // 说明: 给当前target设置blur/mouseleave事件: 虽然blur事件不冒泡，但是在"事件捕获阶段(addPayeeWall)"可以侦听到。
+                EventUtil.addHandler(target, "blur", function(event){
+                    event = EventUtil.getEvent(event);
+                    var target = EventUtil.getTarget(event);
+                    if (target.tagName.toLowerCase() === "input" && hasClass("transfer-amount-input",target)) {
+                        var curErrorSpan = target.nextSibling;
+                        // a.验证金额是不是数字
+                        mainModuleConfigMap.verifyTransAmount(target, curErrorSpan, eleConfigMap.confirmTransBtn);
+                        // b.转账限额判断
+                        mainModuleConfigMap.moneyQuota(target, curErrorSpan);
+                        // c.经过b步骤后,当前target.nextSibling不为空就不在走金额计算函数
+                        if(target.nextSibling.innerHTML !== ""){
+                            return null;
+                        }else{
+                            // d.计算 "手续费+笔数+总金额"
+                            mainModuleConfigMap.calculateAmount(eleConfigMap.addPayeeWall, java_file_path);
+                        }
+                    }
+                });
+
+                //focus事件补充的是上面if else事件不能之处，比如客户在当前表单单击鼠标右键选择值，清空之后下面错误提示还在的问题
+                EventUtil.addHandler(target, "focus", function () {
+                    //mainModuleConfigMap.hideServerErrorBox();
+                    curErrorSpan = target.nextSibling;
+                    if(curErrorSpan){
+                        if (curErrorSpan.innerHTML !== "") {
+                            curErrorSpan.innerHTML = ""; //如果不为空就直接清空
+                        }
+                    }
+                });
+
+
+                // 点击行末尾的叉号: a.删除当前行。    b.重新给"转账人"和"转账金额"表单设置自定义属性。
+                //                c.重新计算金额。   d.右侧 "最近转账人/常用联系人"如果有和当前删除行相同的收款人并且处于选中状态，就移除选中
+                if (hasClass("del-line-icon", target)) {
+                    // a.点击"删除按钮(X号)"删除行
+                    if (target.parentNode.parentNode.parentNode) { //不找到当前删除元素的祖先及元素会报错
+                        target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
+                    }
+                    // b.删除之后遍历当前剩余行，给"姓名/转账金额"设置 data-index 和 placeholder
+                    mainModuleConfigMap.setPropertyForLine(eleConfigMap.addPayeeWall);
+                    // 如果服务器返回有错误就隐藏
+                    mainModuleConfigMap.hideServerErrorBox();
+                    // c.调用计算金额函数
+                    mainModuleConfigMap.calculateAmount(eleConfigMap.addPayeeWall);
+                    // d.
+                    mainModuleConfigMap.fnRemoveLiSelStyle(target);
+                }
+
+            });
+
+
+
+            /// 收款人/批量导入/下载模板" 3个功能按钮
+            (function(){
+                var getThreeFunBtn = $(".three-function-btn  p");
+
+                for(var i=0; i<getThreeFunBtn.length; i++) {
+                    for (var j = 0; j < getThreeFunBtn.length; j++) {
+                        if (hasClass("function-btn-selected", getThreeFunBtn[j])) {
+                            getThreeFunBtn[j].className = removeClass("function-btn-selected", getThreeFunBtn[j]);
+                            getThreeFunBtn[j].className = addClass("function-btn-default", getThreeFunBtn[j]);
+                        }
+                    }
+                    EventUtil.addHandler(getThreeFunBtn[i], "mouseenter", function () {
+                        this.className = removeClass("function-btn-default", this);
+                        this.className = addClass("function-btn-selected", this);
+                    });
+                    EventUtil.addHandler(getThreeFunBtn[i], "mouseleave", function () {
+                        this.className = removeClass("function-btn-selected", this);
+                        this.className = addClass("function-btn-default", this);
+                    });
+                }
+
+
+                // 创建水波纹元素 第1和第3个按钮
+                var color = "#518efa";
+                rippleConfigMap.createHtml(getThreeFunBtn[0], color);
+                rippleConfigMap.createHtml(getThreeFunBtn[2], color);
+
+                EventUtil.addHandler(getThreeFunBtn[0], "mousedown", function(event){
+                    // a.调用创建行
+                    eleConfigMap.addPayeeWall.appendChild(mainModuleConfigMap.createLineMethod());
+                    // b.调用给创建行设置自定义属性
+                    mainModuleConfigMap.setPropertyForLine(eleConfigMap.addPayeeWall);
+                    // c.调用建行之后滚动条自动下滚事件 + ScrollReveal动画效果
+                    mainModuleConfigMap.scrollBarAutoSlideDown(eleConfigMap.addPayeeWall);
+
+                    // 水波纹元素点击效果
+                    var curOffset = rippleConfigMap.initEleStyle(event, getThreeFunBtn[0]);
+                    rippleConfigMap.fnRippleEffect(curOffset, getThreeFunBtn[0]);
+                });
+                EventUtil.addHandler(getThreeFunBtn[0], "mouseup", function(){
+                    var that = this;
+                    rippleConfigMap.fnHideRippleEle(that);
+                });
+
+                EventUtil.addHandler(getThreeFunBtn[2], "mousedown", function(event){
+
+                    // 水波纹元素点击效果
+                    var curOffset = rippleConfigMap.initEleStyle(event, getThreeFunBtn[2]);
+                    rippleConfigMap.fnRippleEffect(curOffset, getThreeFunBtn[2]);
+
+                });
+
+                EventUtil.addHandler(getThreeFunBtn[2], "mouseup", function(){
+                    var that = this;
+                    rippleConfigMap.fnHideRippleEle(that);
+                });
+
+
+                // 批量上传
+                EventUtil.addHandler(getThreeFunBtn[1], "click", function(event){
+                    // a.调用批量上传函数
+                    mainModuleConfigMap.fnBatchUpload(batchUploadJson, java_img_path);
+                    // b.调用"手续费+笔数+总金额"计算函数
+                    mainModuleConfigMap.calculateAmount(eleConfigMap.addPayeeWall, java_file_path);
+                });
+            }());
+
+
+
+            // 6."2小时/24小时到账"切换效果
+            (function(){
+                for(var i=0; i<eleConfigMap.$transferTime.length; i++){
+                    EventUtil.addHandler(eleConfigMap.$transferTime[i], "click", function(event){
+                        event = EventUtil.getEvent(event);
+                        var target = EventUtil.getTarget(event);
+                        for(var i=0; i<eleConfigMap.$transferTime.length; i++){
+                            //如果有选中，首先把“2小时/24小时”选中蓝色边框样式移除添加默认样式,二.把data-selected-flag设置为0
+                            if(hasClass("choose-one-selected", eleConfigMap.$transferTime[i])){
+                                eleConfigMap.$transferTime[i].className = removeClass("choose-one-selected", eleConfigMap.$transferTime[i]);
+                                eleConfigMap.$transferTime[i].className = addClass("choose-one-default", eleConfigMap.$transferTime[i]);
+                                eleConfigMap.$transferTime[i].setAttribute("data-selected-flag", "0");
+                            }
+                            //如果右下角的蓝色三角形有显示，首先统一隐藏
+                            if(hasClass("dis-none", eleConfigMap.$transTimeTwoLabel[i]) === false){
+                                eleConfigMap.$transTimeTwoLabel[i].className = addClass("dis-none", eleConfigMap.$transTimeTwoLabel[i]);
+                            }
+                        }
+                        target.className = addClass("choose-one-selected", target);
+                        target.setAttribute("data-selected-flag", "1");
+                        eleConfigMap.$transTimeTwoLabel[getIndex(target)].className = removeClass("dis-none", eleConfigMap.$transTimeTwoLabel[getIndex(target)]);
+
+                        // 上面样式变更完毕，调用计算手续费的方法
+                        mainModuleConfigMap.calculateAmount(eleConfigMap.addPayeeWall, java_file_path);
+                    })
+                }
+            }());
+
+
+            // 7."收费规则" 移动上展示/滑走隐藏效果
+            var $chargeRule = $(".charge-rule");
+            var $chargeTipBox = $(".charge-tip-box");
+            $chargeRule.hover(
+                function () {$chargeTipBox.removeClass("dis-none");},
+                function () {$chargeTipBox.addClass("dis-none");}
+            );
+
+
+            // 确认转账 btn
+            var onlyForm = eleConfigMap.onlyForm,
+                confirmBtn = eleConfigMap.confirmBtn;
+            var color = "#1198E3";
+            // 创建水波纹元素
+            rippleConfigMap.createHtml(confirmBtn, color);
+            // 水波纹元素点 mousedown 事件
+           /* EventUtil.addHandler(confirmBtn, "mousedown", function(event){
+                var that = this;
+                var curOffset = rippleConfigMap.initEleStyle(event, that);
+                rippleConfigMap.fnRippleEffect(curOffset, that);
+            });
+            // 水波纹元素点 mouseup 事件
+            EventUtil.addHandler(confirmBtn, "mouseup", function(){
+
+                var that = this;
+                rippleConfigMap.fnHideRippleEle(that);
+
+            });*/
+
+            EventUtil.addHandler(confirmBtn, "click", function(event){
+
+                // a.创建水波纹
+                var that = this;
+                var curOffset = rippleConfigMap.initEleStyle(event, that);
+                rippleConfigMap.fnRippleEffect(curOffset, that);
+
+                // b.500ms后隐藏水波纹
+                setTimeout(function(){
+                    rippleConfigMap.fnHideRippleEle(that);
+                }, 500);
+
+
+                // 1st.验证class为theInput的表单有没有填写，若没有填写根据奇偶来添加错误提示
+                var addPayeeWall = eleConfigMap.addPayeeWall,
+                    theInput = getClassName("theInput", addPayeeWall),  // 取得所有的theInput表单
+                    batchTranAllData = [],     // 定义用于保存填写的全部正确的数据的变量
+                    saveInputValArr = [],      // 保存theInput的value值数组
+                    tip = "",                  // 各种提示
+                    i = 0,
+                    len = theInput.length;
+                for (; i < len; i++) {
+                    if (theInput[i].value !== "") {
+                        saveInputValArr.push(theInput[i].value);
+                    }
+                }
+
+                // 2nd.走完上面的for循环saveInputValArr为空的话，弹出下拉框给出错误
+                if(saveInputValArr.length === 0){
+                    tip = "提示：您还未填写转账人！" ;
+                    // 如果错误信息没有在当前窗口，就回滚页面让错误弹框展示
+                    mainModuleConfigMap.scrollBarRoll();
+                    console.log("输出此时的错误提示框的高度 " + eleConfigMap.serErrorBox.offsetHeight);
+                    if(parseInt(eleConfigMap.serErrorBox.offsetHeight) === 0){
+                        basicAnimation(eleConfigMap.serErrorBox, {height: 40}, 8);
+                        eleConfigMap.errorTipsFont.innerHTML = tip;
+                    }
+
+
+                    // 延时5s后把红色下拉弹框隐藏，并清除错误提示
+                    setTimeout(function(){
+                        mainModuleConfigMap.hideServerErrorBox();
+                    }, 5000);
+
+                    return null;
+
+                } else{
+                    // 判断一行中只填写"转账人"或"转账金额"一个表单时，提示他填写另外一个表单
+                    for(; i < len; i++){
+                        var curErrorSpan = theInput[i].nextSibling;     // errorSpan
+
+                        //因为i是从0开始 所以奇数是"转账金额"表单
+                        if (i % 2 !== 0) {
+                            //$1: 当前"转账金额"表单的上个"收款人"表单不为空,就直接检验当前input输入的金额是否正确
+                            if(theInput[i].parentNode.previousSibling.childNodes[0].value !== ""){
+                                //console.log("转账金额表单前面的收款人值是 "  + theInput[i].parentNode.previousSibling.childNodes[0].value);
+                                //$2: 调用"转账金额表单"的第一道验证函数，判断是不是一个正确的数值
+                                submitVerifyTraAmount(theInput[i], curErrorSpan, nextStep);
+                                //假如走完上面的验证errorSpan中有错误提示的话就直接返回错误提示，否则接着走下面的判断金额
+                                if (curErrorSpan.innerHTML !== "") {
+                                    //如果错误信息没有在当前窗口，就回滚页面让错误弹框展示
+                                    setTimeout(scrollBarRoll, 200);
+                                    basicAnimation(serReturnErrorWall, {top: 0});
+                                    tips = "请查看页面中的错误提示！";
+                                    addErrorTips(errorTipFont, tips);
+                                    return null;
+                                }else{
+                                    //$3: 通过2步后,判断当前金额是不是小于或大于最小和最大限额,如果是就直接跳出函数
+                                    moneyQuota(theInput[i], curErrorSpan, saveValObj.sevBackOnceMinLimit, saveValObj.sevBackOnceLimit);
+                                    if(curErrorSpan.innerHTML !== ""){
+                                        //如果错误信息没有在当前窗口，就回滚页面让错误弹框展示
+                                        setTimeout(scrollBarRoll, 200);
+                                        basicAnimation(serReturnErrorWall, {top: 0});
+                                        tips = "请查看页面中的错误提示！";
+                                        addErrorTips(errorTipFont, tips);
+                                        return null;
+                                    }else{
+                                    }
+                                }
+                            }else{}
+                        } else if (i % 2 === 0) { //偶数是"收款人"表单
+                            //此处判断处于同一行的 "转账金额表单"是不是为空，只有当转账金额表单不为空的时候才做判断
+                            curErrorSpan = theInput[i].nextSibling; //取得当前input的同级错误提示span(即:errorSpan)
+                            if(theInput[i + 1].value !== ""){
+                                if(theInput[i].value === ""){
+                                    //如果错误信息没有在当前窗口，就回滚页面让错误弹框展示
+                                    setTimeout(scrollBarRoll, 200);
+                                    basicAnimation(serReturnErrorWall, {top: 0});
+                                    tips = "请查看页面中的错误提示！";
+                                    addErrorTips(errorTipFont, tips);
+                                    curErrorSpan.innerHTML = "收款人账户不能为空";
+                                    return null;
+                                }else{
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+
+                // form提交事件
+                // onlyForm.submit();
+
+            });
+
+
+
+            /**
+             * --------------------- recharge-main-module-js.js ~~ over ---------------------
+             */
+
+
+
+            /**
+             * --------------- batch-add-bank-card-popups-js.js ~~ start ---------------
+             */
+
+            // 因为弹框出现后要处理很多事件，所以添加一个总包围函数方便传参和查看(popups wrapped)
+            function fnPopupsWrapped(passTarget){
+
+                // "黑色全屏窗口+添加联系人弹框"显示
+                popupsConfigMap.fnShowPopups();
+
+                // "添加联系人弹框"头部文字根据当前target变换
+                if(passTarget.tagName.toLowerCase() === "p"){
+                    // 根据点击元素确定弹框头部是"银行卡信息"还是"添加常用联系人"
+                    eleConfigMap.popupsHeadFontSpan.innerHTML = oPopupsHeadTips.bankCardInf;
+
+                }else if(passTarget.parentNode.previousSibling.tagName.toLowerCase() === "ul"){
+                    eleConfigMap.popupsHeadFontSpan.innerHTML = oPopupsHeadTips.addFrequentConPer;
+                }
+
+                // 如果当前target的data-flag=0,弹框显示时把弹框中的内容还原
+                if(passTarget.hasAttribute("data-guid") &&  parseInt(passTarget.getAttribute("data-flag")) === 0){
+
+                    // 如果 "姓名"行/"分组"行 显示就隐藏
+                    popupsConfigMap.fnHidNameGroupMod();
+
+                    // 清楚弹框里的值和自定义属性
+                    popupsConfigMap.fnClearPopupsVal();
+                }
+
+                // 如果当前target的data-flag=1,弹框显示时把当前target下三个span中的值和自定义属性赋值给弹框中的对应行
+                if(passTarget.hasAttribute("data-guid") &&  parseInt(passTarget.getAttribute("data-flag")) === 1){
+
+                    // 如果 "姓名"行/"分组"行 显示就隐藏
+                    popupsConfigMap.fnHidNameGroupMod();
+
+                    // 弹框显示时获取target下span的值赋值给对应的行
+                    popupsConfigMap.fnSetValAttr(passTarget);
+
+                }
+
+                // 如果当前target为右侧"添加常用联系人"下的按钮,但添加联系人是要写入到当前按钮对应的ul中，所以要找到相应的ul
+                if(passTarget.parentNode.previousSibling.tagName.toLowerCase() === "ul" &&
+                    hasClass("group-drop-down-ul", passTarget.parentNode.previousSibling)){
+
+                    // 如果 "姓名/分组"行是隐藏的就显示
+                    popupsConfigMap.fnShowNameGroupMod();
+
+                    // 清楚弹框里的值和自定义属性
+                    popupsConfigMap.fnClearPopupsVal();
+
+                    // 把弹框中的"5个分组"全部设为未选中状态，在根据当前点击元素的group-type把响应的组设置为选中
+                    // 弹框显示时分组默认选中的组为“未分组”，首选获取当前组的数字，自动变更分组
+                    var getTarGroupType = parseInt(passTarget.parentNode.previousSibling.getAttribute("data-ul-group-type"));
+                    // 提示: 右边常用联系人中data-ul-group-type从1设置，但是封装函数中for循环从0开始执行，此处要减1。
+                    popupsConfigMap.fnPopupsGroupSetSel(getTarGroupType-1);
+                }
+
+
+                // 点击弹框中的关闭按钮(popups-close-btn)关闭弹框，并移除target上的GUID
+                var popupsCloseBtn = getClassName("popups-close-btn")[0];
+                EventUtil.addHandler(popupsCloseBtn, "click", function(){
+                    // 如果 "姓名"行/"分组"行 显示就隐藏
+                    popupsConfigMap.fnHidNameGroupMod();
+
+                    // 清楚弹框里的值和自定义属性
+                    popupsConfigMap.fnClearPopupsVal();
+
+                    // 关闭弹框
+                    popupsConfigMap.fnClosePopups();
+
+                    // 移除唯一标识符 (关闭按钮 && 确定按钮 触发时都需移除)
+                    passTarget.removeAttribute("data-guid");
+                });
+
+                // 弹框"确定按钮"事件
+                EventUtil.addHandler(eleConfigMap.popupsConfirmBtn, "click", function(event){
+                    popupsConfigMap.fnBtnClick(passTarget, java_file_path, java_img_path);
+                    event.stopPropagation();
+                });
+            }
+
+            // 收款姓名
+            (function(){
+                var cardNameInput =     eleConfigMap.cardNameInput;
+                var cardNameErrorSpan = eleConfigMap.cardNameErrorSpan;
+                EventUtil.addHandler(cardNameInput, "click", function(event){
+                    if(cardNameErrorSpan.innerHTML !== ""){
+                        cardNameErrorSpan.innerHTML = "";
+                    }
+                    event.stopPropagation();
+                });
+
+                EventUtil.addHandler(cardNameInput, "blur", function(){
+                    if(cardNameInput.value === ""){
+                        cardNameErrorSpan.innerHTML = "请输入收款人姓名";
+                    }
+                });
+            }());
+
+            // 银行卡号
+            (function(){
+                var bankCardReg =  /^[a-zA-Z0-9]+$/;
+
+                EventUtil.addHandler(eleConfigMap.bankCardInput, "mouseenter", function(){
+                    if(this.nextSibling.innerHTML !== ""){
+                        this.nextSibling.innerHTML = "";
+                    }
+                });
+
+                EventUtil.addHandler(eleConfigMap.bankCardInput, "click", function(event){
+                    event = EventUtil.getEvent(event);
+                    // 如果bankCardErrorSpan中的值不为空就清空
+                    if(eleConfigMap.bankCardErrorSpan.innerHTML !== ""){
+                        eleConfigMap.bankCardErrorSpan.innerHTML = "";
+                    }
+
+                    EventUtil.stopPropagation(event);
+                });
+
+                EventUtil.addHandler(eleConfigMap.bankCardInput, "mouseleave", function(event){
+                    event = EventUtil.getEvent(event);
+                    var target = EventUtil.getTarget(event);
+
+                    // 1.银行卡验证
+                    if(bankCardReg.test(target.value) && parseInt(target.value.length) < 26){
+                    }else if(target.value === ""){
+                        return null;
+                    }else if(target.value !== bankCardReg.test(target.value) || parseInt(target.value.length) >= 26){
+                        eleConfigMap.bankCardErrorSpan.innerHTML = "请输入正确的银行卡号";
+                        return null;
+                    }
+
+                    // 2.直企银行: "bankCode为建设银行" + "bankCardInput的value长度等于20"
+                    // 建行20位卡号范本:22001674501052525463
+                    var saveBankSpanCode = eleConfigMap.saveOpenBankSpan.getAttribute("data-bank-code");
+                    if(saveBankSpanCode === "CCB" && eleConfigMap.bankCardInput.value.length === 20){
+                        if ($provCityModule.hasClass("dis-none")) {
+                            $provCityModule.removeClass("dis-none");
+                        }
+                    }
+
+                    // 3.弹框按钮自动变色事件
+                    popupsConfigMap.fnBtnChangeBg();
+                });
+
+                EventUtil.addHandler(eleConfigMap.bankCardInput, "keyup", function(event){
+                    //给数字添加空格(未完成)
+                    function addBlock(num){
+                        if(/\S{5}/.test(num)){
+                            return num.replace(/\s/g, "").replace(/(.{4})/g, "$1 ");
+                        }
+                    }
+                });
+
+                //自动识别银行 + 暂缓
+            }());
+
+            // 开户银行
+            (function(){
+                // 调用"ajax获取所有银行的json"方法
+                var oAllBankJson =  popupsConfigMap.fnAjaxGetAllBankJson(java_file_path);
+
+                // 给每行的银行添加点击事件
+                EventUtil.addHandler(eleConfigMap.saveOpenBankP, "click", function(event){
+                    var tips = "点击选择";
+                    event = EventUtil.getEvent(event);
+
+                    // 如果当前错误提示span不为空就先清空
+                    if(eleConfigMap.saveOpenBankSpan.innerHTML !== ""){
+                        eleConfigMap.openBankErrorSpan.innerHTML = "";
+                    }
+
+                    // 点击"开户银行"下拉显示和隐藏
+                    event = EventUtil.getEvent(event);
+                    popupsConfigMap.fnShowHideModule(eleConfigMap.openBankUl);
+
+                    // 首先清空ul下已经存在的li避免多次appendChild内容积累
+                    if(eleConfigMap.openBankUl.innerHTML !== ""){
+                        eleConfigMap.openBankUl.innerHTML = "";
+                    }
+                    // 创建开户银行li
+                    eleConfigMap.openBankUl.appendChild(popupsConfigMap.fnCreateBankLi(oAllBankJson, java_img_path));
+
+                    // 取得所有的开户银行添加点击写入值事件
+                    var allOpenBankLi = eleConfigMap.openBankUl.getElementsByTagName("li");
+                    for(var i=0; i<allOpenBankLi.length; i++){
+                        EventUtil.addHandler(allOpenBankLi[i], "click", function(event){
+                            event = EventUtil.getEvent(event);
+
+                            // (0).如果所在省份和开户支行模块有显示就隐藏
+                            if ($provCityModule.hasClass("dis-none") === false) {
+                                $provCityModule.addClass("dis-none");
+                                eleConfigMap.saveProvCityP.innerHTML = tips;
+                            }
+                            if (hasClass("dis-none", eleConfigMap.openBranchBankModule) === false) {
+                                eleConfigMap.openBranchBankModule.className = addClass("dis-none", eleConfigMap.openBranchBankModule);
+                                eleConfigMap.saveBranchBankSpan.innerHTML = tips;
+                                eleConfigMap.saveBranchBankSpan.setAttribute("data-branch-id", "null");
+                            }
+
+                            var curBankName = this.getElementsByClassName("open-bank-name");
+                            // (1.)给保存银行值的span赋值
+                            eleConfigMap.saveOpenBankSpan.innerHTML =  curBankName[0].innerHTML;
+
+                            // (2.)把当前点击银行的bank-code赋值给保存值的span
+                            eleConfigMap.saveOpenBankSpan.setAttribute("data-bank-code", curBankName[0].getAttribute("data-bank-code"));
+
+                            // (3.)最后给把下拉模块隐藏
+                            if(hasClass("dis-none", eleConfigMap.openBankUl) === false){
+                                eleConfigMap.openBankUl.className = addClass("dis-none", eleConfigMap.openBankUl);
+                            }
+
+                            // (4.)得到其saveBankSpan中的bank-code,做"省市"是否显示的判断
+                            popupsConfigMap.fnIfShowProCity(java_file_path);
+
+                            // (5).判断当前情况，调用弹框按钮自动变色事件
+                            popupsConfigMap.fnBtnChangeBg();
+
+                            EventUtil.stopPropagation(event);
+                        })
+                    }
+
+                    EventUtil.stopPropagation(event);
+                });
+
+            }());
+
+            // 所在省份
+            (function(){
+                // 点击下拉模块展示/隐藏
+                EventUtil.addHandler(eleConfigMap.saveProvCityWall, "click", function (event) {
+                    // 首先把提示框的错误清空
+                    if(eleConfigMap.provCityErrorSpan.innerHTML !== ""){
+                        eleConfigMap.provCityErrorSpan.innerHTML = "";
+                    }
+                    event = EventUtil.getEvent(event);
+                    popupsConfigMap.fnShowHideModule(eleConfigMap.provCityDropDownModule);
+                    EventUtil.stopPropagation(event);
+                });
+
+                EventUtil.addHandler(eleConfigMap.saveProvCityWall, "mouseleave", function(){
+                    // 弹框按钮自动变色事件
+                    popupsConfigMap.fnBtnChangeBg();
+                });
+
+                // 选项卡切换(tab switch) + 联动(linkage)
+                var provCityTitleLi = $(".prov-city-title-wall li");
+                var $provCityWall = $(".prov-city-wall");
+                for (var i = 0; i < provCityTitleLi.length; i++) {
+                    EventUtil.addHandler(provCityTitleLi[i], "click", function (event) {
+                        event = EventUtil.getEvent(event);
+                        var current = this;
+                        //
+                        twoLevelLinkageConfigMap.tabToggle(current, $provCityWall);
+                        EventUtil.stopPropagation(event);
+                    })
+                }
+
+                // ajax调用省市json数据
+                var oProvCityJson = twoLevelLinkageConfigMap.ajaxGetProvCityJson(java_file_path);
+                // 加载创建的省份
+                eleConfigMap.provLiWall.appendChild(twoLevelLinkageConfigMap.createProvince(oProvCityJson));
+                // 加载创建的城市
+                eleConfigMap.showCityUl.appendChild(twoLevelLinkageConfigMap.createCity(oProvCityJson));
+
+                // 省份添加"滑上/移开"背景变色效果
+                var allProvinceLi = $("ul.prov-city-wall ul.every-plate-province li");
+                allProvinceLi.hover(
+                    function () {$(this).removeClass("prov-or-city-default").addClass("prov-or-city-selected");},
+                    function () {$(this).removeClass("prov-or-city-selected").addClass("prov-or-city-default");}
+                );
+                // 城市添加"滑上/移开"背景变色效果
+                var allCityLi = $(".current-show-city-ul li");
+                allCityLi.hover(
+                    function () {$(this).removeClass("prov-or-city-default").addClass("prov-or-city-selected");},
+                    function () {$(this).removeClass("prov-or-city-selected").addClass("prov-or-city-default");}
+                );
+
+                // 点击"省份": 创建包裹的 span + 写值到save-prov-city-p中
+                for (var i = 0; i < allProvinceLi.length; i++) {
+                    EventUtil.addHandler(allProvinceLi[i], "click", function (event) {
+                        event = EventUtil.getEvent(event);
+                        if (eleConfigMap.saveProvCityP !== "") {
+                            eleConfigMap.saveProvCityP.innerHTML = "";
+                        }
+                        var saveProvValSpan = document.createElement("span");
+                        saveProvValSpan.className = "save-prov-val-span";
+                        saveProvValSpan.setAttribute("data-province-code", this.getAttribute("data-province-code"));
+                        saveProvValSpan.innerHTML = this.innerHTML;
+
+                        // 创建"斜杠(slash)span"
+                        var insertSlash = document.createElement("span");
+                        insertSlash.className = "insert-slash";
+                        insertSlash.appendChild(document.createTextNode("/"));
+
+                        eleConfigMap.saveProvCityP.appendChild(saveProvValSpan);
+                        eleConfigMap.saveProvCityP.appendChild(insertSlash);
+
+                        // 自动切换: 调用tabToggle函数
+                        var current = $(".prov-city-title-wall li")[1];
+                        twoLevelLinkageConfigMap.tabToggle(current, $provCityWall);
+
+                        // 取得当前保存省份的province-code 显示相应的城市li
+                        for (var j = 0; j < allCityLi.length; j++) {
+                            if (hasClass("dis-none", allCityLi[j]) === false) {
+                                allCityLi[j].className = addClass("dis-none", allCityLi[j]);
+                            }
+                            if (allCityLi[j].getAttribute("data-parent-code") === this.getAttribute("data-province-code")) {
+                                if (hasClass("dis-none", allCityLi[j])) {
+                                    allCityLi[j].className = removeClass("dis-none", allCityLi[j]);
+                                }
+                            }
+                        }
+                        EventUtil.stopPropagation(event);
+                    })
+                }
+
+                // 点击"城市"创建span + 写值
+                for (var j = 0; j < allCityLi.length; j++) {
+                    EventUtil.addHandler(allCityLi[j], "click", function () {
+                        var getSaveProvCitySpans = eleConfigMap.saveProvCityP.getElementsByTagName("span");
+                        if (getSaveProvCitySpans.length !== 0) {
+                            for (var x = 0; x < getSaveProvCitySpans.length; x++) {
+                                if (hasClass("save-city-val-span", getSaveProvCitySpans[x])) {
+                                    eleConfigMap.saveProvCityP.removeChild(eleConfigMap.saveProvCityP.lastChild);
+                                }
+                            }
+                            var createSavCityValSpan = document.createElement("span");
+                            createSavCityValSpan.className = "save-city-val-span";
+                            createSavCityValSpan.innerHTML = this.innerHTML;
+                            createSavCityValSpan.setAttribute("data-city-code", this.getAttribute("data-city-code"));
+                            createSavCityValSpan.setAttribute("data-parent-code", this.getAttribute("data-parent-code"));
+                            eleConfigMap.saveProvCityP.appendChild(createSavCityValSpan);
+                        }
+
+                        // 写完至之后隐藏下拉
+                        if (hasClass("dis-none", eleConfigMap.provCityDropDownModule) === false) {
+                            eleConfigMap.provCityDropDownModule.className = addClass("dis-none", eleConfigMap.provCityDropDownModule);
+                        }
+
+                        // 再次自动切换: 调用tabToggle函数
+                        var current = $(".prov-city-title-wall li")[0];
+                        twoLevelLinkageConfigMap.tabToggle(current, $provCityWall);
+
+                        // 追加: 如果此时所在支行中有值就立即清空
+                        var tips = "点击选择";
+                        if(eleConfigMap.saveBranchBankSpan.innerHTML !== tips){
+                            eleConfigMap.saveBranchBankSpan.innerHTML = tips;
+                            eleConfigMap.saveBranchBankSpan.setAttribute("data-branch-id", "null");
+                        }
+                    });
+                }
+            }());
+
+            // 开户支行
+            (function () {
+                // 给每支行的p添加点击事件
+                EventUtil.addHandler(eleConfigMap.saveBranchBankP, "click", function (event) {
+                    // a.如果当前branchErrorSpan有错误提示首先清除
+                    if (eleConfigMap.branchErrorSpan.innerHTML !== "") {
+                        eleConfigMap.branchErrorSpan.innerHTML = "";
+                    }
+                    // b.点击"开户银行"下拉显示着隐藏
+                    event = EventUtil.getEvent(event);
+                    popupsConfigMap.fnShowHideModule(eleConfigMap.openBranchBankUl);
+                    EventUtil.stopPropagation(event);
+
+                    // c.首先清空ul下已经存在的li避免多次appendChild内容积累
+                    if (eleConfigMap.openBranchBankUl.innerHTML !== "") {
+                        eleConfigMap.openBranchBankUl.innerHTML = "";
+                    }
+
+                    // d.判断所在省市是否填写完整，是就调用ajax获取支行+创建支行li
+                    var tips = "点击选择";
+                    var $saveCityValSpan = $(".save-city-val-span");
+                    if(eleConfigMap.saveProvCityP.innerHTML === tips){
+                        eleConfigMap.provCityErrorSpan.innerHTML = "请选择省市";
+                        return null;
+                    }else if($saveCityValSpan.html() == ""){
+                        eleConfigMap.provCityErrorSpan.innerHTML = "请填写完整的省市";
+                        return null;
+                    }else{
+                        // 取得"save-open-bank-span"和"save-city-val-span"的code自定义属性
+                        var bankCardSpanCode = eleConfigMap.saveOpenBankSpan.getAttribute("data-bank-code");
+                        var cityCode = $saveCityValSpan[0].getAttribute("data-city-code");
+
+                        // 调用"ajax获取支行的json"方法 + 创建开户支行
+                        eleConfigMap.openBranchBankUl.appendChild(popupsConfigMap.fnCreateOpenBranchLi(java_file_path, bankCardSpanCode, cityCode));
+                    }
+
+
+                    // e.取得所有的开户银行添加点击写入值事件
+                    var allOpenBranchBankLi = eleConfigMap.openBranchBankUl.getElementsByTagName("li");
+                    for (var i = 0; i < allOpenBranchBankLi.length; i++) {
+                        EventUtil.addHandler(allOpenBranchBankLi[i], "click", function () {
+                            eleConfigMap.saveBranchBankSpan.innerHTML = this.innerHTML;
+                            // 把当前支行的id(data-current-id)赋值给save-branch-bank-span的data-branch-id,不是data-branch-id
+                            eleConfigMap.saveBranchBankSpan.setAttribute("data-branch-id", this.getAttribute("data-current-id"));
+
+                            // (3.)最后给把下拉模块隐藏
+                            if (hasClass("dis-none", eleConfigMap.openBranchBankUl) === false) {
+                                eleConfigMap.openBranchBankUl.className = addClass("dis-none", eleConfigMap.openBranchBankUl);
+                            }
+
+                            // 弹框按钮自动变色事件
+                            popupsConfigMap.fnBtnChangeBg();
+                        })
+                    }
+                });
+            }());
+
+            // 分组
+            (function(){
+                var fiveGroupP =  eleConfigMap.fiveGroupP;
+                for(var i=0; i < fiveGroupP.length; i++){
+                    fiveGroupP[i].index = i;
+                    EventUtil.addHandler(fiveGroupP[i], "click", function(){
+                        // 把弹框中的"5个分组"全部设为未选中状态，在根据点击把当前点击的设置为选中
+                        var curIndex = this.index;
+                        popupsConfigMap.fnPopupsGroupSetSel(curIndex);
+                    })
+                }
+            }());
+
+
+            // 点击弹出框任意位置--下拉模块隐藏
+            EventUtil.addHandler(eleConfigMap.addBankCardPopups, "click", function(){
+                if(hasClass("dis-none", eleConfigMap.openBankUl) === false){
+                    eleConfigMap.openBankUl.className = addClass("dis-none", eleConfigMap.openBankUl);
+                }
+                if(hasClass("dis-none", eleConfigMap.openBranchBankUl) === false){
+                    eleConfigMap.openBranchBankUl.className = addClass("dis-none", eleConfigMap.openBranchBankUl);
+                }
+            });
+
+            /**
+             * --------------- batch-add-bank-card-popups-js.js ~~ over ---------------
+             */
+
+
+
+            /**
+             * --------------- batch-recent-transfer-module-js.js ~~ start ---------------
+             */
+
+            (function(){
+
+                // ajax获取最近转账人
+                var oRecentTransferJson =  rightTransferConfigMap.ajaxGetRecentTransferPer(java_file_path);
+
+                // 调用"创建最近转账人"方法
+                rightTransferConfigMap.fnCreateRecTransPerLi(eleConfigMap.recentTransUl, oRecentTransferJson, java_img_path);
+
+                // 点击最近转账人下拉展示和隐藏
+                EventUtil.addHandler(eleConfigMap.recentTransPerDiv, "click",
+                    function(event){
+                        event = EventUtil.getEvent(event);
+                        target = EventUtil.getTarget(event);
+                        if(parseInt(eleConfigMap.recentTransWall.
+                                getAttribute("data-animation-flag")) === 0){
+                            basicAnimation(
+                                eleConfigMap.recentTransWall,
+                                {height: 460},
+                                16,
+                                function () {
+                                    target.style.backgroundColor = "#a0c0f8";
+                                }
+                            );
+                            eleConfigMap.recentTransWall.setAttribute("data-animation-flag", 1);
+
+                            // 如果"常用联系人"下拉打开，就折叠
+                            if(parseInt(eleConfigMap.frequentContactsMod.
+                                    getAttribute("data-animation-flag")) === 1){
+                                basicAnimation(
+                                    eleConfigMap.frequentContactsMod,
+                                    {opacity: 0},
+                                    rightTransferConfigMap.fnShowOpacity());
+                                eleConfigMap.frequentContactsMod.
+                                    setAttribute("data-animation-flag", 0);
+                            }
+                            if(hasClass("dis-none", eleConfigMap.$upTriangle[1])
+                                === false){
+                                eleConfigMap.$upTriangle[1].className =
+                                    addClass("dis-none", eleConfigMap.$upTriangle[1]);
+                            }
+                        } else if (parseInt(eleConfigMap.recentTransWall.
+                                    getAttribute("data-animation-flag")) === 1){
+                            basicAnimation(
+                                eleConfigMap.recentTransWall,
+                                {height: 40},
+                                16);
+                            eleConfigMap.recentTransWall.setAttribute("data-animation-flag", 0);
+                        }
+                        var current = this;
+                        rightTransferConfigMap.fnRightPubDropDownStyle(current);
+
+                        event.stopPropagation();
+                    }
+                );
+
+                // 最近转账人里的 "li单选"+ "全选按钮"+"取消全选按钮"操作
+
+
+                var recentSelAllBtn =       eleConfigMap.recentSelAllBtn,       // 最近转账人"全选按钮"
+                    recentCancelSelBtn =    eleConfigMap.recentCancelSelBtn;    // 最近转账人"取消全选按钮"
+                var recentTransLi = $(".recent-transfer-ul li");                // 最近转账人 ul下的所有li
+
+                // "全选按钮" 添加 li + icon 选中样式 + 写值到左侧的"收款信息"模块
+                (function(){
+                    var objAllLi1 = {
+                        ele:                recentTransLi,
+                        judgmentAttr:       "data-selected-flag",
+
+                        eleAddOrMovStyle:   "right-module-li-selected",
+
+                        judAttrEqualNum:     0,
+                        judAftSetAttrNum:    1,
+
+                        childEleRemoveSty:  "fa-square-o",
+                        childEleAddSty:     "fa-check-square-o",
+                        childEleJudAttr:    "data-icon-flag"
+                    };
+                    EventUtil.addHandler(recentSelAllBtn, "click", function(){
+                        // 0. 获取所有li，添加全选样式
+                        rightTransferConfigMap.fnDefaultSelectedSwitch(objAllLi1);
+
+                        // 1.获取当前"全选按钮"选中的所有li写入到左边"收款信息"模块中，
+                        //    (a).如果当前li在左侧的行中没有重复就直接添加
+                        //    (b).如果当前li在左侧的行中有重复就删除重复(给出提示)，然后把当前li里的联系人写入
+
+                        var i =0,
+                            len = recentTransLi.length;
+                        for(; i<len; i++){
+                            var curSpan = recentTransLi[i].getElementsByTagName("span");
+                            var oSpanValAttr2 = {
+                                // 收款人姓名
+                                cardNameValue:      curSpan[1].innerHTML,
+                                // 银行卡号 + 开户银行 + bankCode
+                                bankCardInputVal:   curSpan[4].getAttribute("data-bank-account"),
+                                openBankSpanHtml:   curSpan[3].innerHTML,
+                                bankCode:           curSpan[3].getAttribute("data-bank-code"),
+                                // 所在省市 (存在or不存在)
+                                provValSpanHtml:    curSpan[4].getAttribute("data-province-name"),
+                                provinceCode:       curSpan[4].getAttribute("data-province-code"),
+                                cityValSpanHtml:    curSpan[4].getAttribute("data-city-name"),
+                                cityCode:           curSpan[4].getAttribute("data-city-code"),
+                                // 开户支行 (存在or不存在)
+                                dataBranchId:       curSpan[4].getAttribute("data-branch-code"),
+                                branchBankSpanHtml: curSpan[4].getAttribute("data-branch-name"),
+                                // 所在分组
+                                currentSelectGroupP: null,
+                                /* territoryFlag 和 transferType 不需要*/
+
+                                // 转账金额 + remark
+                                transferMoney:  null,
+                                remark:         null
+                            };
+
+                            var saveSelLiArr = [];
+                            if(saveSelLiArr.length !== 0){
+                                saveSelLiArr.length = 0;
+                            }
+                            saveSelLiArr.push(recentTransLi[i]);
+
+                            // 只有当当前li的data-selected-flag=1时才写值
+                            if(parseInt(recentTransLi[i].getAttribute("data-selected-flag")) === 1){
+                                // 创建行 + 调用添加收款人信息写入函数，把oSpanValAttr2传入
+                                rightTransferConfigMap.fnAddPaymentInfo(saveSelLiArr, oSpanValAttr2, java_img_path);
+                            }
+                        }
+
+                    });
+                }());
+
+
+                // "取消全选按钮" 移除 li + icon 选中样式 + 左侧的"收款信息"模块中对应的人移除
+                (function(){
+                    var objAllLi2 = {
+                        ele:                recentTransLi,
+                        judgmentAttr:       "data-selected-flag",
+
+                        eleAddOrMovStyle:   "right-module-li-selected",
+
+                        judAttrEqualNum:     1,
+                        judAftSetAttrNum:    0,
+
+                        childEleRemoveSty:  "fa-check-square-o",
+                        childEleAddSty:     "fa-square-o",
+                        childEleJudAttr:    "data-icon-flag"
+                    };
+                    EventUtil.addHandler(recentCancelSelBtn, "click", function(){
+                        rightTransferConfigMap.fnDefaultSelectedSwitch(objAllLi2);
+                        var i =0,
+                            len = recentTransLi.length;
+                        for(; i<len; i++){
+                            var curSpan = recentTransLi[i].getElementsByTagName("span");
+                            var oSpanValAttr2 = {
+                                // 银行卡号
+                                bankCardInputVal:   curSpan[4].getAttribute("data-bank-account"),
+                            };
+                            if(parseInt(recentTransLi[i].getAttribute("data-selected-flag")) === 0){
+                                rightTransferConfigMap.fnClickLiRemovePayee(oSpanValAttr2);
+                            }
+                        }
+                    });
+                }());
+
+
+                // 最近转账人中li "默认/选中"样式切换 + 写值到左侧的"收款信息"模块
+                (function(){
+                    var objSingleLi = {
+                        judgmentAttr:       "data-selected-flag",
+
+                        eleAddDelStyle:     "right-module-li-selected",
+
+                        judAttrNumOne:      0,
+                        judAttrNumTwo:      1,
+
+                        childAddDelSty1:    "fa-square-o",
+                        childAddDelSty2:    "fa-check-square-o",
+                        childEleJudAttr:    "data-icon-flag"
+                    };
+                    var i =0,
+                        len = recentTransLi.length;
+                    for(; i < len; i++){
+                        EventUtil.addHandler(recentTransLi[i], "click", function(){
+                            var cur = this;
+                            // 0.获取当前li，操作"选中/默认"样式
+                            rightTransferConfigMap.fnSingleLiSwitchStyle(cur, objSingleLi);
+
+                            // 1.获取当前点击li中需要的span和属性，保存到oSpanValAttr2中，写入到左侧"收款信息"模块中
+                            /* 提示: 在*-*-*-*-popups-js.js 的 fnBtnClick()函数中为保存弹框中填写的信息定义了
+                             oValueAttr对象，然后传入创建银行卡信息下三个span的函数(batch-main-module-js.
+                             js---> createBankCardInfSpan())中 */
+                            // oSpanValAttr2中的属性名必须跟oValueAttr中一致
+
+                            // 经过0步的判断后当前li的data-selected-flag=1,只有当次属性等于1的时候才接着往下写值，
+                            // 如果等于0，就把写入左侧的值移除
+                            var curSpan = this.getElementsByTagName("span");
+                            var oSpanValAttr2 = {
+                                // 收款人姓名
+                                cardNameValue:      curSpan[1].innerHTML,
+                                // 银行卡号 + 开户银行 + bankCode
+                                bankCardInputVal:   curSpan[4].getAttribute("data-bank-account"),
+                                openBankSpanHtml:   curSpan[3].innerHTML,
+                                bankCode:           curSpan[3].getAttribute("data-bank-code"),
+                                // 所在省市 (存在or不存在)
+                                provValSpanHtml:    curSpan[4].getAttribute("data-province-name"),
+                                provinceCode:       curSpan[4].getAttribute("data-province-code"),
+                                cityValSpanHtml:    curSpan[4].getAttribute("data-city-name"),
+                                cityCode:           curSpan[4].getAttribute("data-city-code"),
+                                // 开户支行 (存在or不存在)
+                                dataBranchId:       curSpan[4].getAttribute("data-branch-code"),
+                                branchBankSpanHtml: curSpan[4].getAttribute("data-branch-name"),
+                                // 所在分组
+                                currentSelectGroupP: null,
+                                /* territoryFlag 和 transferType 不需要*/
+
+                                // 转账金额 + remark
+                                transferMoney:  null,
+                                remark:         null
+                            };
+
+                            var saveSelLiArr = [];
+                            if(saveSelLiArr.length !== 0){
+                                saveSelLiArr.length = 0;
+                            }
+                            saveSelLiArr.push(this);
+
+                            // 只有当当前li的data-selected-flag=1时才写值
+                            if(parseInt(this.getAttribute("data-selected-flag")) === 1){
+                                // 2.创建行 + 调用添加收款人信息写入函数，把oSpanValAttr2传入
+                                rightTransferConfigMap.fnAddPaymentInfo(saveSelLiArr, oSpanValAttr2, java_img_path);
+                            }
+
+                            // 如果当前li的data-selected-flag=0时，判断左侧"收款人信息"中是不是有已经写入的相同收款人，如果有就移除
+                            if(parseInt(this.getAttribute("data-selected-flag")) === 0){
+                                rightTransferConfigMap.fnClickLiRemovePayee(oSpanValAttr2);
+                            }
+                        })
+                    }
+                }());
+
+            }());
+
+            /**
+             * --------------- batch-recent-transfer-module-js.js ~~ over ---------------
+             */
+
+
+
+            /**
+             * --------------- batch-frequent-contacts-module-js.js ~~ start ---------------
+             */
+            // 创建5个分组的html骨架 + 5个分组的ul列表
+            (function(){
+                var oGroupNameArr = ["公司", "朋友", "家人", "合作伙伴", "未分组"];
+                var fiveGroupWall = eleConfigMap.fiveGroupWall;
+                if(fiveGroupWall.innerHTML !== ""){
+                    fiveGroupWall.innerHTML = "";
+                }
+                for(var i=0; i<5; i++){
+                    fiveGroupWall.appendChild(rightTransferConfigMap.fnCreateGroupHtml(oGroupNameArr[i], (i+1)));
+                    // 取得上面创建的5个组中下拉板块的包围框 public-group-drop-down
+                }
+
+                // 取得上面创建完的5个group下的5个ul
+                var fiveGroupUl = $(".group-drop-down-ul");
+                var saveFiveGroupLiArr = [];    // 保存创建的每个li
+
+                rightTransferConfigMap.fnCreateFiveGroupLiHtml(java_file_path, java_img_path, saveFiveGroupLiArr);
+
+                for(var i=0; i<saveFiveGroupLiArr.length; i++){
+                    var curLiGroupType = saveFiveGroupLiArr[i].getAttribute("data-li-group-type");
+                    for(var j=0; j<fiveGroupUl.length; j++){
+                        var curUlDataGroupType = fiveGroupUl[j].getAttribute("data-ul-group-type");
+                        if(parseInt(curLiGroupType) === parseInt(curUlDataGroupType)){
+                            fiveGroupUl[j].appendChild(saveFiveGroupLiArr[i]);
+                        }
+                    }
+                }
+
+            }());
+
+
+            // 点击常用联系人下拉展示和隐藏
+            EventUtil.addHandler(eleConfigMap.freqContactPerDiv, "click", function () {
+                var freContactsMod = eleConfigMap.frequentContactsMod;
+                if (parseInt(freContactsMod.getAttribute("data-animation-flag")) === 0) {
+                    basicAnimation(freContactsMod, {opacity:1}, rightTransferConfigMap.fnShowOpacity());
+                    freContactsMod.setAttribute("data-animation-flag", 1);
+
+                    // 如果"最近转账人"下拉打开，就折叠下拉
+                    var recTransWall = eleConfigMap.recentTransWall;
+                    if (parseInt(recTransWall.getAttribute("data-animation-flag")) === 1) {
+                        basicAnimation(recTransWall, {height: 40}, 10);
+                        recTransWall.setAttribute("data-animation-flag", 0);
+                    }
+                    if(hasClass("dis-none", eleConfigMap.$upTriangle[0]) === false){
+                        eleConfigMap.$upTriangle[0].className = addClass("dis-none", eleConfigMap.$upTriangle[0]);
+                    }
+
+                } else if (parseInt(freContactsMod.getAttribute("data-animation-flag")) === 1) {
+                    basicAnimation(freContactsMod, {opacity: 0}, rightTransferConfigMap.fnShowOpacity());
+                    freContactsMod.setAttribute("data-animation-flag", 0);
+                }
+                var current = this;
+                rightTransferConfigMap.fnRightPubDropDownStyle(current);
+            });
+
+            // 点击每个组下拉展示和隐藏
+            (function(){
+                var groupBtn = $(".group-header-long-btn");         // 每个组的头部长条按钮
+                var dropDownMod = $(".public-group-drop-down");     // 每个组的下拉
+                var i =0,
+                    len = groupBtn.length;
+                for(; i < len; i++){
+                    groupBtn[i].index = i;
+                    EventUtil.addHandler(groupBtn[i], "click", function () {
+
+                        // 把所有展开的下拉模块都隐藏
+                        for(var j=0; j<dropDownMod.length; j++){
+                            basicAnimation(dropDownMod[j], {height: 0}, 10);
+                        }
+
+                        // 找到当前点击元素的同级元素
+                        var thisSib = siblings(this.parentNode);
+                        for(var i=0; i<thisSib.length; i++){
+                            // 查找要明白
+                            var siblingsIcon = thisSib[i].firstChild.getElementsByTagName("i")[0];
+                            if(parseInt(siblingsIcon.getAttribute("data-switch-flag")) === 1){
+                                thisSib[i].firstChild.className = removeClass("blue-font2", thisSib[i].firstChild);
+
+                                siblingsIcon.className = removeClass("fa-angle-down", siblingsIcon);
+                                siblingsIcon.className = addClass("fa-angle-right", siblingsIcon);
+                                siblingsIcon.setAttribute("data-switch-flag", 0);
+                            }
+                        }
+
+                        // 找到当前长条btn后面的朝向right's arrow，并切换箭头朝向
+                        var iconEle = this.getElementsByTagName("i")[0];
+                        if(parseInt(iconEle.getAttribute("data-switch-flag")) === 0){
+                            this.className = addClass("blue-font2", this);
+
+                            iconEle.className = removeClass("fa-angle-right", iconEle);
+                            iconEle.className = addClass("fa-angle-down", iconEle);
+
+                            iconEle.setAttribute("data-switch-flag", 1);
+                            basicAnimation(dropDownMod[this.index], {height: 346}, 12);
+                        }else if(parseInt(iconEle.getAttribute("data-switch-flag")) === 1){
+                            this.className = removeClass("blue-font2", this);
+
+                            iconEle.className = removeClass("fa-angle-down", iconEle);
+                            iconEle.className = addClass("fa-angle-right", iconEle);
+                            iconEle.setAttribute("data-switch-flag", 0);
+                            basicAnimation(dropDownMod[this.index], {height: 0}, 12);
+                        }
+                    })
+                }
+            }());
+
+
+            // 5个组中的"新增联系人"按钮: 弹框展示
+            (function(){
+                var addPerBtn =             $(".add-freq-per-btn");       // 5个添加联系人按钮
+
+                var i = 0,
+                    len = addPerBtn.length;
+                for(; i < len; i++){
+                    EventUtil.addHandler(addPerBtn[i], "click", function(event){
+                        event  = EventUtil.getEvent(event);
+                        var target = EventUtil.getTarget(event);
+                        // 点击之前先判断5个按钮是否有data-add-per-btn-flag,如果有就删除
+                        var i = 0,
+                            len = addPerBtn.length;
+                        for (; i < len; i++) {
+                            if (addPerBtn[i].hasAttribute("data-add-per-btn-flag")) {
+                                addPerBtn[i].removeAttribute("data-add-per-btn-flag");
+                            }
+                        }
+
+                        // 给当前添加联系人按钮设置flag
+                        target.setAttribute("data-add-per-btn-flag", "true");
+                        fnPopupsWrapped(target);
+                    });
+                }
+            }());
+
+
+            // 5个组中的 "编辑/完成"按钮
+            (function(){
+
+                var editBtn =           $(".edit-freq-per-btn");            // 5个编辑按钮
+                var completeBtn =       $(".complete-freq-per-span");       // 5个完成按钮
+                var fourFunBtnWall =    $(".four-function-btn-wall");    // 4功能按钮外围的包围框
+
+                var i = 0,
+                    len = editBtn.length;
+                for(; i < len; i++){
+                    editBtn[i].index = i;
+                    completeBtn[i].index = i;
+                    // 点击"编辑"按钮 :  A.当前按钮消失, 完成按钮展示(加动画).
+                    //                 B.下面4个操作按钮展示.
+                    //                 C.当前按钮父级同级的ul下的li中的icon图标所在的span展示.
+                    //                 D.再点击时如果当前li有处于选中状态(data-selected-flag=1),首先移除选中状态
+                    EventUtil.addHandler(editBtn[i], "click", function(){
+                        // A
+                        if(hasClass("dis-none", this) === false){
+                            this.className = addClass("dis-none", this);
+                        }
+                        if(hasClass("dis-none", completeBtn[this.index])){
+                            completeBtn[this.index].className = removeClass("dis-none", completeBtn[this.index]);
+                            sr.reveal(completeBtn[this.index], {
+                                origin:     "right",
+                                distance:   0,
+                                opacity:    0,
+                                scale:      0.6,
+                                delay:      200,
+                                easing:     "ease-in-out",
+                                reset:      false,
+                                duration:   200
+                            });
+                        }
+
+                        // B
+                        if(hasClass("dis-none", fourFunBtnWall[this.index])){
+                            fourFunBtnWall[this.index].className = removeClass("dis-none", fourFunBtnWall[this.index]);
+                            sr.reveal(fourFunBtnWall[this.index], {
+                                origin:     "right",
+                                distance:   0,
+                                opacity:    0,
+                                scale:      0.6,
+                                delay:      200,
+                                easing:     "ease-in-out",
+                                reset:      false,
+                                duration:   200
+                            });
+                        }
+
+                        // C: 找到当前按钮父级同级的ul下的li中的icon图标所在的span展示
+                        var curUl = this.parentNode.previousSibling;
+                        var curLi = curUl.getElementsByTagName("li");
+                        var i  = 0,
+                            len = curLi.length;
+                        for(; i < len; i++){
+                            // 当前li下的第一个span(icon span)如果是显示状态就隐藏并把flag=1
+                            var firstSpan = getClassName("public-font-icon-span", curLi[i])[0];
+                            // data-show-hid-flag = 0 代表当前是隐藏状态
+                            if(parseInt(firstSpan.getAttribute("data-show-hid-flag")) === 0){
+                                if(hasClass("dis-none", firstSpan)){
+                                    firstSpan.className = removeClass("dis-none", firstSpan);
+                                }
+                                firstSpan.setAttribute("data-show-hid-flag", 1);
+                                curLi[i].setAttribute("data-under-first-span-flag", 1);
+                            }
+
+                            // D:
+                            if(parseInt(curLi[i].getAttribute("data-selected-flag")) === 1){
+                                curLi[i].className = removeClass("right-module-li-selected", curLi[i]);
+                                curLi[i].setAttribute("data-selected-flag", 0);
+                            }
+                        }
+
+
+
+                    });
+
+                    // 点击"完成"按钮 :  A.当前按钮消失, 编辑按钮展示(无动画). B.下面4个操作按钮消失.
+                    //                 C.当前按钮父级的同级ul下的li中的icon图标所在的span隐藏(如果icon图标处于选中状态，移除选中).
+                    EventUtil.addHandler(completeBtn[i], "click", function(){
+                        // A
+                        if(hasClass("dis-none", this) === false){
+                            this.className = addClass("dis-none", this);
+                        }
+                        if(hasClass("dis-none", editBtn[this.index])){
+                            editBtn[this.index].className = removeClass("dis-none", editBtn[this.index]);
+                        }
+                        // B
+                        if(hasClass("dis-none", fourFunBtnWall[this.index]) === false){
+                            fourFunBtnWall[this.index].className = addClass("dis-none", fourFunBtnWall[this.index]);
+                        }
+
+                        // C: 找到当前按钮父级同级的ul下的li中的icon图标所在的span隐藏
+                        var curUl = this.parentNode.previousSibling;
+                        var curLi = curUl.getElementsByTagName("li");
+                        var i  = 0,
+                            len = curLi.length;
+                        for(; i < len; i++){
+                            //li
+                            var dataSelFlag = curLi[i].getAttribute("data-selected-flag");
+                            var dataUnderFirstSpanFlag = curLi[i].getAttribute("data-under-first-span-flag");
+                            if(parseInt(dataSelFlag) === 1){
+                                curLi[i].className = removeClass("right-module-li-selected", curLi[i]);
+                                curLi[i].setAttribute("data-selected-flag", 0);
+                            }
+                            if(parseInt(dataUnderFirstSpanFlag) === 1){
+                                curLi[i].setAttribute("data-under-first-span-flag", 0);
+                            }
+
+                            // li --> span
+                            var firstSpan = getClassName("public-font-icon-span", curLi[i])[0];
+                            if(parseInt(firstSpan.getAttribute("data-show-hid-flag")) === 1){
+                                firstSpan.setAttribute("data-show-hid-flag", 0);
+                            }
+                            if(hasClass("dis-none", firstSpan) === false){
+                                firstSpan.className = addClass("dis-none", firstSpan);
+                                if(parseInt(firstSpan.getAttribute("data-show-hid-flag")) === 1){
+                                    firstSpan.setAttribute("data-show-hid-flag", 0);
+                                }
+                            }
+
+                            // li --> span --> i
+                            var curChildI = getClassName("frequent-contact-icon", curLi[i])[0];
+                            if(parseInt(curChildI.getAttribute("data-icon-flag")) === 1){
+                                if(hasClass("fa-check-square-o", curChildI)){
+                                    curChildI.className = removeClass("fa-check-square-o", curChildI);
+                                    curChildI.className = addClass("fa-square-o", curChildI);
+                                }
+                                curChildI.setAttribute("data-icon-flag", 0);
+                            }
+                        }
+                    });
+                }
+            }());
+
+
+            // 4个功能按钮: 全选/取消全选/删除/移动分组
+            (function(){
+                var fiveGroupWall   =    eleConfigMap.fiveGroupWall;   // 5个组最外围的包围框
+                var selectedAllBtn  =    getClassName("selected-all-btn",fiveGroupWall),
+                    cancelAllBtn    =    getClassName("cancel-all-selected-btn",fiveGroupWall),
+                    removeBtn       =    getClassName("remove-btn",fiveGroupWall),
+                    moveGroup       =    getClassName("move-grouping",fiveGroupWall);
+                var i = 0,
+                    len = selectedAllBtn.length;
+                for(; i < len; i++){
+                    selectedAllBtn[i].index = i;
+                    cancelAllBtn[i].index = i;
+                    removeBtn[i].index = i;
+                    moveGroup[i].index = i;
+
+                    // 全选
+                    EventUtil.addHandler(selectedAllBtn[i], "click", function(){
+                        var curGroupDropDown = this.parentNode.parentNode.parentNode;
+                        var curGroupLis = curGroupDropDown.getElementsByTagName("li");
+                        var i = 0,
+                            len  = curGroupLis.length;
+                        for(; i < len; i++){
+                            // 首选判断当前的data-under-first-span-flag是不是等于1,并且data-selected-flag = 0;
+                            // li --> 点击编辑按钮时:li上的data-under-first-span-flag和li下第一个span的data-show-hid-flag已经都设为1
+                            if(parseInt(curGroupLis[i].getAttribute("data-selected-flag")) === 0){
+                                curGroupLis[i].className = addClass("right-module-li-selected", curGroupLis[i]);
+                                // 点击选中之后立马让d*-selected-flag设置为1
+                                curGroupLis[i].setAttribute("data-selected-flag", 1);
+                            }
+
+                            // 当前li下第一个span下的icon标签  [ li --> span --> i ]
+                            var curChildI = getClassName("frequent-contact-icon", curGroupLis[i])[0];
+
+                            // 点击全选之前data-icon-flag=0
+                            if(parseInt(curChildI.getAttribute("data-icon-flag")) === 0){
+                                // 把i的class切换，bing并把data-icon-flag设置为1
+                                if(hasClass("fa-square-o", curChildI)){
+                                    curChildI.className = removeClass("fa-square-o", curChildI);
+                                    curChildI.className = addClass("fa-check-square-o", curChildI);
+                                }
+                                curChildI.setAttribute("data-icon-flag", 1);
+                            }
+                        }
+                    });
+
+                    // 取消全选
+                    EventUtil.addHandler(cancelAllBtn[i], "click", function(){
+                        var curGroupDropDown = this.parentNode.parentNode.parentNode;
+                        var curGroupLis = curGroupDropDown.getElementsByTagName("li");
+                        var i = 0,
+                            len  = curGroupLis.length;
+                        for(; i < len; i++){
+                            // li --> 和"全选"按钮的操作全部相反
+                            if(parseInt(curGroupLis[i].getAttribute("data-selected-flag")) === 1){
+                                curGroupLis[i].className = removeClass("right-module-li-selected", curGroupLis[i]);
+                                curGroupLis[i].setAttribute("data-selected-flag", 0);
+                            }
+
+                            // li --> span --> i
+                            var curChildI = getClassName("frequent-contact-icon", curGroupLis[i])[0];
+                            if(parseInt(curChildI.getAttribute("data-icon-flag")) === 1){
+                                if(hasClass("fa-check-square-o", curChildI)){
+                                    curChildI.className = removeClass("fa-check-square-o", curChildI);
+                                    curChildI.className = addClass("fa-square-o", curChildI);
+                                }
+                                curChildI.setAttribute("data-icon-flag", 0);
+                            }
+                        }
+                    });
+
+                    // 删除
+                    EventUtil.addHandler(removeBtn[i], "click", function(){
+                        // 找到当前按钮所在组中的li
+                        var curGroupDropdown = this.parentNode.parentNode.parentNode,
+                            curUl = curGroupDropdown.getElementsByTagName("ul")[0],
+                            curLis = curUl.getElementsByTagName("li");
+                        // 给当前组中的ul设置唯一标识符属性(data-unique-flag = "true"),目的是当"删除联系人"弹框出现后，
+                        //    点击"X号按钮"||"取消按钮"把里面保存的li回插到当前组的ul中
+                        // 点击之前要首先判断5个组的ul中是不是已经存在data-unique-flag,若有就先移除
+                        var freqContPerMod = eleConfigMap.frequentContactsMod;
+                        var groupUls = getClassName("group-drop-down-ul", freqContPerMod);
+                        var x = 0,
+                            length = groupUls.length;
+                        for(; x < length; x++){
+                            if(groupUls[x].hasAttribute("data-unique-flag")){
+                                groupUls[x].removeAttribute("data-unique-flag");
+                            }
+                        }
+                        // 然后给当前ul设置data-unique-flag
+                        curUl.setAttribute("data-unique-flag", "true");
+
+                        var i = 0,
+                            len = curLis.length,
+                            saveLisArr = [];
+                        for(; i < len; i++){
+                            // 如果当前li的data-selected-flag=1, data-under-first-span-flag=1，第一个span的data-show-hid-flag=1; 就推入到saveLisArr
+                            if(parseInt(curLis[i].getAttribute("data-selected-flag")) === 1 &&
+                                parseInt(curLis[i].getAttribute("data-under-first-span-flag")) === 1 &&
+                                parseInt(curLis[i].firstChild.getAttribute("data-show-hid-flag")) === 1){
+
+                                // 把当前选中的li推到数组
+                                saveLisArr.push(curLis[i]);
+                            }
+                        }
+                        // console.log(saveLisArr);
+
+                        var saveDelLiWall = eleConfigMap.saveDelLiWall;
+                        // 如果此时 saveLisArr为空就退出函数，不为空弹出弹框展示
+                        if(saveLisArr.length === 0){
+                            return null;
+                        }else{
+                            // "删除常用联系人"弹框 + "黑色遮罩层" -- 展示
+                            var delContPerPopups = eleConfigMap.delContactPerPopups;
+                            if(hasClass("dis-none", eleConfigMap.fullScreenPopups)){
+                                eleConfigMap.fullScreenPopups.className = removeClass("dis-none", eleConfigMap.fullScreenPopups);
+                                delContPerPopups.className = removeClass("dis-none", delContPerPopups);
+                            }
+                            // "黑色遮罩层"窗口设置100%宽和高
+                            hundredPercentScreen(eleConfigMap.fullScreenPopups);
+                            // "删除常用联系人"窗口居中
+                            fnPopupsCenter(delContPerPopups);
+                        }
+
+                        if(saveDelLiWall.innerHTML !== ""){
+                            saveDelLiWall.innerHTML = "";
+                        }
+
+                        // 把当前数组中保存的li插入到"删除常用联系人"弹框中的ul中(saveDelLiWall)
+                        for(var j=0, len2 = saveLisArr.length; j<len2; j++){
+                            saveDelLiWall.appendChild(saveLisArr[j]);
+                        }
+                    });
+
+                    // 移动分组
+                    EventUtil.addHandler(moveGroup[i], "click", function(){});
+                }
+            }());
+
+
+            // 点击5个分组ul下的li 分别添加事件
+            (function(){
+
+                // 找到5个分组下的ul
+                var fiveGroupWall = eleConfigMap.fiveGroupWall;
+                var fiveGroupUl = fiveGroupWall.getElementsByTagName("ul");
+                // console.log(fiveGroupUl.length);
+
+                var i  = 0,
+                    len = fiveGroupUl.length;
+                for(;  i < len; i++){
+                    // 因为li可以在页面中动态添加,所以不能直接打开页面就获取，需把事件绑定在ul上，点击时候重新获取下面的li
+                    EventUtil.addHandler(fiveGroupUl[i], "click", function(event){
+                        event = EventUtil.getEvent(event);
+                        var target = EventUtil.getTarget(event);
+                        var saveSpansArr = [];
+                        var curLi;
+                        if(target.tagName.toLowerCase() === "span"){
+                            curLi = target.parentNode;
+                            saveSpansArr.push(curLi);
+                        }
+                        if(target.tagName.toLowerCase() === "img"){
+                            curLi = target.parentNode.parentNode;
+                            saveSpansArr.push(curLi);
+                        }
+                        console.log(saveSpansArr);
+
+                        if(saveSpansArr.length > 0){
+                            console.log(saveSpansArr[0]);
+                            console.log(saveSpansArr[0].getAttribute("data-under-first-span-flag"));
+
+                            // 首选判断当前的data-under-first-span-flag是不是等于0, 第一个span的data-show-hid-flag=0;
+                            if (parseInt(saveSpansArr[0].getAttribute("data-under-first-span-flag")) === 0 &&
+                                parseInt(saveSpansArr[0].firstChild.getAttribute("data-show-hid-flag")) === 0) {
+                                // 获取当前li的data-selected-flag = 0/1，然后操作"选中/默认"样式
+                                if (parseInt(saveSpansArr[0].getAttribute("data-selected-flag")) === 0) {
+                                    saveSpansArr[0].className = addClass("right-module-li-selected", saveSpansArr[0]);
+                                    saveSpansArr[0].setAttribute("data-selected-flag", 1);
+
+                                } else if (parseInt(this.getAttribute("data-selected-flag")) === 1) {
+                                    saveSpansArr[0].className = removeClass("right-module-li-selected", saveSpansArr[0]);
+                                    saveSpansArr[0].setAttribute("data-selected-flag", 0);
+                                }
+
+                            }
+
+                            // 经过0步的判断后当前li的data-selected-flag=1,只有当前属性等于1的时候才接着往下写值，
+                            // 如果等于0，就把写入左侧的值移除
+                            var curSpan = saveSpansArr[0].getElementsByTagName("span");
+                            var oSpanValAttr2 = {
+                                // 收款人姓名
+                                cardNameValue: curSpan[1].innerHTML,
+                                // 银行卡号 + 开户银行 + bankCode
+                                bankCardInputVal: curSpan[4].getAttribute("data-bank-account"),
+                                openBankSpanHtml: curSpan[3].innerHTML,
+                                bankCode: curSpan[3].getAttribute("data-bank-code"),
+                                // 所在省市 (存在or不存在)
+                                provValSpanHtml: curSpan[4].getAttribute("data-province-name"),
+                                provinceCode: curSpan[4].getAttribute("data-province-code"),
+                                cityValSpanHtml: curSpan[4].getAttribute("data-city-name"),
+                                cityCode: curSpan[4].getAttribute("data-city-code"),
+                                // 开户支行 (存在or不存在)
+                                dataBranchId: curSpan[4].getAttribute("data-branch-code"),
+                                branchBankSpanHtml: curSpan[4].getAttribute("data-branch-name"),
+                                // 所在分组
+                                currentSelectGroupP: null,
+                                /* territoryFlag 和 transferType 不需要*/
+
+                                // 转账金额 + remark
+                                transferMoney: null,
+                                remark: null
+                            };
+
+                            var saveSelLiArr = [];
+                            if (saveSelLiArr.length !== 0) {
+                                saveSelLiArr.length = 0;
+                            }
+                            saveSelLiArr.push(saveSpansArr[0]);
+
+                            // 只有当当前li的data-selected-flag=1时， 并且第一个span的data-show-hid-flag = 0时才写值
+                            if (parseInt(saveSpansArr[0].getAttribute("data-selected-flag")) === 1 &&
+                                parseInt(saveSpansArr[0].firstChild.getAttribute("data-show-hid-flag")) === 0) {
+                                // 2.创建行 + 调用添加收款人信息写入函数，把oSpanValAttr2传入
+                                rightTransferConfigMap.fnAddPaymentInfo(saveSelLiArr, oSpanValAttr2, java_img_path);
+                            }
+
+                            // 如果当前li的data-selected-flag=0时，第一个span的data-show-hid-flag=0;
+                            //  判断左侧"收款人信息"中是不是有已经写入的相同收款人，如果有就移除
+                            if (parseInt(saveSpansArr[0].getAttribute("data-selected-flag")) === 0 &&
+                                parseInt(saveSpansArr[0].firstChild.getAttribute("data-show-hid-flag")) === 0) {
+                                rightTransferConfigMap.fnClickLiRemovePayee(oSpanValAttr2);
+                            }
+
+                            // 如果当前li的data-selected-flag=0时，第一个span的data-show-hid-flag=1;仅仅添加选中效果
+                            if (parseInt(saveSpansArr[0].getAttribute("data-selected-flag")) === 0 &&
+                                parseInt(saveSpansArr[0].firstChild.getAttribute("data-show-hid-flag")) === 1) {
+                                saveSpansArr[0].className = addClass("right-module-li-selected", saveSpansArr[0]);
+                                saveSpansArr[0].setAttribute("data-selected-flag", 1);
+
+                                // 当前li下第一个span下的icon标签  [ li --> span --> i ]
+                                var curChildI = getClassName("frequent-contact-icon", saveSpansArr[0])[0];
+                                // 把i的class切换，bing并把data-icon-flag设置为1
+                                curChildI.className = removeClass("fa-square-o", curChildI);
+                                curChildI.className = addClass("fa-check-square-o", curChildI);
+                                curChildI.setAttribute("data-icon-flag", 1);
+                            }
+
+                            // 如果当前li的data-selected-flag=1, data-under-first-span-flag=1，第一个span的data-show-hid-flag=1;
+                            // 表示当前处于编辑状态，就仅仅只是移除选中
+                            else if (parseInt(saveSpansArr[0].getAttribute("data-selected-flag")) === 1 &&
+                                parseInt(saveSpansArr[0].getAttribute("data-under-first-span-flag")) === 1 &&
+                                parseInt(saveSpansArr[0].firstChild.getAttribute("data-show-hid-flag")) === 1) {
+                                saveSpansArr[0].className = removeClass("right-module-li-selected", saveSpansArr[0]);
+                                saveSpansArr[0].setAttribute("data-selected-flag", 0);
+
+                                // 当前li下第一个span下的icon标签  [ li --> span --> i ]
+                                curChildI = getClassName("frequent-contact-icon", saveSpansArr[0])[0];
+                                // 把i的class切换，bing并把data-icon-flag设置为1
+                                curChildI.className = removeClass("fa-check-square-o", curChildI);
+                                curChildI.className = addClass("fa-square-o", curChildI);
+                                // 仅仅只是移除编辑状态下的选中效果，所以当前icon还是显示状态data-icon-flag=1不变
+                                curChildI.setAttribute("data-icon-flag", 1);
+                            }
+                        }
+
+                    })
+                }
+
+
+               /*
+                   var addPerBtn =             $(".add-freq-per-btn");       // 5个添加联系人按钮
+                   var i = 0,
+                        len = addPerBtn.length;
+                    for(; i < len; i++){
+                        EventUtil.addHandler(addPerBtn[i], "click", function(event){
+                            event  = EventUtil.getEvent(event);
+                            var target = EventUtil.getTarget(event);
+                            // 给当前添加联系人按钮设置flag
+                            target.setAttribute("data-add-per-btn-flag", "true");
+                            fnPopupsWrapped(target);
+                        });
+                    }
+               */
+
+
+
+
+            }());
+
+
+
+            // "删除常用联系人"弹框 + 事件
+            (function(){
+                var delContPerPopups =  eleConfigMap.delContactPerPopups,
+                    delPopupsBtn =      eleConfigMap.delContPerPopupsCloseBtn,
+                    saveDelLiWall =     eleConfigMap.saveDelLiWall,
+                    delPerConfirmBtn =  eleConfigMap.delPerConfirmBtn,
+                    delPerCancelBtn =   eleConfigMap.delPerCancelBtn;
+
+                // X号按钮
+                EventUtil.addHandler(delPopupsBtn, "click", function(){
+                    multipleCloseModule();
+                });
+
+                // 取消按钮
+                EventUtil.addHandler(delPerCancelBtn, "click", function(){
+                    multipleCloseModule();
+                });
+
+                // 确定按钮
+                EventUtil.addHandler(delPerConfirmBtn, "click", function(){
+                    var saveDelLisArr = multipleGetDelLisModule();
+                });
+
+                // 复用(multiple)"删除常用联系人"关闭弹框的模块
+                function multipleCloseModule(){
+                    // a.关闭弹框
+                    if(hasClass("dis-none", delContPerPopups) === false){
+                        eleConfigMap.fullScreenPopups.className = addClass("dis-none", eleConfigMap.fullScreenPopups);
+                        delContPerPopups.className = addClass("dis-none", delContPerPopups);
+                    }
+                    // b.如果ul下有li把li推回到"常用联系人"5个组中设置了data-unique-flag的组中，完成之后再把当前ul上的data-unique-flag移除
+                    var saveDelLisArr = multipleGetDelLisModule();
+                    var freqContPerMod = eleConfigMap.frequentContactsMod;
+                    var groupUls = getClassName("group-drop-down-ul", freqContPerMod);
+                    var x = 0,
+                        length = groupUls.length;
+                    for(; x < length; x++){
+                        if(groupUls[x].hasAttribute("data-unique-flag")){
+                            for(var j=0, len2 = saveDelLisArr.length; j < len2; j++){
+                                groupUls[x].appendChild(saveDelLisArr[j]);
+                            }
+                        }
+                    }
+                    // c.把ul清空(实际上此时已经不存在li，确保万一)
+                    if(saveDelLiWall.innerHTML !== ""){
+                        saveDelLiWall.innerHTML = "";
+                    }
+                }
+
+                // 复用(multiple)便利"删除联系人"弹框中得到ul下的li模块
+                function multipleGetDelLisModule(){
+                    var delPopupsLis = saveDelLiWall.getElementsByTagName("li");
+                    var i =0,
+                        len = delPopupsLis.length,
+                        saveLisArr = [];
+                    for(; i < len; i++){
+                        saveLisArr.push(delPopupsLis[i]);
+                    }
+                    return saveLisArr;
+                }
+            }());
+
+
+
+
+            /**
+             * --------------- batch-frequent-contacts-module-js.js ~~ over ---------------
+             */
+
+        };
+    </script>
+</body>
+</html>
+

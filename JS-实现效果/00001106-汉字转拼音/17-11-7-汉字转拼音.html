@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>17-11-7汉字转拼音</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/global.css">
+    <style type="text/css">
+        input{
+            display:block;  height:38px;
+            line-height:38px; width:268px;
+            text-indent: 10px;  border-radius:4px;
+            background-color:#fff;
+            border: 1px solid #a8abb0;
+            letter-spacing:1px;
+        }
+        input:hover{
+            border: 1px solid #44a8f2;
+        }
+
+        .container{
+            width:400px; height:400px;
+            margin:100px auto;
+        }
+        .country-list-ul{
+            position: absolute; width:268px;
+            z-index:1;
+            border: 1px solid #a8abb0;
+            background-color:#fff;
+            overflow:auto; height:160px;
+        }
+        .country-list-ul li{
+            text-indent:10px; cursor:pointer;
+            line-height:30px; overflow:hidden;
+        }
+        .country-list-ul li:hover{
+            background-color:#d8e4f9;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container pos-relative">
+        <input id="country-input" class="theInput country-input" maxlength="100"
+               type="text" placeholder="请输入国家名称">
+        <ul  id="country-list-ul" class="country-list-ul dis-none"></ul>
+    </div>
+
+    <script type="text/javascript" src="js/jquery-v3.1.0.js"></script>
+    <script type="text/javascript" src="js/global-functions-new.js"></script>
+    <script type="text/javascript" src="js/full-dictionary.js"></script>
+    <script type="text/javascript" src="js/country.js"></script>
+    <script>
+        // 中英文判断java : 中文: "zh_CN"。 英文: "en_US"
+        var language = "zh_CN";
+
+        var Tools = {
+
+            // 判断数组(类数组)包含特定项就返回此项的索引，如果没有就返回-1
+            arrIndexOf: function(item, arr){
+                if(typeof arr.indexOf === "function"){
+                    return arr.indexOf(item);
+                }
+                for(var i=0; i<arr.length; i++){
+                    if(arr[i] === item){
+                        return i;
+                    }
+                }
+                return -1;
+            },
+
+            // 判断元素是不是有某个样式hasClass
+            hasClass: function (curClass, ele) {
+                // split():根据传入的参数把字符串转换成数组.    \s: 匹配一个空白字符
+                var curClaNames = (ele.className || "").split(/\s+/);
+                if (this.arrIndexOf(curClass, curClaNames) >= 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+
+            // 给元素添加class
+            addClass: function (addClassName, ele) {
+                if (this.hasClass(addClassName, ele)) {
+                    return null;
+                } else {
+                    ele.className = (ele.className || "") + " " + addClassName;
+                }
+            },
+
+            // 删除元素的class
+            removeClass: function (remClassName, ele) {
+                // \s:  匹配一个空白字符
+                var names = (ele.className || "").split(/\s+/);
+                var i = 0,
+                    len = names.length,
+                    arr = [];
+                for (; i < len; i++) {
+                    if (names[i] !== remClassName) {
+                        arr.push(names[i]);
+                    }
+                }
+                ele.className = arr.join(" ");
+            }
+        };
+
+
+        // 汉字转拼音 对象
+        var ConvertToPinyin = {
+
+            // 汉字转拼音首字母大写，以及全拼
+            fnConvertPinyin:    function(l1){
+                var l2 = l1.length;
+                var I1 = "";
+                var I2 = "";
+                var reg = new RegExp('[a-zA-Z0-9\- ]');
+
+                for (var i = 0; i < l2; i++) {
+
+                    var val = l1.substr(i, 1);
+                    var name = this.arraySearch(val, PinYin);
+
+                    if (reg.test(val)) {
+                        I1 += val;
+                        I2 += val;
+                        // console.log("英文或拼音I1的值 " + I1);
+                        // console.log("英文或拼I2的值 " + I2);
+                    }
+                    // 只有表单中输入的为"汉字"走else
+                    else if (name !== false) {
+                        I1 += name.substr(0, 1);
+                        I2 += name;
+                        // console.log("汉字I1的值 " + I1);
+                        // console.log("汉字I2的值 " + I2);
+                    }
+
+                }
+                // 全局替换"一或多个空格"为减号(-)
+                I1 = I1.replace(/ /g, '-');
+                I2 = I2.replace(/ /g, '-');
+
+                // 当I1||I2中有"--"存在就替换为一个"-"
+                while (I1.indexOf('--') > 0) {
+                    I1 = I1.replace('--', '-');
+                }
+                while (I2.indexOf('--') > 0) {
+                    I2 = I2.replace('--', '-');
+                }
+
+                // 当input中输入的是"拼音||英文"时，I1和I2完全相同，所以只返回一个
+                if(I1 === I2){
+                    oSavePinyin.upper1stLetter = I1;
+                    return null;
+                } else {
+                    // 只有输入的为汉字时才返回I1+I2;
+                    oSavePinyin.upper1stLetter =  I1;
+                    oSavePinyin.wholePinyin = I2;
+                    return null;
+                }
+            },
+
+            // 在拼音对象中转换汉字为对应的拼音(例如: '这' ==> 'zhe')，如果传入的为"拼音||英文"直接返回不做操作
+            arraySearch:        function(l1){
+                for (var name in PinYin) {
+                    if (PinYin[name].indexOf(l1) !== -1) {
+                        return this.toUpper1stLetter(name);
+                    }
+                }
+                return false;
+            },
+
+            // 首字母大写: 只有input中输入的是"汉字"时才会走这个函数
+            // l1为上面arraySearch再Pinyin对象中把汉字转换为拼音后的返回值
+            toUpper1stLetter:   function(name){
+                if (name.length > 0) {
+
+                    // 截取汉字拼音的第一个字母转换为大写
+                    var first = name.substr(0, 1).toUpperCase();
+
+                    // 继续得到去掉了首字母的拼音剩余部分
+                    var remain = name.substr(1, name.length);
+
+                    return first + remain;
+                    // return first;
+                }
+            }
+        };
+
+
+
+        // 元素配置文件
+        var eleConfigMap = {
+            countryInput : getId("country-input"),
+            countryListUl : getId("country-list-ul")
+        };
+
+
+        // 保存转换后的大写的汉语首字母(f.g: 这里 ==> ZL)
+        // 保存整个首字母转换为大写的拼音( f.g: 这里 ==> ZheLi)
+        var oSavePinyin = {};
+
+
+        // 主配置文件
+        var mainConfigMap = {
+
+            // 创建国家列表li
+            fnCreCountryLi: function (countryList) {
+                if (typeof(countryList) === "string") {
+                    countryList = JSON.parse(countryList);
+                }
+                var fragment = document.createDocumentFragment();
+
+                for (var i = 0; i < countryList.length; i++) {
+                    var countryLi = document.createElement("li");
+                    if (language === "zh_CN") {
+                        countryLi.setAttribute("data-1st-letter", this.getCountry1stLetter(countryList[i].cName));
+                        countryLi.setAttribute("data-whole-pinyin", this.getWholeCountry(countryList[i].cName));
+                        countryLi.setAttribute("data-id", countryList[i].id);
+                        countryLi.innerHTML = countryList[i].cName;
+                        fragment.appendChild(countryLi);
+                    } else {
+                        countryLi.setAttribute("data-1st-letter", this.getCountry1stLetter(countryList[i].eName));
+                        countryLi.setAttribute("data-id", countryList[i].id);
+                        countryLi.innerHTML = countryList[i].eName;
+                        fragment.appendChild(countryLi);
+                    }
+                }
+                return fragment;
+            },
+
+            // 取得中文国家列表的第一个字母简称(已转为大写): (这里还包含:如果是英文的话，原样返回)
+            getCountry1stLetter:   function(curCountry){
+                ConvertToPinyin.fnConvertPinyin(curCountry);
+                return oSavePinyin.upper1stLetter;
+            },
+
+            // 取得中文国家列表的汉语拼音
+            getWholeCountry:       function(curCountry){
+                ConvertToPinyin.fnConvertPinyin(curCountry);
+                // console.log(oSavePinyin.wholePinyin);
+                return oSavePinyin.wholePinyin;
+            }
+        };
+
+
+        window.onload = function(){
+
+            // 加载"国家"列表
+            var listUl = eleConfigMap.countryListUl;
+            if(listUl.innerHTML !== ""){
+                listUl.innerHTML = "";
+            }
+            listUl.appendChild(mainConfigMap.fnCreCountryLi(countryList));
+
+
+            // 表单 click 事件
+            EventUtil.addHandler(eleConfigMap.countryInput, "click", function(){
+                Tools.removeClass("dis-none", eleConfigMap.countryListUl);
+            });
+            // 表单 focus 事件
+            EventUtil.addHandler(eleConfigMap.countryInput, "focus", function(){
+                Tools.removeClass("dis-none", eleConfigMap.countryListUl);
+            });
+
+
+            // 表单 keyup 事件
+            EventUtil.addHandler(eleConfigMap.countryInput, "keyup", function(){
+                var val = this.value;
+                var aLis = listUl.getElementsByTagName("li");
+                var i = 0,
+                    len = aLis.length;
+                if( val !== ""){
+
+                    // 首先给所有的li添加display-none
+                    for(var j =0; j<len; j++){
+                        Tools.addClass("dis-none", aLis[j])
+                    }
+
+                    // 取到当前input的val【如果输入为拼音就首先和每行国家的data-1st-letter相匹配】
+                    for(; i< len; i++){
+                        var firstLet = mainConfigMap.getCountry1stLetter(val).toUpperCase();
+                        var data1st = String(aLis[i].getAttribute("data-1st-letter")).toUpperCase();
+                        if(data1st.indexOf(firstLet) > -1){
+                            Tools.removeClass("dis-none", aLis[i]);
+                        }
+                    }
+
+
+                    for(var y=0; y <len; y++){
+                        if(aLis[y].hasAttribute("data-whole-pinyin")){
+                            // 取得当前input中输入的val
+                            mainConfigMap.getWholeCountry(val);
+                           // console.log(oSavePinyin.wholePinyin);
+                            var pinyin  = String(oSavePinyin.upper1stLetter).toUpperCase();
+                            // console.log(oSavePinyin.upper1stLetter);
+                            var dataPinyin = String(aLis[y].getAttribute("data-whole-pinyin")).toUpperCase();
+                            if(dataPinyin.indexOf(pinyin) > -1){
+                                Tools.removeClass("dis-none", aLis[y]);
+                            }
+                        }
+
+                    }
+
+                }
+
+                if( val === "" ){
+                    // 当val的值为空时，把li上还存在class dis-none的就移除
+                    for(; i<len; i++){
+                        Tools.removeClass("dis-none", aLis[i])
+                    }
+                }
+            });
+
+            // 每个国家click事件
+            var counInput = eleConfigMap.countryInput;
+            var aLis = listUl.getElementsByTagName("li");
+            var i = 0,
+                len = aLis.length;
+            for(; i< len; i++){
+                EventUtil.addHandler(aLis[i], "click", function(){
+                    counInput.value = this.innerHTML;
+                    counInput.setAttribute("data-country-id", this.getAttribute("data-id"));
+
+                    Tools.addClass("dis-none", eleConfigMap.countryListUl);
+
+                    for(var j=0; j<len; j++){
+                        Tools.removeClass("dis-none", aLis[j])
+                    }
+                })
+            }
+
+
+        };
+
+
+    </script>
+</body>
+</html>

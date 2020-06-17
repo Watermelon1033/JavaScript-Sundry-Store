@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script type="text/javascript">
+        function deepCopy(p, c) {
+            var c = c || {};
+            for(var i in p) {
+                if(typeof p[i] === 'object') {
+                    c[i] = (p[i].constructor === Array) ? [] : {};
+                    deepCopy(p[i], c[i]);
+                } else {
+                    c[i] = p[i];
+                }
+            }
+            return c;
+        }
+
+        function deepCompare(obj1, obj2) {
+            if(Object.keys(obj1).length !== Object.keys(obj2).length) {
+                return false;
+            }
+            for(const key in obj1) {
+                if(typeof obj1[key] === 'object') {
+                    return deepCompare(obj1[key], obj2[key])
+                } else {
+                    if(obj1[key] !== obj2[key]) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    </script>
+
+    <script type="text/javascript">
+        var obj1 = {
+            "a": 100,
+            "b": '123',
+            "c": true,
+            "d":['0','1','2','3'],
+            "e": {
+                "a": [1, 2, 3]
+            }
+        };
+        var obj2 = {
+            "a": 100,
+            "b": '123',
+            "c": true,
+            "d":['0','1','2','3'],
+            "e": {
+                "a": [1, 2, 3]
+            }
+        }
+
+        alert(deepCompare(obj1, obj2));
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>

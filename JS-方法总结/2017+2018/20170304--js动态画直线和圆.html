@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js动态画直线和圆</title>
+    <link rel="stylesheet" href="publicScript%20&&%20publicCss/reset.css">
+    <link rel="stylesheet" href="publicScript%20&&%20publicCss/publicStyle.css">
+    <link rel="stylesheet" href="publicScript%20&&%20publicCss/reset.css">
+    <script type="text/javascript" src="publicScript%20&&%20publicCss/publicScript.js"></script>
+</head>
+<body>
+    <div class="width380 height230 blueBorder borRadius5 marTop30 marLeft60 padTop15 lineWall posRelative">
+        <div class="line coralBg height2 left posAbsolute"></div>
+    </div>
+    <div class="width100 height30 lineHei30 cursorDefault textCenter borRadius2 marTop30 marLeft60 coralBg cursorPoint btn">
+        点击画线
+    </div>
+
+    <script type="text/javascript">
+       var line = getClassName("line")[0],
+           btn = getClassName("btn")[0];
+       EventUtil.addHandler(btn, "mouseenter", lineEvent);
+       EventUtil.addHandler(btn, "mouseleave", lineEvent);
+       function lineEvent(event){
+           event = EventUtil.getEvent(event);
+           var target = EventUtil.getTarget(event);
+           if(event.type == "mouseenter"){
+               clearTimeout(line.timer);
+               if(line.offsetWidth < 300){
+                   line.timer =  setTimeout(function(){
+                       var lineWidth = line.offsetWidth + 2;
+                       line.style.width = lineWidth + "px";
+                       if(lineWidth < 300){
+                           setTimeout(arguments.callee, 10);
+                       }
+                   }, 10)
+               }
+           }else if(event.type == "mouseleave"){
+              clearTimeout(line.timer);
+              line.style.width = 0;
+           }
+       }
+
+
+       //-------------------
+       /*function growthLineEven(growthLine, ele) {
+           growthLine.style.width = 0;
+           growthLine.style.left = ele.offsetLeft - 10 + "px";
+           growthLine.style.width = createLine();
+           function createLine() {
+               if (growthLine.offsetWidth < ele.offsetWidth) {
+                   setTimeout(function () {
+                       var lineWidth = growthLine.offsetWidth + 2;
+                       growthLine.style.width = lineWidth + "px";
+                       if (lineWidth < ele.offsetWidth) {
+                           setTimeout(arguments.callee, 0.2);
+                       }
+                   }, 0.2)
+               }
+           }
+       }*/
+    </script>
+</body>
+</html>

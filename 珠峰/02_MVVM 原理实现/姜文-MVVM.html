@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>姜文-mvvm</title>
+    <style type="text/css">
+        * {
+            margin: 0; padding: 0;
+            font: 14px/1.5 Arial, Helvetica, Geneva, sans-serif;
+        }
+        #app {
+            width: 80%; height: 860px;
+            margin: 20px auto;
+            background:lightblue;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        p,div {
+            line-height: 26px;
+        }
+        input {
+            height: 30px;
+            width: 200px;
+            margin: 20px 0;
+            border-radius: 4px;
+            border: none;
+            text-indent: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p>a.aa 的值: {{a.aa}}</p>
+        <p>b.nam的值: {{b.name}}</p>
+        <p>c 的值: {{c}}</p>
+        <input type="text" v-model="c">
+        <p>{{hello}}</p>
+    </div>
+
+    <script type="text/javascript" src="mvvm/mvvm-pure.js"></script>
+    <script type="text/javascript">
+
+        // 调用
+        let vm = new MVVM({
+            el: "#app",
+            data: {
+                a: {
+                    aa: "I am aa",
+                },
+                b: {
+                    name: "我是 b 的 name 值"
+                },
+                c: "我是 C 属性"
+            },
+
+            // computed 可以缓存，只是把数据挂在 vm 上
+            computed: {
+                // - hello 是不会自己触发试图更新的
+                hello() {
+                    return this.b.name + this.c ;
+                }
+            }
+        });
+        console.log('vm:', vm);
+
+    </script>
+</body>
+</html>

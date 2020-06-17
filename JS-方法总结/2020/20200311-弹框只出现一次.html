@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const url = "www.u.com/home?id=2&type=0&dtype=-1";
+        let regularExp = /[^&=?]+=[^&]*/g;
+        let res = url.match(regularExp);
+        console.log(res);   // ["id=2", "type=0", "dtype=-1"]
+
+        // - (1) 在页面打开后需要先初始化 locaStorage 中需要的 `urlQuery` 和 `show`
+        localStorage.setItem('urlQuery', 'undefined');
+        localStorage.setItem('show', 'undefined');
+
+        // - (2) 在没有获取 url 的 'id=2' 之前, 先判断 localStorage 中的 `urlQuery`
+        if (localStorage.getItem('urlQuery') === 'undefined') {
+            if (res[0] === String(2)) {
+                localStorage.setItem('urlQuery', true);
+                dialog(true);
+            }
+        }
+        function dialog(flag) {
+            // - 弹框默认隐藏
+        }
+
+        // - (3) 点击关闭按钮时, 首先判断 localStorage 中的 `show`
+        clickButton.addEventListener('click', function() {
+            if (localStorage.getItem('show') === 'undefined') {
+                localStorage.setItem('show', false);
+            }
+        }, false);
+        
+        // ---------
+
+        // - 当在其他页面打开时(e.g. 页面2), 就直接判断 localStorage 中的 `show` 属性
+        if (localStorage.getItem('show') === false) {
+            dialog(false)
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>2-1102-AddCardCompany-添加银行卡信息</title>
+    <link rel="stylesheet" type="text/css" href="static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="static/css/publicStyle.css">
+    <link rel="stylesheet" type="text/css" href="static/css/subPublicStyle.css">
+    <link rel="stylesheet" type="text/css" href="static/css/login.css">
+    <script type="text/javascript" src="static/js/jquery.min.js"></script>
+    <style type="text/css">
+        /*所在地区：省/市 需要用到的class样式*/
+        .defaultTabLi{color:#323232;}
+        .selectedTabLi{background:#fff; border-bottom:1px solid #fff; color:#20a2e6;}
+        .proCityDefStyle{color:#323232;}
+        .proCitySelStyle{background: #21a4eb; border-radius:2px; color:#fff;}
+
+        .proCityMouEntSty{border-radius:2px; background:#f1f8ff; color:#46A4FF;}
+        /*所在地区：省/市 需要用到的class样式*/
+    </style>
+</head>
+<body class="whiteBg">
+<!--头部 header wall-->
+<div class="headerWall">
+    <!--header和footer公用部分是用ajax加载的-->
+    <script  type="text/javascript" src="static/js/headerFooter.js"></script>
+</div>
+<!--头部 header wall-->
+
+<!--主体 main-->
+<div class="wall100Per">
+    <div class="width1198  whiteBg marTop30 marginAuto lightGreyBor">
+        <div class="subSameHeader marBot50 marLeft90 marRight90 height60 lineHei60">
+            <span class="fl width32 height30 marLeft10 marTop18 sameHeaderIcon iconbij s3"></span>
+            <span class="fl font18 blackFont marLeft10">企业会员认证</span>
+            <span class="clear"></span>
+        </div>
+        <div class="width580 marginAuto overflowHid">
+            <!--1 & 2 & 3 步骤提示-->
+            <div>
+                <div class="height28  wid90Per  marLeft63">
+                    <p class="fl numberWall"><span class="displayBlock numberIcon numberIcon1-1"></span></p>
+                    <p class="fl blueLine"><span class="displayBlock"></span></p>
+                    <p class="fl numberWall"><span class="displayBlock numberIcon numberIcon2-1"></span></p>
+                    <p class="fl blueLine "><span class="displayBlock"></span></p>
+                    <p class="fl numberWall"><span class="displayBlock numberIcon numberIcon3"></span></p>
+                    <p class="clear"></p>
+                </div>
+                <div class="height28 marBot60 wid90Per marLeft63 ">
+                    <p class="fl"><span class="displayBlock lineHei26 marLeft-20 blueFont textCenter  marRight115">填写企业信息</span></p>
+                    <p class="fl"><span class="displayBlock lineHei26 blueFont textCenter marRight136">填写银行卡信息</span></p>
+                    <p class="fl"><span class="displayBlock lineHei26 lightBlueFont textCenter ">待审核</span></p>
+                    <p class="clear"></p>
+                </div>
+            </div>
+            <!--1 & 2 & 3 步骤提示-->
+
+            <!--银行卡号-->
+            <div class="height85  overflowHid">
+                <div>
+                    <p class="fl wid21Per lineHei42 textRight textInd8 marRight10Per lineHei40 font14">银行卡号</p>
+                    <p class="fl">
+                        <input type="text" class="width298 height38 borRadius4 lightGreyBor textInd10 theInput bankCardInput">
+                    </p>
+                    <p class="clear"></p>
+                </div>
+                <div class="">
+                    <p class="fl wid21Per height20 textRight textInd8 marRight10Per font14"></p>
+                    <p class="fl font12 redFont lineHei25 errorSpan banKCardErrorSpan">请确保卡号开户名与营业执照企业名称统一</p>
+                    <P class="clear"></P>
+                </div>
+            </div>
+            <!--银行卡号-->
+
+            <!--选择开户银行-->
+            <div class="height42  marBot30 ">
+                <span class="fl wid21Per lineHei42 textRight textInd8 marRight10Per font14">开户银行</span>
+                <div class="fl wid69Per posRelative height42 ">
+                    <p class="fl height40 width298 borRadius4 lightGreyBor cursorPoint saveBankWall theBank dropdownP">
+                        <span class="fl height26 lineHei26 marTop8 width268 textInd10 lightGreyBorRig saveBankSpan dropdownSpan"></span>
+                        <span class="fl marTop12 marLeft5"><img src="static/img/downTriangle.jpg" alt=""></span>
+                    </p>
+                    <ul class="width298 posAbsolute displayNone zIndex100 marTop42 lightGreyBor idTypeUl whiteBg overflowAuto height140 dropdownUl">
+                        <!--开户银行下拉-->
+                    </ul>
+                </div>
+                <p class="clear"></p>
+            </div>
+            <!--选择开户银行-->
+
+            <!--所在省市-->
+            <div class="height42 marBot30">
+                <div class="fl wid21Per marRig12per textRight marRight10Per lineHei40">所在省市</div>
+                <div class="fl wid69Per">
+                    <!--保存值部分-->
+                    <div class="fl height40 width298 borRadius4 lightGreyBor cursorPoint outSaveValWall">
+                        <p  class="fl height26 lineHei26 marTop8 width258 lightGreyBorRig padLeft10 overflowHid saveProCityWall">
+                            <!-- <span class="fl marRight4 textCenter saveProValSpan">广东省</span>
+                                 <span class="fl lightGreyFont marRight4 theSlash">/</span>
+                                 <span class="fl marRight4 textCenter saveCityValSpan">深圳市</span>-->
+                        </p>
+                        <p class="fl marTop12 marLeft5"><img src="static/img/downTriangle.jpg" alt=""></p>
+                    </div>
+                    <!--保存值部分-->
+
+                    <!--加载下拉省市-->
+                    <div class="width298 posAbsolute displayNone zIndex1 marTop42 padBot5 lightGreyBor whiteBg overflowAuto dropdownWall">
+                        <ul class="lightGreyBg overflowHid textCenter overflowHid cursorPoint lineHei35 borBotC1 proCityTitWall">
+                            <li class="fl wid27Per height35 borRightC1 selectedTabLi provinceTit">省份</li>
+                            <li class="fl wid72Point5Per height35 defaultTabLi cityTit">城市</li>
+                        </ul>
+
+                        <ul class="overflowHid minHei10 marTop10 marLeft5 marRight5 proCityWall">
+                            <!--Province 省份-->
+                            <li class="wid100Per displayBlock overflowHid lineHei26 provinceWall provinceAndCityLi"> <!-- 字母 letter-->
+                                <!--加载省份-->
+                            </li>
+                            <!--Province 省份-->
+
+                            <!--city 市-->
+                            <li class="wid100Per overflowHid displayNone lineHei26 marBot8 cityWall provinceAndCityLi">
+                                <ul class="fl textCenter overflowHid cursorPoint saveCityUl">
+                                    <!-- <li class="fl marLeft8 padLeft2 padRight2">合肥市</li>-->
+                                </ul>
+                            </li>
+                            <!--city 市-->
+                        </ul>
+                    </div>
+                    <!--加载下拉省市-->
+                </div>
+                <div class="clear"></div>
+            </div>
+            <!--所在省市-->
+
+            <!--下一步 && 返回上一步-->
+            <div class="height42 marBot110">
+                <p class="fl wid25Per marRight6Per height42"></p>
+                <p class="fl rightEditorArea textLeft">
+                    <a class="fl borRadius4 lineHei38 width178 textCenter cursorPoint font16 nextStepBut defaultNextStep">下一步</a>
+                    <a href="2-1101-EnterpriseMember.html" class="fl blueFont lineHei40 width100 textCenter cursorPoint">返回上一步</a>
+                </p>
+            </div>
+            <!--下一步 && 返回上一步-->
+        </div>
+    </div>
+</div>
+<!--主体 main-->
+
+<!--页脚 footerWall-->
+<div class="footerWall marTop110 overflowHid"></div>
+<!--页脚 footerWall-->
+
+
+<script type="text/javascript" src="static/js/publicScript.js"></script>
+<script type="text/javascript" src="static/js/formInputValidation.js"></script>
+<script type="text/javascript" src="static/js/dropdownJson.js"></script>
+<script type="text/javascript" src="static/js/dropdownFunction.js"></script>
+<script type="text/javascript" src="static/js/ChineseDistricts.js"></script>
+<script type="text/javascript" src="static/js/NativeTabSwitch.js"></script>
+<script type="text/javascript">
+    EventUtil.addHandler(window, "load", function(){
+        var outSaveValWall = getClassName("outSaveValWall")[0],
+            saveProCityWall = getClassName("saveProCityWall")[0],
+            dropdownWall =  getClassName("dropdownWall")[0],
+            proCityTitWall = getClassName("proCityTitWall")[0], //取得上部分切换的ul
+            provinceWall = getClassName("provinceWall")[0], //取得第二部分切换时存储省份的li
+            cityWall = getClassName("cityWall")[0], //取得第二部分切换时存储城市的li
+            saveCityUl = getClassName("saveCityUl")[0]; //取得切换时第二部分市区li下面用来保存不同省份市区的ul
+
+        var tabSwitchInstance = new NativeTabSwitch(ChineseDistricts,dropdownWall); //创建NativeTabSwitch构造函数的实例
+
+        //点击所在地区后面的表单(outermostWall),下拉展示和隐藏
+        EventUtil.addHandler(outSaveValWall, "click", function(event){
+            //需要注意的是当前调用函数的父级匿名函数并没有dropdownWall这个参数，所以不能传入到对象的方法中。
+            tabSwitchInstance.dropdownShowHide(event);
+        });
+
+        //循环创建省份和市
+        tabSwitchInstance.createProvince(provinceWall); //调用createProvince()方法: 根据json数据循环创建省份
+        tabSwitchInstance.createCity(saveCityUl);
+
+        //省市选项卡切换
+        var titleLi = proCityTitWall.getElementsByTagName("li"); //获取标题的 “省份” 和 “城市”两个li
+        for (var i = 0; i < titleLi.length; i++) {
+            EventUtil.addHandler(titleLi[i], "click", function(event){
+                tabSwitchInstance.changeTab(event); //调用changeTab()方法实现切换效果
+            })
+        }
+
+        //点击不同的省份加载不同的市
+        tabSwitchInstance.clickProShowCity(saveProCityWall, proCityTitWall, provinceWall, cityWall, saveCityUl);
+
+        //鼠标滑动到省份和城市上的效果
+        var provinceLis = provinceWall.getElementsByTagName("li");
+        var cityLis = saveCityUl.getElementsByTagName("li");
+        mouseEnter(provinceLis,cityLis);
+        function mouseEnter(provinceLis, cityLis){
+            for(var i=0; i<provinceLis.length; i++){
+                EventUtil.addHandler(provinceLis[i], "mouseenter", function(event){
+                    tabSwitchInstance.mouseEnterFun(event)
+                });
+            }
+            for(var j=0; j<cityLis.length; j++){
+                EventUtil.addHandler(cityLis[j], "mouseenter", function(event){
+                    tabSwitchInstance.mouseEnterFun(event)
+                });
+            }
+        }
+        //鼠标从省份和城市上滑走的效果
+        mouseOuter(provinceLis,cityLis);
+        function mouseOuter(provinceLis, cityLis){
+            for(var i=0; i<provinceLis.length; i++){
+                EventUtil.addHandler(provinceLis[i], "mouseout", function(event){
+                    tabSwitchInstance.mouseOutFun(event)
+                });
+            }
+            for(var j=0; j<cityLis.length; j++){
+                EventUtil.addHandler(cityLis[j], "mouseout", function(event){
+                    tabSwitchInstance.mouseOutFun(event)
+                });
+            }
+        }
+
+    });
+
+
+</script>
+
+<script type="text/javascript">
+    //判断：银行卡号
+    var bankCardInput  = $(".bankCardInput")[0];
+    var theInputs = getClassName("theInput");      //所有input
+    var saveInputsArray=[];
+    var errorSpan = getClassName("errorSpan");   //所有errorSpan
+    var errorSpanArray = [];
+    var nextStepBut = $(".nextStepBut")[0]; //下一步
+    var Href="2-1103-identitySuccess.html";
+    for(var j=0; j<theInputs.length; j++){
+        saveInputsArray.push(theInputs[j]);
+    }
+    for(var i=0; i<errorSpan.length; i++){
+        errorSpanArray.push(errorSpan[i]);
+    }
+    var instanceOfVal = new Validation(errorSpanArray, saveInputsArray);
+    EventUtil.addHandler(bankCardInput, "click", function(event){instanceOfVal.inputClick(event);});
+    EventUtil.addHandler(bankCardInput, "blur", function(event){instanceOfVal.inputBlur(event);});
+    EventUtil.addHandler(nextStepBut, "click", function(event){instanceOfVal.confirmButClick(event,Href);});
+    //---------------------------------------------------------
+
+    //加载 "银行"
+    $(function() {
+        var dropdownP = getClassName("dropdownP");
+        var dropdownSpan = getClassName("dropdownSpan");
+        var dropdownUl = getClassName("dropdownUl");
+        var theBody = document.documentElement || document.body;
+
+        var dropdownInstance = new Dropdown(dropdownData.Bank, dropdownUl[0]);//创建下拉(dropdown)构造函数的实例
+
+        EventUtil.addHandler(window, "load", function () {
+            //用自己封装的函数取得class名为xxx的元素时，传参的时候别忘记在后面加[0]
+            dropdownInstance.createEle();
+            dropdownInstance.defaultWriteVal(dropdownSpan[0]);
+            EventUtil.addHandler(dropdownP[0], "click", function (event) {
+                dropdownInstance.dropdownShowHide(event);
+            });
+            EventUtil.addHandler(dropdownUl[0], "click", function (event) {
+                dropdownInstance.saveDropdownLi(event, dropdownSpan[0]);
+            });
+            EventUtil.addHandler(theBody, "click", function () {
+                dropdownInstance.bodyClickHideDropdown();
+            });
+        })
+    });
+    //---------------------------------------------
+
+
+</script>
+
+</body>
+</html>

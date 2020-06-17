@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>17-9-12-数字4位分割添加空格</title>
+    <link rel="stylesheet" href="../reset.css">
+    <script type="text/javascript" src="../Global.js-And-Global.css/js/jquery-v3.1.0.js"></script>
+    <script type="text/javascript" src="../Global.js-And-Global.css/js/global-functions.js"></script>
+    <style type="text/css">
+        .same-css-line > div:nth-child(1){
+            float:left; width:24%;
+            height:40px; line-height:40px;
+            text-align:right; margin-right:8%;
+        }
+        .same-css-line > div:nth-child(2){ float:left; width:67%; }
+
+        .popups-error-span{
+            font-size:12px; color:#f34f50;
+            line-height:20px; display:block;
+        }
+
+        input.bank-card-input{
+            height:38px; font-size:15px;
+            line-height:38px; width:268px;
+            border: 1px solid #a8abb0;
+            letter-spacing:0;
+            border-radius:4px; text-indent:10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" style="width:600px; height:400px; margin:40px auto">
+        <!--卡号-->
+        <div class="same-css-line over-hid">
+            <div>银行卡号：</div>
+            <div class="over-hid">
+                <input type="text" class="bank-card-input" placeholder="收款人卡号">
+                <span class="popups-error-span bank-card-error-span"></span>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <!--卡号-->
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        /**
+         * 这个有问题
+         *
+         */
+
+
+        /*---------------实现原理---------------
+
+            Q: 为什么像在批量转账到银行卡的右侧"常用联系人"模块下，点击"添加常用联系人"按钮，弹框出现填写完
+                毕后创建一行li到对应的组中，当第二次点击时，填写完弹框后却创建了2行一样的li到ul中，第三次
+                点击就会创建3行，第四次就4行，etc.....事件好像被叠加执行了？
+            A: 仔细思考在js中我们所说的事件被累积执行，实际上是事件调用的函数被累积执行了，函数会被多次执行，
+                是由于我们在第一次执行完毕之后根本没有给函数发出一个指令告诉它当前的任务执行完毕了，那么当
+                第二次点击按钮又再次调用函数。为什么函数执行完毕后没有被放行，原因是: 一般我们的函数
+                都是在点击事件所触发的匿名函数内(创建闭包的常见方式，就是在一个函数内部创建另一个函数)，
+                因为闭包的关系，事件所执行的匿名函数调用最内侧的执行函数，由于最里面的函数需要随时执行，
+                事件所在的匿名函数的作用域并不会被释放，所以此时当我们再次点击事件时，最内侧的函数就记录了
+                点击事件的点击次数，点击几次就会执行几次。
+
+            Q: 有没有什么方法，可以只让被累计的事件执行一次？
+            A: 只有一个方法，在点击事件执行完毕之后，移除当前点击事件，在下次需要的时候，再次给元素绑定点击
+                事件，这样调用函数就只会执行一次了。
+
+            Q:  怎样移除当前事件的事件处理程序？
+            A:  当前事件对象应该有一个属性用来存储这个DOM元素上绑定的所有事件处理程序，还应该有两个方法，一个
+                   用来添加，一个用来删除。
+                 大致原理如下:
+                 {
+                    handlers: {
+                        type1: [ handler1, handler2],
+                        type2: [ handler1, handler2]
+                        ...     // ...等等... 其他事件类型和对应的事件处理函数
+                     },
+
+                     on:  function(){},
+                     off: functino(){}
+                 },
+
+        ---------------实现原理---------------*/
+
+        // 组合使用构造函数模式和原型模式
+        function EventManage(){
+            this.handlers = {}
+        }
+        EventManage.prototype = {
+            // 绑定事件
+            on:     function(type, handler){
+                // 如果当前构造函数中的handlers对象没有type属性
+                if(!this.handlers[type]){
+                    this.handlers[type] = [handler];
+                    return true;    // 避免添加多个事件
+                }else{
+                    this.handlers[type].push(handler);
+                }
+            },
+
+            // 解除事件
+            off:    function(type, handler){
+                var i = 0,
+                    len = this.handlers[type].length;
+                for(; i < len ; i++ ){
+                    if(this.handlers[type][i].toString() === handler.toString()){
+                        // Array的splice()当有2个参数时: 要删除的第一项的位置和要删除的项数
+                        this.handlers[type].splice(i, 1);
+                    }
+                }
+            }
+        }
+
+        // 每个对象有了这两个方法就可以自行添加和移除事件处理程序了，但是监听事件还是要靠javascript
+        // 提供的方法，即addEventListener() 和 attachEvent()来监听事件
+
+        var EventAddRemove = {};
+        var bind = null;
+        EventAddRemove.on = function(ele, type, handler){
+            bind  = new EventManage();
+            var isNewType = bind.on(type, handler);
+            var fire = function(){
+                var i = 0,
+                    len = bind.handlers[type].length;
+                for(; i<len; i++){
+                    bind.handlers[type][i]();
+                }
+            };
+            // 因为已经通过EventManage的on方法添加了handler句柄，并通过fire来初始化，现在isNewType肯定是存在的
+            if(isNewType){
+                if(ele.addEventListener){
+                    ele.addEventListener(type, fire, false);
+                }else{
+                    ele.attachEvent("on" + type,  fire);
+                }
+            }
+        }
+
+        EventAddRemove.off = function(ele, type, handler){
+            bind.off(type, handler);
+        }
+
+
+    </script>
+
+
+
+    <script>
+        window.onload = function(){
+            // 元素配置: 统一获取页面中需要到的元素
+            var eleConfigMap = {
+                bankCardInput:          $(".bank-card-input")[0],           // 保存银行卡号input
+                bankCardErrorSpan:      $(".bank-card-error-span")[0]
+            };
+
+            // 上面的 EventManage()使用示例:
+            function f1(){
+                console.log("11");
+            }
+            EventAddRemove.on(eleConfigMap.bankCardInput, "blur", f1);
+            EventAddRemove.on(eleConfigMap.bankCardInput, "blur", function(){
+                console.log("22")
+            });
+            EventAddRemove.off(eleConfigMap.bankCardInput, "blur", f1);
+
+
+            /*var saveVal = [];
+            EventUtil.addHandler(eleConfigMap.bankCardInput, "keyup", function(event){
+               if(this.value.length > 5){
+                  //console.log(addBlock(String(this.value)));
+
+                  this.value = addBlock(String(this.value));
+               }
+            });
+
+            //给数字添加空格函数
+            //var theNum = "78945669457811234561389";
+            function addBlock(num){
+                // \S: 匹配一个非空白字符  \s: 匹配一个空白字符 包括\n,\r,\f,\t,\v等
+                if(/\S{5}/.test(num)){
+                    return num.replace(/\s/g, "").replace(/(.{4})/g, "$1 ");
+                }
+            }*/
+        }
+
+
+
+
+    </script>
+</body>
+</html>

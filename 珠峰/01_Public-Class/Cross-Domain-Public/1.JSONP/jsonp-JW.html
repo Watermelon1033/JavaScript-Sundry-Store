@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, 
+          maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jsonp</title>
+</head>
+<body>
+    <script>
+        // - 对比这三个 jsonp 写法，姜文讲师这个在写的时候就直接利用了 Promise，更好。
+        function jsonp({url, params, cb}) {
+            return new Promise((resolve, reject) => {
+                // - 资源请求成功，script 加载 callback 执行才会调用这里的代码，
+                //   执行完 resolve 后已经得到数据 data，所以再移除 script。
+                window[cb] = function (data) {
+                    resolve(data);
+                    // 最后使用完后移除加载的 script
+                    document.body.removeChild(script);
+                };
+
+
+                // - "...(扩展运算符 spread operator)": 可以用来 '卸除' 特定数组
+                //   的中括号或特定对象的大括号。
+                // ...params:  {count: 10, start: 5}
+                params = {...params, cb};
+                let arras = [];
+                for (let key in params) {
+                    // - 把参数以键值对的形式推入到数组
+                    arras.push(`${key}=${params[key]}`);
+                }
+
+                // - 创建 script 标签
+                let script = document.createElement('script');
+                script.src = `${url}?${arras.join('&')}`;
+                document.body.appendChild(script);
+            })
+
+        }
+
+        jsonp({
+            url: 'http://localhost:3200/say',
+            params: {wd: "我是客户端发送的请求"},
+            // 函数名自定义
+            cb: 'show'
+        }).then(data => {
+            console.log(data);
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        const urlStr = "https://c.y.qq.com/v8/fcg-bin/v8.fcg?g_tk=5381&platform=yqq&jsonpCallback=jp0";
+        let urlQuery = function() {
+            let s = urlStr;
+            if (s.indexOf('?')) {
+                s = s.substr(s.indexOf("?")+1, s.length)
+            }
+            if (s.indexOf('#') >= 0) s = s.substr(0, s.indexOf('#'));
+
+            let r = {};
+            s.split('&').forEach(function (item) {
+                let t = item.split('=');
+                console.log("t: ", t);
+                if (t[0]) {
+                    r[t[0]] = t[1] ? decodeURIComponent(t[1]) : true
+                }
+            });
+            console.log("r: ", r);
+            return r
+        };
+        urlQuery();
+    </script>
+</body>
+</html>

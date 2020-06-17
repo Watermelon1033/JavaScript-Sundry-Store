@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        function outputNumbers(count){
+            for (var i=0; i < count; i++){
+                console.log(i);
+            }
+            // 为什么这里输出 6 ? : 档上面的 i=6 时, 6 < 6 所以循环退出,
+            // 接着走下面的这个 console 所以 i 为 6
+            console.log("for循环外围输出i: ",i);  // 6
+        }
+        outputNumbers(6);
+    </script>
+</body>
+</html>

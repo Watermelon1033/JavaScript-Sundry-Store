@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0,
+           maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>20200109</title>
+</head>
+<body>
+<script>
+    let arr = [
+        {
+            id: "3011",
+            type: {
+                subType: "sub_type_value"
+            },
+            links: {
+                subLinks: "sub_links_value",
+            },
+            attributes: {
+                subAttributes: "sub_attributes_value"
+            },
+            relationships: {
+                sub_relationships: "sub_relationships_value"
+            }
+        },
+        {
+            id: "3012",
+            type: {
+                subType: "sub_type_value"
+            },
+            links: {
+                subLinks: "sub_links_value",
+            },
+            attributes: {
+                subAttributes: "sub_attributes_value"
+            },
+            relationships: {
+                sub_relationships: "sub_relationships_value"
+            }
+        },
+        {
+            id: "3013",
+            type: {
+                subType: "sub_type_value"
+            },
+            links: {
+                subLinks: "sub_links_value",
+            },
+            attributes: {
+                subAttributes: "sub_attributes_value"
+            },
+            relationships: {
+                sub_relationships: "sub_relationships_value"
+            }
+        },
+    ];
+    let save = [];
+    for (let i = 0, length = arr.length; i < length; i++) {
+        Object.keys(arr[i]).forEach(function (key) {
+            if (key === "id") {
+                let obj = {};
+                obj[key] = arr[i][key];
+                save.push(obj);
+            }
+        })
+    }
+    console.log('save', save);
+</script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>0611-消息通知</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta content="telephone=no,email=no" name="format-detection">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+
+    <link rel="stylesheet" href="static/notification-css/reset.css">
+    <link rel="stylesheet" href="static/notification-css/notification-message.css">
+</head>
+<body>
+
+<!-- header -->
+<div class="header"></div>
+
+
+<!-- container -->
+<div class="container">
+    <div class="container-nav-plate">
+        <ul>
+            <li id="basic-info-li" data-index="1" class="">
+                <a href="javascript:" class="">
+                    <img src="static/notification-img/speaker-icon.svg" alt="">
+                    基本信息 <!--Basic Information-->
+                </a>
+            </li>
+            <li id="ID-authentication-li" data-index="2" class="">
+                <a href="javascript:" class="">
+                    <img src="static/notification-img/speaker-icon.svg" alt="">
+                    身份认证
+                </a>
+            </li>
+            <li id="safety-manage-li" data-index="3" class="">
+                <a href="javascript:" class="">
+                    <img src="static/notification-img/speaker-icon.svg" alt="">
+                    安全管理
+                </a>
+            </li>
+            <li id="bank-card-num-li" data-index="4" class="">
+                <a href="javascript:" class="">
+                    <img src="static/notification-img/speaker-icon.svg" alt="">
+                    银行账号
+                </a>
+            </li>
+            <li id="information-li" data-index="5" class="">
+                <a href="javascript:" class="left-nav-select-style">
+                    <img src="static/notification-img/speaker-icon.svg" alt="">
+                    消息通知
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="container-right-plate">
+        <!-- 消息头部 -->
+        <p class="information-title">
+            <span class="unread-msg">未读消息<i class="unread-msg-num" id="unread-msg-num">XXX</i></span>
+
+            <!-- 4个操作按钮 -->
+            <span class="group-four-edit-btn-wall" id="group-four-edit-btn-wall" data-flag="0">
+                    <label id="selected-all-btn">全选</label>
+                    <label id="cancel-selected-btn">取消选择</label>
+                    <label id="mark-as-read">标为已读</label>
+                    <label id="remove-btn">删除</label>
+                </span>
+        </p>
+
+        <!-- 消息列表 -->
+        <ul class="information-list" id="information-list">
+            <!--<li class="info-list-li">
+                <span class="select-box">
+                    <label>
+                        <img src="static/notification-img/right-icon.svg" alt="">
+                    </label>
+                </span>
+                <span class="speaker-icon">
+                    <img src="static/notification-img/speaker-icon.svg" alt="">
+                    <label class="unread-red-point"></label>
+                </span>
+                <span class="info-title">
+                    【智付】关于清算系统升级维护公告
+                </span>
+                <span class="put-at-top ">置顶</span>
+                <span class="info-time">2018-06-12 17:00:00</span>
+            </li>-->
+        </ul>
+
+
+        <!-- 分页 -->
+        <div class="paginate-container">
+            <!--<ul class="pagination" id="pagination">
+                <li class="page-li previous-page disabled" data-enabled="false">Previous</li>
+                <li class="page-li active-page">1</li>
+                <li class="page-li">2</li>
+                <li class="page-li gap" style="display:none">...</li>
+                <li class="page-li">8</li>
+                <li class="page-li">9</li>
+                <li class="page-li gap">...</li>
+                <li class="page-li">99</li>
+                <li class="page-li">100</li>
+                <li class="page-li next-page">Next</li>
+            </ul>-->
+        </div>
+
+    </div>
+
+    <div id="container-vertical-line"></div>
+</div>
+
+
+<!-- footer -->
+<!--<div class="footer"></div>-->
+
+<script type="text/javascript" src="static/notification-js/ToolsLibrary.js"></script>
+<script type="text/javascript" src="static/notification-js/notification.js"></script>
+<script type="text/javascript" src="static/notification-js/pagination.js"></script>
+<script type="text/javascript">
+
+    // 分页总页数
+    let totalPages = 20;
+    let pag = new PAG(totalPages);
+
+    pag.initialize({
+
+        // 存放分页组件的容器
+        container: ".paginate-container",
+
+        // 英文: true, 中文: false
+        EN: true,
+
+
+        // 组件开头显示的最大按钮个数
+        startShowMaxBtn: 8,
+        // 当总页数(totalNum) > startShowMaxBtn 时, 组件开头显示的默认按钮个数
+        startShowDefaultBtn: 5,
+
+
+        // 组件末尾显示的最大按钮个数
+        lastShowMaxBtn: 8,
+        // 組件末尾显示的最小按钮个数
+        lastShowMinBtn: 5,
+
+        // 页码的父级 ul
+        pagUl:          "",
+
+        // "上一页"按钮
+        previousBtn:    "",
+        // "下一页"按钮
+        nextBtn:        "",
+
+        // 当前选中的分页
+        pagActive:      "",
+
+        // 数字页码(num-pag) (注: 即按钮内容为数字的页码)
+        numPag:         "",
+
+        // 三个圆点的占位符元素(li.gap)前后显示的按钮个数
+        gapBefAftBtn: 2,
+
+
+        // 当总页数(totalNum) > pagShowDefaultBtn 时, 当前后都有 li.gap 且处于显示状态时，中间的 button 显示个数
+        centerShowBtn: 5,
+
+    });
+
+
+    window.onload = function () {
+
+        // 给 container-vertical-line 赋值高度
+        (function () {
+            let conVerticalLine = getId("container-vertical-line");
+            if (NotiEles.conRightPlate.offsetHeight < 660) {
+                conVerticalLine.style.height = "660px";
+            } else {
+                conVerticalLine.style.height = NotiEles.conRightPlate.offsetHeight + "px";
+            }
+        })();
+
+    }
+</script>
+
+</body>
+</html>

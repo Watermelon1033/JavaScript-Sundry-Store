@@ -1,0 +1,882 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>9-7-批量转账到银行卡</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="static/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="static/css/global.css">
+    <link rel="stylesheet" type="text/css" href="static/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="static/css/head-footer-css.css">
+    <link rel="stylesheet" type="text/css" href="static/css/batch-main-left-css.css">
+    <link rel="stylesheet" type="text/css" href="static/css/batch-main-right-css.css">
+    <link rel="stylesheet" type="text/css" href="static/css/batch-main-add-bank-card-popups-css.css">
+    <link rel="stylesheet" type="text/css" href="static/css/province-city-switch-css.css">
+
+    <script type="text/javascript" src="static/js/jq/jquery.min.js"></script>
+    <script type="text/javascript" src="static/js/scrollreveal/scrollreveal.min.js"></script>
+
+    <style type="text/css">
+        html, body{height:100%;}
+    </style>
+
+    <script type="text/javascript">
+        window.sr = ScrollReveal();
+    </script>
+</head>
+
+<body>
+<div class="pos-relative min-hei-100">
+    <!--头部 header wall ~~ start -->
+    <div class="header-wall over-hid" data-block= "0">
+        <div class="margin-auto header">
+            <!--智付logo-->
+            <div class="fl">
+                <a href="javascript:" class="dis-block">
+                    <img src="static/img/logo.png" alt="智付钱包" class="header-logo">
+                </a>
+            </div>
+            <!--智付logo-->
+
+            <!--头部导航 header-nav-->
+            <div class="fl over-hid header-nav">
+                <ul class="header-nav-ul">
+                    <li class="header-nav-li">
+                        <a href="javascript:">首页</a>
+                        <span></span>
+                    </li>
+                    <li class="header-nav-li">
+                        <a href="javascript:">账单</a>
+                        <span></span>
+                    </li>
+                    <li class="header-nav-li">
+                        <a href="javascript:">账户设置</a>
+                        <span></span>
+                    </li>
+                </ul>
+            </div>
+            <!--头部导航 header-nav-->
+
+            <div class="fr font-12 over-hid tips-language">
+                <a class="fl" href="javascript:" >回到旧版</a>
+                <a class="fl pos-relative info-tips" href="javascript:">
+                    <span class="moveBlue">消息</span>
+                    <span class="tips-num">12</span>
+                </a>
+                <span  class="fl white-font head-vertical-line"> | </span>
+                <a class="fl language" href="javascript:">EN</a>
+                <a class="fl safety-exit" href="javascript:">安全退出</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!--头部 header wall ~~ over-->
+
+    <!--中间主体 main : main-wall div必须加overflow:hidden-->
+    <div class="main-wall over-hid">
+        <div class="main margin-auto white-bg box-sha-grey over-hid">
+            <!--主体头部 main-head-->
+            <div class="main-head over-hid">
+                <div class="main-head-title pos-relative text-center white-font let-spa-1px">
+                    <span>批量转账到银行卡</span>
+                    <span class="triangle-up-left dis-block pos-absolute right-0 bottom-0"></span>
+                </div>
+            </div>
+            <!--主体头部 main-head-->
+
+            <!--服务器返回错误提示弹框-->
+            <div class="error-box-wall pos-relative over-hid">
+                <div class="service-error-box text-center margin-auto white-font over-hid">
+                    <i class="fa fa-exclamation-triangle mar-rig-10" aria-hidden="true"></i>
+                    <span class="error-tips-font margin-auto let-spa-1px"></span>
+                    d             <i class="fr fa fa-times service-error-icon" aria-hidden="true"></i>
+                </div>
+            </div>
+            <!--服务器返回错误提示弹框-->
+
+            <!--批量转账模块 batch transfer module -->
+            <div class="batch-module over-hid">
+                <!-- 左边~74% -->
+                <div class="fl batch-module-left over-hid">
+                    <!--1st-line.批量转账到-->
+                    <div class="batch-every-line">
+                        <div class="fl public-batch-left-font">批量转账到：</div>
+                        <div class="fl public-batch-module over-hid" style="background:#f7f7f7;">
+                            <a href="javascript:">
+                                    <span class="fl text-center pos-relative over-hid batch-to-bank choose-one-selected">
+                                        银行卡<label class="choose-one-sel-triangle"></label>
+                                    </span>
+                            </a>
+                            <a href="javascript:">
+                                    <span class="fl text-center pos-relative over-hid batch-to-purse choose-one-default">
+                                        智付钱包账号<label class="choose-one-sel-triangle dis-none"></label>
+                                    </span>
+                            </a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <!--1st-line.批量转账到-->
+
+
+                    <!--2nd-line.收款信息-->
+                    <div class="batch-every-line over-hid">
+                        <div class="fl public-batch-left-font">收款信息：</div>
+
+                        <div class="fl public-batch-module over-hid ">
+                            <!--收款人信息:头部-->
+                            <div class="payee-info-head mar-bot-20 over-hid" style="background: #f7f7f7;">
+                                <ul>
+                                    <li class="payee-name ">姓名</li>
+                                    <li class="payee-bank-card-info">银行卡信息</li>
+                                    <li class="payee-money">转账金额</li>
+                                    <li class="payee-remark">备注</li>
+                                </ul>
+                            </div>
+                            <!--收款人信息:头部-->
+
+                            <!--动态创建收款人信息整行 add payee wall  -->
+                            <div class="add-payee-wall wid-100-per">
+                                <!--<div class="dynamic-create-line over-hid">
+                                    <div class="payee-div">
+                                        <input class="theInput payeeInput" maxlength="100" data-index="0" placeholder="1.收款人姓名" type="text">
+                                        <span class="errorSpan payeeErrSpan"></span>
+                                    </div>
+                                    <div class="bank-card-div">
+                                        <p class="bank-card-p" data-flag="0"></p>
+                                        <span class="errorSpan bankCardErrSpan"></span>
+                                    </div>
+                                    <div class="transfer-amount-div">
+                                        <input class="theInput transferAmountInput" maxlength="20" data-onceminlimit="100" data-oncelimit="100000" placeholder="单笔限额1~5000元" data-index="0" type="number">
+                                        <span class="errorSpan traAmountErrSpan"></span>
+                                    </div>
+                                    <div class="remark-div">
+                                        <input class="remark" maxlength="500" placeholder="选填，对方可看到">
+                                    </div>
+                                    <div class="del-line-btn-div">
+                                        <label class="del-line-icon"></label>
+                                    </div>
+                                </div>-->
+                            </div>
+                            <!--动态创建收款人信息整行 add payee wall  -->
+
+
+                            <!--增加收款人~批量导入~下载模板——按钮-->
+                            <div class="three-function-btn mar-top-20 mar-bot-20 over-hid">
+                                <p class="addPayeeBtn function-btn-default">
+                                    <i class="fa fa-plus fa-lg font-icon"></i>
+                                    <label>增加收款人</label>
+                                </p>
+                                <p class="batchImportBtn function-btn-default">
+                                    <i class="fa fa-arrow-circle-o-up fa-lg font-icon"></i>
+                                    <label>批量导入</label>
+                                </p>
+                                <p class="downloadTemBtn function-btn-default">
+                                    <i class="fa fa-arrow-circle-o-down fa-lg  font-icon"></i>
+                                    <label>下载模板</label>
+                                </p>
+                            </div>
+                            <!--增加收款人~批量导入~下载模板——按钮-->
+
+                            <!---点击"批量导入" 上传文件-->
+                            <div class="batchImpFileWall overflowHid dis-none" style="height:60px; background-color:#f7f7f7;">
+                                <!--上传按钮框 type=file box -->
+                                <div class="width198 lightGreyBor3 marLeft130 borRadius4 whiteBg fileBox posRelative">
+                                    <!--上传代码-->
+                                    <input id="importFile" type="file" class="displayBlock lineHei34 width162 whiteBg lightGreyBor borRadius4 textCenter marginAuto"/>
+                                    <!--上传代码-->
+                                </div>
+                            </div>
+                            <!---点击"批量导入" 上传文件-->
+
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <!--2nd-line.收款信息-->
+
+
+                    <!--3rd-line.到账时间-->
+                    <div class="batch-every-line">
+                        <div class="fl public-batch-left-font">到账时间：</div>
+                        <div class="fl public-batch-module over-hid">
+                            <p class="over-hid" style="background:#f7f7f7;">
+                                     <span class="fl text-center pos-relative over-hid transfer-time choose-one-selected " data-type="1">
+                                            实时到账 (2小时)
+                                         <label class="choose-one-sel-triangle"></label>
+                                     </span>
+                                <span class="fl text-center pos-relative over-hid transfer-time choose-one-default"  data-type="0">
+                                            普通到账 (24小时)
+                                        <label class="choose-one-sel-triangle dis-none"></label>
+                                    </span>
+                            </p>
+                            <p class="font-12 mar-top-10 let-spa-1px" style="color:green;">
+                                <span>温馨提示：节假日期间，交易额度在5万元以上的，除工行、农行、建行、中行、中信、兴业当天处理，其他银行则顺延至下一个工作日处理。</span>
+                            </p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <!--3rd-line.到账时间-->
+
+
+                    <!--4th-line.账户详情-->
+                    <div class="batch-every-line">
+                        <div class="fl public-batch-left-font">账户详情：</div>
+                        <div class="fl public-batch-module">
+                            <div class="mar-bot-5 over-hid let-spa-1px total-payment-wall">
+                                <!--付款总额 total payment-->
+                                <p class="fl wid-36-per font-bold">
+                                    <span>付款总额：</span>
+                                    <span class="font-16 red-font fontWeight totalPayment"></span>
+                                    <span>元</span>
+                                </p>
+                            </div>
+                            <div class="mar-bot-5 over-hid">
+                                <!--当前付款笔数: current number of payments-->
+                                <p class="fl wid-36-per">
+                                    <span class="">付款笔数：</span>
+                                    <span class="blue-font font-16 curPayNumber"></span>
+                                    <span>笔</span>
+                                </p>
+
+                                <!--单日剩余交易笔数: one day remaining number of payment-->
+                                <p class="fl">
+                                    <span class="">单日剩余交易笔数：</span>
+                                    <span class="blue-font font-16 oneDayRemainPayNum"></span>
+                                    <span>笔</span>
+                                </p>
+                            </div>
+                            <div class="mar-bot-5 over-hid">
+                                <!--可用余额 available balance-->
+                                <p class="fl wid-36-per">
+                                    <span class="">可用余额：</span>
+                                    <span class="red-font font-16 availableBalance"></span>
+                                    <span>元</span>
+                                </p>
+                                <!--单日剩余可转金额 one day remaining amount-->
+                                <p class="fl">
+                                    <span class="">单日剩余可转金额：</span>
+                                    <span class="font-16 red-font oneDayRemainMoney"></span>
+                                    <span>元</span>
+                                </p>
+                            </div>
+                            <div class=""> <!--不能给overflow:hidden;给了绝对定位的下拉出不来-->
+                                <!--服务费: service charge-->
+                                <div class="fl wid-36-per">
+                                    <span>服务费&nbsp;&nbsp;&nbsp;&nbsp;：</span>
+                                    <span class="red-font font-16 serviceCharge">0.00</span>
+                                    <span>元</span>
+                                </div>
+
+                                <!-- 收费规则: charging rule ~~ start -->
+                                <div class="fl wid-36-per dark-grey-font pos-relative">
+                                    <span class="dis-block cur-point line-hei-28 charge-rule wid-26-per let-spa-2px" style="color:green">收费规则</span>
+                                    <div class="pos-relative charge-tip-box dis-none">
+                                        <div class="pos-absolute bor-dark-grey bor-rad-2px white-bg text-center" style="left:-20px; top:12px; width:462px;">
+                                            <p class="triangleIcon2"></p>
+                                            <table class="dark-grey-font" style="border-collapse: collapse; width:100%; font-size:13px;">
+                                                <tbody>
+                                                <tr>
+                                                    <!--规定单元格可横跨的列数。-->
+                                                    <th colspan="4">服务费采用单笔收费累加计算，以下为单笔收费标准：</th>
+                                                </tr>
+                                                <tr >
+                                                    <td>到账时间</td>
+                                                    <td>服务费率</td>
+                                                    <td>收费下限</td>
+                                                    <td>收费上限</td>
+                                                </tr>
+                                                <tr class="charge-table-second-tr">
+                                                    <td >实时到账<!-- 实时到账--></td>
+                                                    <td class="two-hour-fee"></td>
+                                                    <td class="two-hour-min-fee"></td>
+                                                    <td class="two-hour-max-fee"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-center">普通到账<!-- 普通到账--></td>
+                                                    <td class="twenty-hour-four-fee"></td>
+                                                    <td class="twenty-hour-four-min-Fee"></td>
+                                                    <td class="twenty-hour-four-max-fee"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 收费规则: charging rule ~~ over -->
+
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <!--4th-line.账户详情-->
+
+                    <form action="" method="post">
+                        <!--定义保存最终数据的隐藏域-->
+                        <input type="hidden" class="saveAllDataInput" name="batchTransfer">
+                        <input type="hidden" name="clientSessionToken" value="${serverSessionToken}">
+                        <!--定义保存最终数据的隐藏域-->
+
+                        <!--确定转账按钮-->
+                        <div class="mar-top-50">
+                            <div class="fl line-hei-40 hei-40 text-right" style="margin-left:17%;"></div>
+                            <div class="fl pos-relative over-hid">
+                                <input type="button" class="mar-bot-60 public-next-btn next-btn-default confirm-transfer-btn" value="确认转账">
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <!--确定转账按钮-->
+                    </form>
+
+                </div>
+                <!-- 左边~74% -->
+
+                <!-- 右边~25% -->
+                <div class="fr batch-module-right pos-relative over-hid" style="">
+                    <!--向单人转账~~start-->
+                    <div class="right-public-div over-hid">
+                        <div class="right-public-p-wall">
+                            <a href="javascript:">
+                                <p>
+                                    <i class="fa fa-user-circle-o fa-lg mar-left-30" aria-hidden="true"></i>
+                                    <span>向单人转账</span>
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                    <!--向单人转账~~over-->
+
+
+                    <!-- 最近转账人 recently transfer person ~~板块start -->
+                    <div class="right-public-div contactPerWall recent-transfer-per-wall">
+                        <!--点击事件绑定在 recent-transfer-per 上-->
+                        <div class="right-public-p-wall pos-relative recent-transfer-per">
+                            <!-- 最近转账人-按钮~start -->
+                            <p class="recent-transfer-p">
+                                <i class="fa fa-user-plus fa-lg mar-left-30" aria-hidden="true"></i>
+                                <span>最近转账人</span>
+                                <!-- 向下: fa-chevron-down  向上: fa-chevron-up -->
+                                <i class="fa fa-chevron-up"></i>
+                            </p>
+                            <!-- 最近转账人-按钮~over -->
+
+                            <!-- 字体图标 朝上的三角-->
+                            <i class="fa fa-sort-asc fa-2x pos-absolute font-icon-up-triangle" aria-hidden="true"></i>
+                        </div>
+
+                        <!-- 最近转账人-下拉~start -->
+                        <ul class="contactPerUl recent-transfer-ul">
+                            <li data-index="0" class="blue-font light-purple-bg">
+                                       <span class="font-icon-span">
+                                           <i class="fa fa-check-square recent-transfer-icon" aria-hidden="true"></i>
+                                       </span>
+                                <span class="contactsName contacts-name">鲁智深</span>
+                                <span class="bankImg bank-img"><img src="static/img/icon/icbc.png"></span>
+                                <span class="wid34Per textCenter bankName bank-name" data-code="ICBC">工商银行</span>
+                                <span class="wid18Per  textCenter cardNum card-num" data-account="undefined"
+                                      data-province-code="" data-province-name=""
+                                      data-city-code="" data-city-name="" data-branch-code=""
+                                      data-branch-name="">(6666)</span>
+                            </li>
+                            <li data-index="0">
+                                       <span class="font-icon-span">
+                                           <i class="fa fa-square-o theIcon theIcon recent-transfer-icon"
+                                              aria-hidden="true"></i>
+                                       </span>
+                                <span class="contactsName contacts-name">柴进</span>
+                                <span class="bankImg bank-img"><img src="static/img/icon/icbc.png"></span>
+                                <span class="wid34Per textCenter bankName bank-name" data-code="ICBC">城市商业银行</span>
+                                <span class="wid18Per  textCenter cardNum card-num" data-account="undefined"
+                                      data-province-code="" data-province-name=""
+                                      data-city-code="" data-city-name="" data-branch-code=""
+                                      data-branch-name="">(6666)</span>
+                            </li>
+                        </ul>
+                        <!-- 最近转账人-下拉~over -->
+                    </div>
+                    <!-- 最近转账人 recently transfer person ~~板块over -->
+
+
+                    <!-- 常用联系人 contact person ~~板块start -->
+                    <div class="right-public-div contact-per-wall">
+                        <!--点击事件绑定在 contact-person 上 -->
+                        <div class="right-public-p-wall pos-relative contact-person">
+                            <!-- 常用联系人-按钮~start -->
+                            <p class="contact-per-p">
+                                <i class="fa fa-users fa-lg mar-left-30" aria-hidden="true"></i>
+                                <span>常用联系人</span>
+                                <i class="fa fa-chevron-down"></i>
+                            </p>
+                            <!-- 常用联系人-按钮~over -->
+
+                            <!-- 字体图标 朝上的三角-->
+                            <i class="fa fa-sort-asc fa-2x pos-absolute font-icon-up-triangle dis-none" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <!-- 常用联系人 contact person ~~板块over -->
+                </div>
+                <!-- 右边~25% -->
+            </div>
+            <!--批量转账模块 batch transfer module -->
+        </div>
+    </div>
+    <!--中间主体 main ~~ over -->
+
+    <!-- 页脚 footer ~~ start -->
+    <div class="footer-wall pos-absolute">
+        <div class="footer margin-auto">
+            <div class="footer-nav margin-auto over-hid text-center">
+                <a href="javascript:">关于智付钱包</a> |
+                <a href="javascript:">商务合作</a>|
+                <a href="javascript:">联系我们</a>|
+                <a href="javascript:">服务条款</a>|
+                <a href="javascript:">帮助中心</a>|
+                <a href="javascript:">隐私政策 </a>
+            </div>
+            <div class="over-hid copy-right margin-auto">
+                智付版权所有 2012-2017 ICP证：增值电信业务经营许可证B2-20050689号 &nbsp;&nbsp;&nbsp; 备案号：粤ICP备10028467号-4 &nbsp;&nbsp;&nbsp;
+            </div>
+        </div>
+    </div>
+    <!-- 页脚 footer ~~ over -->
+
+
+    <!--黑色全屏弹出窗口 black full screen popups-->
+    <div class="black-full-screen-popups dis-none"></div>
+    <!--黑色全屏弹出窗口 black full screen popups-->
+
+    <!--添加"银行卡信息"弹框 add bank card information popups-->
+    <div class="add-bank-card-popups dis-none">
+        <!--弹框头部-->
+        <div class="popups-main-head over-hid">
+            <p class="fl popups-main-head-title pos-relative text-center white-font let-spa-1px">
+                <span class="let-spa-1px">银行卡信息</span>
+                <span class="triangle-up-left dis-block pos-absolute right-0 bottom-0"></span>
+            </p>
+            <p class="popups-close-btn">
+                <i class="grey-cross-icon"></i>
+            </p>
+        </div>
+
+        <!--弹框中部板块 add bank card information box center plate-->
+        <div class="add-bank-card-popups-main">
+            <!--卡号-->
+            <div class="same-css-line over-hid">
+                <div>银行卡号：</div>
+                <div class="over-hid">
+                    <input type="text" class="bank-card-input" placeholder="收款人卡号">
+                    <span class="bank-card-error-span error-span"></span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <!--卡号-->
+
+            <!--选择开户银行-->
+            <div class="same-css-line">
+                <div>开户银行：</div>
+                <div class="pos-relative">
+                    <!--保存值-->
+                    <div class="fl">
+                        <p class="public-save-val-wall save-open-bank-p">
+                            <span class="save-open-bank-span">点击选择</span>
+                            <span><i class="triangle-down"></i></span>
+                        </p>
+                        <p class="open-bank-error-span error-span"></p>
+                    </div>
+                    <!--保存值-->
+
+                    <ul class="public-drop-down-module dis-none open-bank-ul">
+                        <!--开户银行下拉-->
+                        <!--<li class="over-hid">
+                            <span class="open-bank-icon-span"><img src="static/img/icon/ccb.png"></span>
+                            <span class="open-bank-name" bank-code="">建设银行</span>
+                        </li>-->
+                    </ul>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <!--选择开户银行-->
+
+            <!--所在省市-->
+            <div class="prov-city-module provCityOuterWall">
+                <div>所在省市：</div>
+                <div class="over-hid two-level-linkage-wrapped">
+                    <!--保存值部分-->
+                    <div class="fl">
+                        <div class="save-prov-city-wall">
+                            <p class="save-prov-city-p">
+                                <!--<span class="save-prov-val-span " province-code="11">北京</span>
+                                <span class="insert-slash">/</span>
+                                <span class="save-city-val-span " city-cody="1000" parent-code="11">北京市</span>-->
+                                点击选择
+                            </p>
+                            <p><i class="triangle-down"></i></p>
+                        </div>
+                        <p class="prov-city-error-span error-span"></p>
+                    </div>
+                    <!--保存值部分-->
+                    <!--加载下拉省市-->
+                    <div class="prov-city-drop-down-module dis-none dropdownWall" data-flag="0">
+                        <ul class="prov-city-title-wall proCityTitWall">
+                            <li class="province-title prov-city-selected  provinceTit" data-index="0">省份</li>
+                            <li class="prov-city-default city-title cityTit" data-index="1">城市</li>
+                        </ul>
+                        <ul class="prov-city-wall proCityWall">
+                            <!--Province 省份-->
+                            <li class="province-li-wall" data-index="0">
+                                <div class="every-letter-plate over-hid">
+                                    <p class="left-letters">A-G</p>
+                                    <ul class="every-plate-province">
+                                        <li class="prov-or-city-default" province-code="11">北京市</li>
+                                        <li class="prov-or-city-default" province-code="34">安徽省</li>
+                                        <li class="prov-or-city-default" province-code="35">福建省</li>
+                                        <li class="prov-or-city-default" province-code="44">广东省</li>
+                                        <li class="prov-or-city-default" province-code="45">广西</li>
+                                        <li class="prov-or-city-default" province-code="50">重庆市</li>
+                                        <li class="prov-or-city-default" province-code="52">贵州省</li>
+                                        <li class="prov-or-city-default" province-code="62">甘肃省</li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <!--Province 省份-->
+
+                            <!--city 市-->
+                            <li class="city-li-wall cityWall provinceAndCityLi dis-none" data-index="1">
+                                <ul class="current-show-city-ul saveCityUl over-hid">
+                                    <li class="prov-or-city-selected" parent-code="22" city-code="2410" >长春市</li>
+                                    <li class="prov-or-city-default proCityDefStyle" parent-code="22" city-code="2450">通化市</li>
+                                </ul>
+                            </li>
+                            <!--city 市-->
+                        </ul>
+                    </div>
+                    <!--加载下拉省市-->
+                </div>
+            </div>
+            <!--所在省市-->
+
+            <!--开户支行-->
+            <div class="same-css-line">
+                <div>开户支行：</div>
+                <div class="pos-relative">
+                    <!--保存所选支行部分-->
+                    <div class="fl">
+                        <p class="public-save-val-wall save-branch-bank-p saveBranchBankP">
+                            <span class="save-branch-bank-span dropdownSpan1 saveBranchBankSpan">点击选择</span>
+                            <span><i class="triangle-down"></i></span>
+                        </p>
+                        <p class="branch-error-span"></p>
+                    </div>
+                    <!--保存所选支行部分-->
+
+                    <!--开户支行下拉模块-->
+                    <ul class="public-drop-down-module open-branch-bank-ul dis-none saveBranchBankUl">
+                        <li data-branch-id="313581003284" data-id="313588000026" >广州银行股份有限公司佛山南海支行</li>
+                        <li data-branch-id="313581003284" data-id="313588000018">广州银行股份有限公司佛山分行</li>
+                        <li data-branch-id="313591001001" data-id="313588093002">广东南粤银行股份有限公司佛山分行</li>
+                        <li data-branch-id="313602088017" data-id="313588094013">东莞银行股份有限公司佛山分行</li>
+                        <li data-branch-id="313586000006" data-id="313588003016">广东华兴银行股份有限公司佛山分行</li>
+                    </ul>
+                    <!--开户支行下拉模块-->
+                </div>
+                <div class="clear"></div>
+            </div>
+            <!--开户支行-->
+
+            <!--确定-->
+            <div class="same-css-line over-hid">
+                <div style="border:0; background-color:#fff;"></div>
+                <div class="over-hid">
+                    <input type="button" class="mar-top-20  public-next-btn next-btn-default popups-confirm-btn" value="确定">
+                </div>
+                <div class="clear"></div>
+            </div>
+            <!--确定-->
+        </div>
+    </div>
+    <!--"添加银行卡信息"/"新增联系人"~弹框 add bank card / add contact person box-->
+</div>
+
+
+<script type="text/javascript" src="static/js/global-functions.js"></script>
+<script type="text/javascript" src="static/js/head-footer-js.js"></script>
+<script type="text/javascript" src="static/js/batch-main-module-js.js"></script>
+<script type="text/javascript" src="static/js/batch-add-bank-card-popups-js.js"></script>
+<script type="text/javascript" src="static/js/province-city-two-level-linkage.js"></script>
+
+<!-- 加载json -->
+<script type="text/javascript" src="static/js/json/recent-transfer-person-json.js"></script>
+<script type="text/javascript" src="static/js/json/user-available-balance-json.js"></script>
+<script type="text/javascript" src="static/js/json/two-hours-arrive-json.js"></script>
+<script type="text/javascript" src="static/js/json/twenty-four-hours-arrive-json.js"></script>
+<script type="text/javascript" src="static/js/json/open-bank-json.js"></script>
+<script type="text/javascript" src="static/js/json/open-branch-bank-json.js"></script>
+<script type="text/javascript" src="static/js/json/province-city-json.js"></script>
+<script type="text/javascript" src="static/js/json/frequent-contacts-person-json.js"></script>
+<!-- 加载json -->
+
+
+<script type="text/javascript">
+    // 服务器返回错误弹框事件
+    /* $(function () {
+     var serviceErrorTips = "服务器返回的错误";
+     var serErrorBox = $(".service-error-box");      // 找到存放服务器错误的div
+     var errorTipsFont = $(".error-tips-font");      // 存放错误提示文字的span框
+     if (serviceErrorTips != null || serviceErrorTips != "" || serviceErrorTips != "undefined") {
+     basicAnimation(serErrorBox[0], {height: 40});
+     errorTipsFont.html(serviceErrorTips);
+     }
+     var serErrorIcon = $(".service-error-icon");    // 服务器错误提示弹框中的X号按钮
+     EventUtil.addHandler(serErrorIcon[0], "click", function () {
+     errorTipsFont.html();
+     basicAnimation(serErrorBox[0], {height: 0})
+     })
+     });*/
+
+    window.onload = function(){
+        /* 全局java路径 */
+        var java_file_path = "<%=path%>";
+        var java_img_path = "<%=static_path %>";
+
+
+        /** --------- recharge-main-module-js.js ~~ start --------- **/
+
+        /** 1.调用"ajax获取账户可用余额数据"方法 **/
+        mainModuleConfigMap.ajaxGetAvailableMoney(java_file_path);
+        //console.log(mainModuleConfigMap.ajaxGetAvailableMoney(java_file_path));
+
+
+        /** 2.调用"ajax调用2小时到账数据"方法 **/
+        mainModuleConfigMap.ajaxGetTwoHourArrJson(java_file_path);
+        //console.log(mainModuleConfigMap.ajaxGetTwoHourArrJson(java_file_path));
+        // 根据服务器返回的值给页面中 账户详情: 各个span赋值
+        mainModuleConfigMap.setTwoHourArriveData(java_file_path);
+
+
+        /** 3.调用"ajax调用24小时到账数据"方法 **/
+        mainModuleConfigMap.ajaxGetTwentyFourHourArrJson(java_file_path);
+        mainModuleConfigMap.setTwentyFourHourArriveData(java_file_path);
+
+
+        var addPayeeWall = getClassName("add-payee-wall")[0];
+        /** 4-1.打开页面动态创建3行 **/
+        for(var i=0; i<3; i++){
+            //console.log(mainModuleMap.createLineMethod(i));
+            addPayeeWall.appendChild(mainModuleConfigMap.createLineMethod());
+        }
+        var oDynamicCreateLine = getClassName("dynamic-create-line");
+        revealFun(oDynamicCreateLine);
+        // 调用ScrollReveal动态显示，上面立即创建的2行
+        function revealFun(oDynamicCreateLine){
+            for(var i=0, len=oDynamicCreateLine.length; i<len; i++){
+                sr.reveal(oDynamicCreateLine[i], {
+                    origin:     "bottom",
+                    distance:   "30px",
+                    opacity:    0,
+                    scale:      1,
+                    delay:      (i+1)*300,
+                    easing:     "ease-in-out",
+                    reset:      false,
+                    duration:   400
+                });
+            }
+        }
+        /** 4-2.给创建的行设置需要的属性 **/
+        mainModuleConfigMap.setPropertyForLine(addPayeeWall);
+
+
+
+        /** ------addPayeeWall上添加事件~~点击X号删除行+点击银行卡信息弹出弹框+弹框填好信息写值+计算金额的事件...ect...------ **/
+        EventUtil.addHandler(addPayeeWall, "click", function(event){
+            event = EventUtil.getEvent(event);
+            var target = EventUtil.getTarget(event);
+
+            //(2.)如果当前target为bankCardP,利用事件冒泡点击弹出弹框
+            if (target.tagName == "P" && hasClass("bank-card-p", target)) {
+                // 0.如果当前的bank-card-p的下个同级元素bankCardErrSpan有错误的话，点击错误隐藏
+                if(target.nextSibling.innerHTML != ""){
+                    target.nextSibling.innerHTML = "";
+                }
+                // 1st.首先判断当前bankCardP的data-flag的值是不是为0，如果为0就直接加载弹框。清除bank-card-p下面的值，在弹框点击确定时。
+                var curDataFlag = parseInt(target.getAttribute("data-flag"));
+                if (curDataFlag == 0) {
+                    // 给当前target设置唯一标示符(GUID: global unique identifier),用于确定当前target为众行中的哪一行。(1.)当点击弹框中的确定按钮时移除.(2)点击弹框X号时也要移除.
+                    target.setAttribute("data-guid", "GUID");
+
+                    // 全局弹框的最外围包围函数
+                    fnPopupsWrapped(target);
+                }
+            }
+
+            // 点击行末尾的叉号删除当前行 + 重新给"转账人"和"转账金额"表单设置自定义属性 + 重新计算金额
+            if (hasClass("del-line-icon",target)) {
+                // (1.)4-3.点击"删除按钮(X号)"删除行
+                if (target.parentNode.parentNode.parentNode) { //不找到当前删除元素的祖先及元素会报错
+                    target.parentNode.parentNode.parentNode.removeChild(target.parentNode.parentNode);
+                }
+                //删除之后遍历当前剩余行，给"姓名/转账金额"设置 data-index 和 placeholder
+                mainModuleConfigMap.setPropertyForLine(addPayeeWall);
+
+                /*
+                 //调用计算金额函数
+                 calculateAmount(addPayeeWall);
+                 //点击X号删除行的同时，右侧常用联系人中相对应的样式也移除
+                 removeSelStyle(target);
+                 */
+            }
+
+        });
+
+
+
+        /** 5."增加收款人/批量导入/下载模板" 滑动上/走效果 **/
+        var getThreeFunBtn = $(".three-function-btn > p");
+        // 三个功能按钮的滑动效果(three function buttons slide effect). (自执行以便点击事件在交互之前已存在)
+        (function threeFunBtnSlideEffect(){
+            for(var i=0; i<getThreeFunBtn.length; i++){
+                for(var j=0; j<getThreeFunBtn.length; j++){
+                    if(hasClass("function-btn-selected",getThreeFunBtn[j])){
+                        getThreeFunBtn[j].className = removeClass("function-btn-selected", getThreeFunBtn[j]);
+                        getThreeFunBtn[j].className = addClass("function-btn-default", getThreeFunBtn[j]);
+                    }
+                }
+                EventUtil.addHandler(getThreeFunBtn[i], "mouseenter", function(){
+                    this.className = removeClass("function-btn-default", this);
+                    this.className = addClass("function-btn-selected", this);
+                });
+                EventUtil.addHandler(getThreeFunBtn[i], "mouseleave", function(){
+                    this.className = removeClass("function-btn-selected", this);
+                    this.className = addClass("function-btn-default", this);
+                })
+            }
+        })();
+
+        /* 5-1."增加收款人"点击添加行事件 */
+        var addPayeeBtn = $(".addPayeeBtn")[0];
+        EventUtil.addHandler(addPayeeBtn, "click", function(){
+            // a.调用4-1创建行
+            addPayeeWall.appendChild(mainModuleConfigMap.createLineMethod());
+            // b.调用4-2给创建行设置自定义属性
+            mainModuleConfigMap.setPropertyForLine(addPayeeWall);
+            // c.调用5-2建行之后滚动条自动下滚事件 + ScrollReveal动画效果
+            mainModuleConfigMap.scrollBarAutoSlideDown(addPayeeWall);
+        });
+
+        /** 动态创建"银行卡信息"下的span **/
+        //var bankCardP = getClassName("bank-card-p");
+        //console.log(bankCardP.length);
+        //(function createBankCardInfSpanFun(){
+        //    for(var i=0, len=bankCardP.length; i<len; i++){
+        //        if(bankCardP[i].innerHTML != ""){
+        //            bankCardP[i].innerHTML = "";
+        //        }
+        //        bankCardP[i].appendChild(mainModuleConfigMap.createBankCardInfSpan());
+        //    }
+        //})();
+
+
+        /** 6."2小时/24小时到账"切换效果 **/
+            // 点击样式切换
+        var $transferTime = $(".transfer-time");
+        $transferTime.click(function(event){
+            $(this).removeClass("choose-one-default").addClass("choose-one-selected").siblings().
+            removeClass("choose-one-selected").addClass("choose-one-default");
+            $(this).children("label").removeClass("dis-none").parent().siblings().children("label").addClass("dis-none");
+            /*  event = EventUtil.getEvent(event);
+             var target = EventUtil.getTarget(event);
+             console.log(target.className);*/
+        });
+
+
+        /** 7."收费规则" 移动上展示/滑走隐藏效果 **/
+        var $chargeRule = $(".charge-rule");
+        var $chargeTipBox = $(".charge-tip-box");
+        $chargeRule.hover(
+            function(){$chargeTipBox.removeClass("dis-none");},
+            function(){$chargeTipBox.addClass("dis-none");}
+        );
+
+        /** --------- recharge-main-module-js.js ~~ over --------- **/
+
+
+
+        /** ------ batch-add-bank-card-popups-js.js ~~ start ------ **/
+
+        function fnPopupsWrapped(passTarget){
+
+            // "黑色全屏窗口+添加联系人弹框"显示
+            popupsConfigMap.fnShowPopups();
+
+            // 点击弹框中的关闭按钮(popups-close-btn)关闭弹框，并移除target上的GUID
+            var popupsCloseBtn = getClassName("popups-close-btn")[0];
+            EventUtil.addHandler(popupsCloseBtn, "click", function(){
+                popupsConfigMap.fnClosePopups();
+                if(passTarget.getAttribute("data-guid") == "GUID"){
+                    passTarget.removeAttribute("data-guid");
+                }
+            });
+
+            // 开户银行
+            var bankCardP = $(".save-open-bank-p")[0];
+            var openBankUl = $(".open-bank-ul")[0];             // 开户银行Ul
+            var saveOpenBankSpan = $(".save-open-bank-span")[0]; // 保存银行值的span
+            // 首先调用"ajax获取所有银行的json"方法
+            popupsConfigMap.fnAjaxGetAllBankJson(java_file_path);
+            // 给每行的银行添加点击事件
+            EventUtil.addHandler(bankCardP, "click", function(){
+                // 点击"开户银行"下拉显示着隐藏
+                popupsConfigMap.fnShowHideModule(openBankUl);
+                // 创建开户银行li
+                openBankUl.appendChild(popupsConfigMap.fnCreateBankLi(java_img_path));
+
+                $(".open-bank-ul li span").hover(
+                    function(){$(this).parent().addClass("light-purple-bg");},
+                    function(){$(this).parent().removeClass("light-purple-bg");}
+                );
+                // 取得所有的开户银行添加点击写入值事件
+                var allOpenBankLi = openBankUl.getElementsByTagName("li");
+                for(var i=0; i<allOpenBankLi.length; i++){
+                    EventUtil.addHandler(allOpenBankLi[i], "click", function(){
+                        var curBankName = this.getElementsByClassName("open-bank-name");
+                        // (1.)给保存银行值的span赋值
+                        saveOpenBankSpan.innerHTML =  curBankName[0].innerHTML;
+
+                        // (2.)把当前点击银行的bank-code赋值给保存值的span
+                        saveOpenBankSpan.setAttribute("bank-code", curBankName[0].getAttribute("bank-code"));
+
+                        // (3.)最后给把下拉模块隐藏
+                        if(hasClass("dis-none", openBankUl) == false){
+                            openBankUl.className = addClass("dis-none", openBankUl);
+                        }
+                    })
+                }
+            });
+
+
+            // 所在省市
+            var saveProvCityWall = $(".save-prov-city-wall")[0];
+            var provCityDropDown = $(".prov-city-drop-down-module")[0];
+            var provCityWall = $(".prov-city-wall")[0];
+
+            // 加载创建的省份
+            provCityWall.appendChild(twoLevelLinkageConfigMap.createProvince(java_file_path));
+            EventUtil.addHandler(saveProvCityWall, "click", function(){
+                popupsConfigMap.fnShowHideModule(provCityDropDown);
+            });
+
+
+
+
+
+            // 开户支行
+            var openBranchBankUl = $(".open-branch-bank-ul")[0];
+        }
+
+        /** ------ batch-add-bank-card-popups-js.js ~~ start ------ **/
+
+    };
+</script>
+</body>
+</html>
+

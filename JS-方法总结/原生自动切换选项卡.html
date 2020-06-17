@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv = "Content-Type" content = "text/html; Charset=utf-8">
+        <title>js原生自动选项卡切换</title>
+        <style type="text/css">
+            *{margin:0; padding:0;list-style:none; font-family:"Microsoft Yahei"; font-size:14px;}
+            .wall{width:610px; height:440px; margin:30px auto; background-color:#ccc; padding-top:5px;}
+            #myUl{width:600px; height:32px; text-align:center; margin:0 auto; background-color:green; overflow:hidden; padding-top:3px;}
+            #myUl li{float:left; width:130px; height:28px; background:white; margin:0 10px; line-height:25px; cursor:pointer;}
+            #myUl .bgred{background-color:red;}
+            #myDiv {width:600px; height:400px; margin:0 auto; overflow:hidden; text-align:center; background-color:white;}
+            #myDiv p{float:left; display:none;}
+            #myDiv .cssStyle{width:600px; height:400px;background:white; display:block;}
+        </style>
+
+        <script type="text/javascript">
+            // function getIndex(ele){ //这个是另一种取得当前索引的方式
+            //     var n = 0;
+            //     var pre = ele.previousSibling;
+            //     while(pre != null){
+            //         if(pre.nodeType == 1){
+            //               n++;
+            //         }
+            //         pre = pre.previousSibling;
+            //     };
+            //     return n;
+            // }
+
+            window.onload = function(){
+                 currentElement();
+                 var myWall = document.getElementById("wall");
+                 myWall.onmouseover = function(){over(1)};
+                 myWall.onmouseout = function(){over(0)};
+                 over(0);
+            };
+            
+            var number = 0;
+            function currentElement() {
+                var myLi = document.getElementById("myUl").getElementsByTagName("li");
+                for(var i=0; i<myLi.length; i++){
+                    myLi[i].index = i;  //强制把i的值赋给当前元素的索引
+                    myLi[i].onclick = function(){
+                        changeTab(this.index);
+                        number = this.index;
+                    }
+                }
+            }
+            
+            function autoRun() {
+                var myLi = document.getElementById("myUl").getElementsByTagName("li"); 
+                number++;
+                number = (number == myLi.length) ? 0 : number; 
+                changeTab(number);
+            }
+            /*function autoRun(){
+                number++;  //获取当前元素的索引的方法三
+                var myLi = document.getElementById("myUl").getElementsByTagName("li");
+                if(number == myLi.length){
+                    number = 0;
+                }
+                changeTab(number);
+            }*/
+
+            function changeTab(num){
+                //var currentIndex = getIndex(this);
+                var myP = document.getElementById("myDiv").getElementsByTagName("p");
+                var myLi = document.getElementById("myUl").getElementsByTagName("li");
+               /*var currentIndex=0;//获取当前元素的索引方法二
+                var pre = this.previousSibling;
+                while(pre != null){
+                    if(pre.nodeType == 1){
+                        currentIndex++;  
+                    }
+                    pre = pre.previousSibling;
+                }*/
+                for(var j=0; j<myP.length; j++){
+                    myLi[j].className = null;
+                    myP[j].className = null;
+                }
+                myLi[num].className = "bgred";
+                myP[num].className = "cssStyle";
+            }
+            
+            var intervalId = null;
+            function over(n){
+                if(n){
+                    clearInterval(intervalId);
+                    intervalId = null;
+                }else{
+                  intervalId = setInterval(autoRun, 1000);
+                }
+            }
+            
+        </script>
+    </head>
+
+    <body>
+        <div class="wall" id="wall">
+            <ul id="myUl">
+                <li class="bgred">第一个选项卡</li>
+                <li>第二个选项卡</li>
+                <li>第三个选项卡</li>
+                <li>第四个选项卡</li>
+            </ul>
+           
+            <div id="myDiv">
+                <p class ="cssStyle">
+                    第一个选项卡里的文字<br/>第一个选项卡里的文字<br/>第一个选项卡里的文字<br/>第一个选项卡里的文字
+                </p>
+                <p>
+                    第二个选项卡里的文字<br/>第二个选项卡里的文字<br/>第二个选项卡里的文字<br/>第二个选项卡里的文字
+                </p>
+                <p>
+                    第三个选项卡里的文字<br/>第三个选项卡里的文字<br/>第三个选项卡里的文字<br/>第三个选项卡里的文字
+                </p>
+                <p>
+                    第四个选项卡里的文字<br/>第四个选项卡里的文字<br/>第四个选项卡里的文字<br/>第四个选项卡里的文字
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

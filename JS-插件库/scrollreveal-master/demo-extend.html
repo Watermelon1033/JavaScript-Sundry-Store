@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>4.3. Add Perspective to 3D Rotation 添加透视到3D旋转</title>
+    <link rel="stylesheet" href="../../reset.css">
+    <link rel="stylesheet" href="../../global-app.css">
+    <script type="text/javascript" src="dist/scrollreveal.js"></script>
+    <script type="text/javascript" src="../../functions.js"></script>
+    <script>
+        window.sr = ScrollReveal();
+        // Add class to <html> if ScrollReveal is supported
+        // Note: this method is deprecated, and only works in version 3
+        if (sr.isSupported()) {
+            document.documentElement.classList.add('sr');
+        }
+    </script>
+
+    <style>
+        /* Ensure elements load hidden before ScrollReveal runs */
+        .sr .fooReveal { visibility: hidden; width:20%; height:6rem; background:#0DBA8F;  margin-left:10%; margin-top:5%; }
+        /* add perspective to your container */
+        .fooContainer { perspective: 800px; }
+    </style>
+
+</head>
+<body>
+    <div class="fooContainer">
+        <div class="fooReveal foo1"> Foo </div>
+        <div class="fooReveal"> Foo </div>
+        <div class="fooReveal"> Foo </div>
+    </div>
+
+    <!-- make reveal calls last -->
+    <script type="text/javascript">
+        // use rotation(旋转) in reveal configuration
+        sr.reveal('.fooReveal', { container: '.fooContainer', rotate: {x: 65} });
+
+        var ts;
+        (function(window){
+            function ToolSet(){
+                if(typeof this==="undefined" || Object.getPrototypeOf(this) !== ToolSet.prototype){
+                    return new ToolSet();
+                }
+            }
+
+           /* ToolSet.prototype.isObject = function(object){
+                return object !== null && typeof object === "object" && object.constructor === Object
+            };
+            ToolSet.prototype.forOwn = function(object, callback){
+                // 1.如果不是对象
+                if(!this.isObject(object)){
+                    throw new TypeError("Expected 'object' but received (预期是对象，但是收到的是)" + typeof object + ".");
+                }else{
+                    // 2.假如当前object对象已经有property属性了
+                    for(var property in object){
+                        if(object.hasOwnProperty(property)){
+                            callback(property);     //回调函数直接调用当前的property属性
+                        }
+                    }
+                }
+            };
+            ToolSet.prototype.extend = function(target, source){
+                this.forOwn(source, function(property){
+                    if(this.isObject(source[property])){
+                        if( !target[property] || !this.isObject(target[property])){
+                            target[property] = {};
+                        }
+                        this.extend(target[property], source[property]);
+                    }else{
+                        target[property] = source[property];
+                    }
+                }.bind(this));
+                return target;
+            };*/
+
+
+           ToolSet.prototype = {
+                constructor: ToolSet,
+
+                isObject: function(object){
+                    //console.log(object);
+                    return object !== null && typeof object === "object" && object.constructor === Object;
+                },
+
+                forOwn: function(object, callback){
+                    // 1.如果不是对象
+                    if(!this.isObject(object)){
+                        throw new TypeError("Expected 'object' but received (预期是对象，但是收到的是)" + typeof object + ".");
+                    }else{
+                        // 2.假如当前object对象已经有property属性了
+                        for(var property in object){
+                            if(object.hasOwnProperty(property)){
+                                callback(property);     //回调函数直接调用当前的property属性
+                            }
+                        }
+                    }
+                },
+
+                extend: function(target, source){
+                    //这里的this是通过bind()方法传进来的，改变this为当前extend方法。(具体为什么要这样写还不太明白)
+                    //console.log(this.name);
+                    this.forOwn(source, function(property){
+                        if(this.isObject(source[property])){
+                            if( !target[property] || !this.isObject(target[property])){
+                                target[property] = {};
+                            }
+                            this.extend(target[property], source[property]);
+                        }else{
+                            target[property] = source[property];
+                        }
+                    }.bind(this));
+                    return target;
+                }
+            };
+
+            window.ToolSet = ToolSet;
+        })(window);
+
+
+        var a = {
+            name: "Wang",
+            age : 28
+        };
+        var b = {
+            sex: "male",
+            age: 29
+        };
+
+
+        window.onload = function(){
+            console.log(ToolSet().extend(b, a));
+            //console.log(ToolSet.extend(b, a));  //{sex: undefined, age: 28}
+        };
+
+
+
+
+    </script>
+</body>
+</html>

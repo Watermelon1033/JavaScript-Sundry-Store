@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>17-10-5-replace()语法讲解+示例</title>
+    <style type="text/css"></style>
+</head>
+<body>
+    <div>
+
+    </div>
+
+
+    <script type="text/javascript">
+        /**
+         * 《js高程》上第5章引用类型:
+         *  引用类型包含:
+         *      (1.). Object类型
+         *      (2.). Array类型
+         *      (3.). Date类型
+         *      (4.). RegExp类型
+         *      (5.). Function类型
+         *      (6.). 基本包装类型
+         *          a. Boolean类型
+         *          b. Number类型
+         *          c. String类型
+         *      (7.). 单体内置对象类型
+         *          a. Global对象
+         *          b. Math对象
+         *   ----------------------
+         *   String 类型中有几个比较强大的 "字符串的模式匹配方法" :
+         *      (1.) Match() 这个方法 本质上与调用RegExp的exec()方法相同.
+         *              只接受一个参数: 正则表达式 || RegExp对象
+         *      (2.) 查找模式的方法 search()
+         *      (3.) 简化替换子字符串的操作的方法 replace()
+         *      (4.) split(): 基于指定的分隔符将一个字符串分割成多个子字符串，并将结果放在一个数组中。
+         *              split()方法还可以接受第二个参数，用于指定数组的大小，以确保返回的数组不会超过既定大小。
+         *   ------------------------
+         *   replace(): P127~ P128
+         *      (1.) 第一个参数可以是一个RegExp对象或者是一个字符串。
+         *          (1-1.)如果第一个参数值字符串，那么只会替换第一个字符串。若想替换所有子字符串，就提供一个正则表达式。
+         *
+         *      (2.) 第二个参数可以是一个字符串或一个函数。
+         *          (2-1.)如果第二个参数为函数的话，在只有一个匹配项(即与模式匹配的字符串)的情况下，会向这个函数传递3个
+         *      参数:
+         *          function(模式的匹配项, 模式匹配项在字符串中的位置，原始字符串){}
+         *          在正则表达式中定义了多个捕获组的情况下，传递给函数的参数依次是模式的匹配项，第一个捕获组的匹配项，
+         *          第二个捕获组的匹配项...， 但最后两个参数仍然分别是模式的匹配项在字符串中的位置和原始字符串。这个
+         *          函数应该返回一个字符串，表示应该被替换的匹配项使用函数作为replace()方法的第二个参数可以实现更加
+         *          精细的替换操作。 示例见 htmlEscape()
+         */
+
+        var text = "cat, bat, sat, fat";
+        // . : 匹配换行符之外的任何单个字符
+        var pattern = /.at/g;
+
+        var matches = text.match(pattern);
+        console.log(matches);       // ["cat", "bat", "sat", "fat"]
+
+
+        /** replace()讲解blog:
+         *      http://www.cnblogs.com/whitewolf/archive/2013/03/14/2958720.html
+         *
+         *  1:第二个参数为字符串：
+             对于正则replace约定了一个特殊标记符$：
+                (1.) $i (i:1-99)     :     表示从左到右正则子表达式所匹配的文本。
+                (2.) $&              :     表示与正则表达式匹配的全文本。
+                (3.) $`(`:切换技能键) :     表示匹配字符串的左边文本。
+                (4.) $’(‘:单引号)    :     表示匹配字符串的右边文本。
+                (5.) $$             :     表示$转移。
+         */
+        var str1 = "Ha Ha";
+        // \b: 匹配一个单词的边界位置  \w: 匹配数字，字母，下划线。等于[a-zA-Z0-9]
+        var str2 = str1.replace(/\b\w+\b/g, "He");
+        console.log(str2);      // He He
+
+        var str3 = "boy  &  girl";
+        // \s: 匹配一个空白字符。 +: 匹配前面元字符一次或多次。  *: 匹配前面元字符0次或多次
+        var str4 = str3.replace(/(\w+)\s*&\s*(\w+)/g, "$2 & $1");
+        console.log(str4);      // girl & boy
+
+        var str5 = "boy";
+        var str6 = str5.replace(/\w+/g, "$&-$&");
+        console.log(str6);      // boy-boy
+
+        var str7 = "javascript";
+        var str8 = str7.replace(/script/, "$& != $`");
+        console.log(str8);      // javascript != java
+
+        var str9 = "javascript";
+        var  str10 = str9.replace(/java/, "$&$' is ");
+        console.log(str10);     // javascript is script
+
+
+        /**
+         * 2. replace()方法: 第二个参数(parameter/pə'ræmɪtə/ )为函数时, 全部的参数为:
+         *    (1.) 第一个参数为每次匹配的全文本 ($&)
+         *    (2.) 中间的参数为子表达式匹配字符串，个数不限。 ($i(i:1-99))
+         *    (3.) 倒数第二个参数为匹配文本字符串的下标位置。
+         *    (4.) 最后一个参数表示字符串本身。
+         */
+        // capitalize /ˈkæpɪtlˌaɪz/ vt 用大写字符写或印刷，充分利用某事物
+        String.prototype.capitalize = function(){
+            // \s: 匹配一个空白字符
+            return this.replace(/(^|\s)([a-z])/g, function(m, p1, p2){
+                return p1 + p2.toUpperCase();
+            })
+        };
+        var str11 = "i am a boy!";
+        console.log(str11.capitalize());       // I Am A Boy!
+
+
+        // 2. 对字符串" 张三56分，李四74分，王五92分，赵六84分 "的分数提取汇总，算出平均分并输出每人的与平均分的差。
+
+        var s = "张三56分，李四74分，王五92分，赵六84分";
+        var a = s.match(/\d+/g);
+        console.log(a);         // ["56", "74", "92", "84"]
+        // reduce()方法: 迭代数组的所有项，然后构建一个最终返回的值。这个方法接收2个参数:
+        //      (1.)  一个在每一项上调用的函数。
+        //      (2.) (可选的)作为归并基础的初始值。
+
+        var fReduce = a.reduce(function(obj, item){return parseFloat(obj) + parseFloat(item)});
+        console.log(fReduce);       // 306
+        var average = parseFloat(parseFloat(fReduce) / a.length);
+        console.log(average);       // 76.5
+
+        var result = s.replace(/(\d+)分/g, function(){
+           var n = parseFloat(arguments[1]);
+           return n + "分" + " (" + ((n > average) ? ("超出平均分" + (n - average)) : (" 低于平均分 " + (average - n))) + "分)";
+        });
+
+        console.log(result); // 张三56分 (低于平均分 20.5分)，李四74分 (低于平均分 2.5分)，王五92分 (超出平均分 15.5分)，赵六84分 (超出平均分 7.5分)
+
+
+
+        /*------------------- replace()方法使用示例~~start -----------------------*/
+
+        //转驼峰的回调函数: 2个参数: (1.)正则的整体. (2.) 正则里的子项
+        // all 所指代的正则为: rdashAlpha = /-([\da-z])/gi
+        var fcamelCase = function (all, letter) {
+            return letter.toUpperCase();
+        };
+
+        var camelCase = function(string){
+            // 第一个replace()转换这样:  -ms-transfor -> msTransform 只转IE下这种情况
+            // 第二个replace()转换:
+            //      margin-top -> marginTop
+            //      -moz-transform ->  MozTransform
+            return string.replace(rmsPrefix, "ms-").replace(rdashAlpha, fcamelCase);
+        }
+
+        /*------------------- replace()方法使用示例~~over -----------------------*/
+
+
+
+    </script>
+</body>
+</html>

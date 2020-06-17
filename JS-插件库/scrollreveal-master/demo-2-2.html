@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ScrollReveal 间隔动画</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="global.css">
+    <script type="text/javascript" src="scrollreveal-analysis.js"></script>
+    <script type="text/javascript" src="global-functions.js"></script>
+    <style type="text/css">
+        body{color:#f0f0f0;}
+        .wall {
+            margin-top:200px;
+        }
+        p{
+            float:left; 
+            font-size:24px; 
+            line-height:4rem;
+            width:10%;
+            text-align:center;
+            background:lightsalmon; 
+            margin-left:2%; 
+            margin-bottom:2%;}
+        .wall{width:50%;}
+    </style>
+</head>
+<body>
+    <div class="container  green-bg  over-hid">
+        <div class="wall wid-40 margin-auto mar-top-2 mar-bot-2 lin-hei-2"></div>
+    </div>
+
+    <script type="text/javascript">
+        window.onload = function(){
+              // Scroll Reveal 滚动显示
+              //   1. scroll       /skrəʊl/        vt 滚动
+              //   2. reveal       /rɪ'viːl/       vt 显示
+              //   3. scale        /skeɪl/         n  比例
+              //   4. rotate       /rə(ʊ)'teɪt/    vi 旋转， 循环
+              //   5. transition:  /træn'zɪʃ(ə)n/  n  过渡， 转换
+              //   7. delay        /dɪ'leɪ/        n  延迟， 延期
+              //   8. consider     /kən'sɪdə/      v  考虑，关心，体谅
+              //
+              //   6. linear /'lɪnɪə/: adj.线的     线性动画-->     没有任何缓动的动画称为线性动画。 css3的动画效果为:
+              //      ease-out：                    缓出动画-->     缓出使动画在开头处比线性动画更快但在结尾处减速。缓出一般最适合界面，开头时快速使动画有反应快的感觉，在结尾仍允许有一点自然的减速。
+              //      ease-in:                      缓入动画-->     缓入动画开头慢结尾快，与缓出动画正好相反。(页面中几乎用不到)
+              //      ease-in-out:                  缓入缓出动画-->  缓入并缓出与汽车加速和减速相似，使用得当时，可以实现比单纯缓出更生动的效果
+
+             var container = getClassName("container")[0];
+            container.style.height = window.innerHeight + "px";
+            container.style.width = window.innerWidth + "px";
+
+            var wall = getClassName("wall")[0];
+            // 动态创建P标签并插入到div中
+            (function createPTag(){
+                var fragment = document.createDocumentFragment();
+                for(var i=0; i<8; i++){
+                    var createP = document.createElement("p");
+                    createP.className = "foo";
+                    createP.appendChild(document.createTextNode(i + 1));
+                    fragment.appendChild(createP);
+                }
+                wall.appendChild(fragment);
+            })(wall);
+
+            //总动画运动时间为2s,每一个之间的间隔为50ms
+            window.sr = ScrollReveal();
+
+            console.log(window.Node);
+
+
+            sr.reveal(document.querySelectorAll('.foo'), { duration: 2000}, 50);
+           // sr.reveal(".foo", { duration: 3000 }, 60);
+
+            // console.log(window.Node);
+
+        }
+    </script>
+</body>
+</html>

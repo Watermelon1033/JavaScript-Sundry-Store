@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsonp的实现方式</title>
+    <style type="text/css">
+        *{ margin:0; padding:0; }
+        #result {
+            width: 600px; height: 720px;
+            background: lightgoldenrodyellow;
+            margin: 20px;
+            border-radius: 4px;
+            overflow: auto;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="result"></div>
+
+    <script type="text/javascript">
+
+        /** Create on 20190120  */
+
+        /** 代码来源: https://github.com/webmodules/jsonp */
+
+        var count = 0;
+        function noop(){}
+
+        function jsonp(url, opts, fn){
+            if ('function' === typeof opts) {
+                fn = opts;
+                opts = {};
+            }
+            if (!opts) opts = {};
+
+            var prefix = opts.prefix || '__jp';
+
+            // use the callback name that was passed if one was provided.
+            // otherwise generate a unique name by incrementing our counter.
+            // 如果没有传入 {name: xxx} 的情况下， 第一次调用 id = "__jp0"
+            var id = opts.name || (prefix + (count++));
+
+            var param = opts.param || 'callback';
+            // 1、如果 opts 中存在 timeout 就把值赋给 opts.timeout，如果不存在
+            // 就把 60000 赋值给 opts.timeout.
+            // 注意: 这里 null 只是当作默认值赋值给 timeout, 因为后面是个三元运算符
+            // 所以 timeout 始终都不会等于 null (这里不是特别明白)
+            var timeout = null != opts.timeout ? opts.timeout : 60000;
+            console.log("timeout: ", timeout);
+            /*
+             * Global 对象的 encodeURI() 和 encodeURIComponent() 方法可以对
+             * URI（Uniform ResourceIdentifiers，通用资源标识符）进行编码，以便发送给
+             * 浏览器。有效的 URI 中不能包含某些字符，例如空格。而这两个 URI 编码方法就可
+             * 以对 URI 进行编码，它们用特殊的 UTF-8 编码替换所有无效的字符，从而让浏览器能够接受和理解。
+             */
+            var enc = encodeURIComponent;
+            var target = document.getElementsByTagName('script')[0] || document.head;
+            var script;
+            var timer;
+
+            // 默认 timeout = 60000 所以一定存在
+            if (timeout) {
+                // 把超时调用赋值给 timer
+                timer = setTimeout(function(){
+                    cleanup();
+                    if (fn) fn(new Error('Timeout'));
+                }, timeout);
+            }
+
+            function cleanup(){
+                if (script.parentNode) {
+                    script.parentNode.removeChild(script);
+                }
+                window[id] = noop;
+                if (timer) clearTimeout(timer);
+            }
+
+            // cancel() 在最后 return 时才调用
+            function cancel(){
+                // ??? 这个 if 语句什么时候执行？: 没找到执行的条件
+                if (window[id]) {
+                    cleanup();
+                }
+            }
+
+            // 默认不传入 opts.param 时 window[id] = window.__jp0
+            /**
+             * Q: 这个 window[id] 是什么时候执行的？
+             * A: 在下面 target.parentNode.insertBefore(script, target); 这句代码执行后
+             *   ，创建好的完整 script (<script src="http://api.douban.com/v2/movie/
+             *   in_theaters?callback=__jp0">) 会被插入到 这段 script 之上，后台解析 __jp0
+             *   之后，会返回一个 __jp0(data) 数据回来，实际上就是服务器把要返回的 data 数据
+             *   封装之后返回来，因为 window.__jp0 = function(data){...}, 所以此时浏览器
+             *   接受到 __jp0(data) 之后，就会立即执行调用。
+             *   [参考文章](https://www.jianshu.com/p/5df100914fb2)
+             * */
+            window[id] = function(data){
+                cleanup();
+                if (fn) fn(null, data);
+            };
+
+
+            // add qs component
+            url += (~url.indexOf('?') ? '&' : '?') + param + '=' + enc(id);
+            // console.log("url: ", url);
+            url = url.replace('?&', '?');
+            console.log("url2: ", url);
+
+            // create script
+            script = document.createElement('script');
+            script.src = url;
+            // <script src="http://api.douban.com/v2/movie/in_theaters?callback=__jp0">
+            console.log("script", script);
+
+            // target.parentNode = body
+            // target 为当前 js 代码的包围 script 标签
+            target.parentNode.insertBefore(script, target);
+
+            return cancel;
+        }
+
+
+        jsonp(
+            // 地址
+            "http://api.douban.com/v2/movie/in_theaters?",
+            // 回调函数
+            { timeout: 3000 },
+            function (err, data) {
+                if (err) throw err;
+                document.getElementById("result").innerHTML = JSON.stringify(data);
+            }
+        );
+
+
+    </script>
+</body>
+</html>

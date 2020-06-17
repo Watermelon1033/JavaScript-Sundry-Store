@@ -1,0 +1,262 @@
+@charset "UTF-8";
+
+/* ------批量转账到银行卡 - 主体 main -- start------ */
+
+.main-wall{
+     width:100%;
+ }
+.main-wall .main{
+    width:1198px;  min-height:688px;
+    background:#fff; margin-top:25px;
+    margin-bottom:100px;
+}
+.main-head{
+    height:52px; line-height:52px;
+    width:100%;  background:#d8e4f9;
+}
+.main-head-title{
+    width:18%; font-size:16px;
+    background:#1198E3;
+}
+
+/* 服务器返回错误提示弹框--start */
+.error-box-wall{
+    height:40px;
+}
+.service-error-box{
+    width:600px; line-height:40px;
+    background:#ff6c6e;  height:0;
+    border-radius: 0 0 6px 6px;
+}
+.service-error-box .service-error-icon{
+    cursor:pointer; padding:4px;
+    margin-right:6px; margin-top:4px;
+}
+/* 服务器返回错误提示弹框--over */
+
+/* 批量转账模块 batch transfer module */
+.batch-module{ margin-top:20px; }
+/* 批量转账-主体(main)-左侧模块(left module)-样式--start */
+.batch-module-left{  width:74%;  }
+    /* 左边74%里面每一行及每一行的左和右都需要的公共样式--start */
+    .batch-every-line{ margin-bottom:30px;}
+    .public-batch-left-font{
+        line-height:40px; text-align:center;
+        letter-spacing: 1px;
+        width:16%;;
+        background-color:#f7f7f7;
+        border-left: 4px solid #1198E3;
+        border-radius: 0 2px 2px 0;
+    }
+    .public-batch-module{
+        width:82%;
+    }
+    /* 左边74%里面每一行及每一行的左和右都需要的公共样式--over */
+
+    .linear-gradient-to-fcf{
+        background-image:linear-gradient(to right, #f7f7f7, #fcfcfc);
+    }
+
+
+    /* 1. 第一行: 批量转账到 样式*/
+    .batch-to-bank, .batch-to-purse, .transfer-time{
+        line-height:38px;  width:178px;
+        border-radius:4px;  margin-right:40px;
+        cursor:pointer;
+    }
+
+    /* 2. 第二行: 收款信息 样式*/
+    .payee-info-head{
+        margin-bottom:12px;
+        /*background-color:#f7f7f7;*/
+    }
+    .payee-info-head ul li{
+        float:left; line-height:40px;
+        font-weight:300; letter-spacing:1px;
+        margin-right:2%; text-indent:10px;
+    }
+    .payee-name{
+        width:16%;/* border-bottom:1px solid darkseagreen;*/
+    }
+    .payee-bank-card-info{
+        width:26%; /*border-bottom:1px solid lightcoral;*/
+    }
+    .payee-money, .payee-remark{
+        width:23%; /*border-bottom:1px solid lightskyblue;*/
+    }
+    .payee-remark{
+       /* border-bottom:1px solid coral;*/
+    }
+
+    /* 动态创建行样式 - start */
+    .dynamic-create-line{  }
+    .dynamic-create-line div{
+        float:left;  margin-right:2%;
+        overflow:hidden;
+    }
+    .dynamic-create-line input{
+        display:block;  height:38px;
+        line-height:38px; width:98%;
+        text-indent: 10px;  border-radius:4px;
+        background-color:#fff;
+        border: 1px solid #a8abb0;
+        letter-spacing:0.5px;
+    }
+    .dynamic-create-line input:hover{
+        border: 1px solid #44a8f2;
+    }
+
+    .dynamic-create-line span{
+        display:block; height:26px;
+        line-height:20px;
+        color:#323232; text-indent:4px;
+    }
+    .dynamic-create-line span.errorSpan{
+        color:#f34f50; font-size:12px;
+    }
+    .dynamic-create-line .bank-card-p{
+        color:#a5a4a4; height:38px;
+        line-height:38px; cursor:pointer;
+        overflow:hidden;  text-align:center;
+        background-color:#fff; border-radius:4px;
+        border: 1px solid #a8abb0;
+    }
+    .dynamic-create-line .bank-card-p:hover{
+        border: 1px solid #44a8f2;
+        color:#26abf4;;
+    }
+    .payee-div{width:16%;}
+    .bank-card-div{width:26%;}
+        /* "银行卡信息"中需要需要动态创建的的span  */
+    .bank-card-div .bank-card-p span{
+        float:left; line-height:36px;
+        height:100%; text-align:center;
+    }
+    .bank-card-div .bank-card-p  .bank-img{
+        width:22%; border-right: 1px dashed #ccc;
+    }
+    .bank-card-div .bank-card-p  .bank-img img{
+        width:20px; height:20px; margin-top:9px;
+    }
+    .bank-card-div .bank-card-p .bank-name{
+        width:52%; border-right:1px dashed #ccc;
+    }
+    .bank-card-div .bank-card-p .card-num{ width:24%; }
+
+
+    .transfer-amount-div{width:23%;}
+    .transfer-amount-div input{text-indent:8px !important;}
+    .remark-div{width:23%; margin-right:1.5% !important;}
+    .del-line-btn-div{margin-right:0 !important; width:4%; height:38px;}
+    .del-line-btn-div .del-line-icon{
+        display:block; cursor:pointer;
+        width:100%; height:100%;
+        /* ../一级到batch-transfer-css文件夹再加一级../到css文件夹然后找下面的img */
+        background: url("../img/icon/closeIcon.png") no-repeat center center;
+    }
+    /* 动态创建行样式 - over */
+
+    /*增加收款人~批量导入~下载模板——按钮 - start*/
+    .three-function-btn p{
+        float:left; position:relative;
+        margin-right:30px; width:138px;
+        height:38px; overflow:hidden;
+        line-height:38px; background:#fff;
+        border-radius:4px; cursor:pointer;
+    }
+
+    .three-function-btn > a {
+        width:140px; height:42px;
+        display:inline-block;
+        line-height:inherit;
+        overflow:hidden;
+        color:inherit;
+    }
+    /* 三个功能按钮(P标签): "默认/选中"样式 */
+    .function-btn-default{
+        color:#646464;
+        cursor:pointer;
+        border:1px dashed #707070;
+    }
+    .function-btn-selected{
+        color: #20a2e6;
+        border:1px dashed #0093ff;
+    }
+
+    .three-function-btn p label{
+        cursor:pointer; color:inherit;
+    }
+    /*.download-template-a{
+        line-height:inherit; color:inherit;
+    }*/
+
+    .three-function-btn .font-icon{
+        margin-left:26px; margin-right:8px;
+    }
+    /*增加收款人~批量导入~下载模板——按钮 - over*/
+
+    /* 3. 第三行: "账户详情"中需要自定义class ~~ start */
+    .line-hei-28{line-height:28px;}
+    .line-hei-30{line-height:30px;}
+    .line-hei-38{line-height:38px;}
+    .line-hei-40{line-height:40px;}
+    .hei-40     {height:40px;}
+    .wid-24-per {width:24%;}
+    .wid-178    {width:178px;}
+    .mar-top-50 {margin-top:50px;}
+    .mar-bot-60 {margin-bottom:60px;}
+    /* 3. 第三行: "账户详情"中需要自定义class ~~ over */
+
+
+    /* 2小时/24小时到账 */
+    .two-hours-arrive-span, .twenty-four-hours-arrive-span{
+        float:left;
+        text-align:center;
+        position:relative;
+        overflow:hidden;
+    }
+
+
+    /* 4. 第四行: 账户详情 */
+    .total-payment-wall{
+        line-height: 40px;
+    }
+
+
+    /* 收费规则下 ~~ start */
+      /* 下拉朝上的三角形 */
+    .triangleIcon2::before, .triangleIcon2::after{
+        content:" ";  position:absolute;
+        left:6%; z-index:1;
+        border-style:solid;
+        border-width:13px; top:-25px;
+        border-color: transparent transparent #6d6d6d transparent;
+    }
+    .triangleIcon2::after {
+        left: 6%;
+        top: -24px;
+        z-index: 2;
+        border-width: 13px;
+        border-style: solid;
+        border-color: transparent transparent #c9dbfb transparent;
+    }
+
+      /* 下拉表格样式 */
+    .charge-tip-box table tr th{
+        text-indent:12px; background:#c9dbfb;
+        line-height:35px;
+    }
+    .charge-tip-box table tr td{
+        font-size:12px; line-height:32px;
+        width:24%; text-align:center;
+    }
+    .charge-tip-box table .charge-table-second-tr{
+        background-color:#cfeefc;
+    }
+    /* 收费规则下 ~~ over */
+
+
+
+/* 批量转账-主体(main)-左侧模块(left module)-样式--over */
+
+/* ------批量转账到银行卡 - 主体 main -- over------ */

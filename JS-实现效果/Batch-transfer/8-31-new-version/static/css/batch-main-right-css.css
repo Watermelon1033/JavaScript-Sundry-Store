@@ -1,0 +1,336 @@
+@charset "UTF-8";
+
+/* 批量转账-主体(main)-右侧模块(right module)-样式 */
+
+.batch-module-right{ width:25%; }
+/* 右侧25%模块下每行需要的公共样式 */
+.right-public-div{
+    margin-bottom:15px; overflow:hidden;
+    width:96%; float:right;
+}
+.right-public-div div.right-public-p-wall{
+    cursor:pointer;
+    /*letter-spacing: 1px;*/
+    color:#1198E3;
+    border-radius:4px 1px 1px 4px;
+    border-right: 3px solid #1198E3;
+    /*background-color:#d8e4f9;*/
+}
+.right-public-div div.right-public-p-wall:hover{
+    background-color:#bad3ff;
+}
+
+.right-public-div div.right-public-p-wall p{
+    width:198px; margin:auto;
+    letter-spacing:1px; font-size:15px;
+    /*color:#1198E3;*/
+    line-height:40px;
+}
+
+.public-p-wall-default{
+    background-color:#d8e4f9;
+}
+.public-p-wall-clicked{
+    color:#1198E3 !important;
+    background-color:#bad3ff;
+}
+
+/* 下拉模块ul-li及5个span公用样式 */
+ul.public-ul-module-style{
+    width:96%; margin:0 auto;
+    height:368px;
+    border-radius:8px;
+    background-color:#fff;
+}
+ul.public-ul-module-style li{
+    height:35px; line-height:35px;
+    border-radius:2px;
+    cursor:pointer; overflow:hidden;
+    border-bottom:1px solid #e6e6e6;
+}
+ul.public-ul-module-style li span{
+    float:left; overflow:hidden;
+    text-align:center;
+}
+
+span.public-font-icon-span{
+    width:8%; padding-left:2%;
+}
+span.public-font-icon-span i{margin-top:10px;}
+span.public-name-span{
+    width:30%;  overflow:hidden;
+}
+span.public-bank-img-span{
+    width:9%; text-align:right; margin-right:1%;
+}
+span.public-bank-img-span img{
+    width:18px; height:18px; margin-top:9px;
+}
+span.public-bank-name-span{width:32%;}
+span.public-card-num-span{width:18%;}
+
+/* 向"单人转账"按钮 */
+.transfer-to-single a{
+    /*color:#4e4e4e;*/
+    color:#1198E3;
+}
+
+/* "最近转账人/常用联系人"整行标题中的span样式 */
+div.right-public-p-wall p span{
+    margin-left:12px; margin-right:10px;
+}
+div.right-public-p-wall .font-icon-up-triangle{
+    color:#f5f5f5; left:46%; top:75%;
+}
+
+.recent-transfer-per-wall{
+    /*height:348px;*/
+    height:40px;
+}
+/* "最近转账人--ul下拉样式" -- start */
+.recent-transfer-ul-wall{
+    padding-top:6px;
+    background-color:#f5f5f5;
+    overflow:hidden;
+    border-radius:0 0 8px 8px;
+}
+.recent-transfer-ul{
+    background-color:#f5f5f5;
+    border-radius:0 0 8px 8px;
+}
+.recent-transfer-ul li{
+    cursor:pointer;
+    width:96%; margin:auto;
+    font-size:13px;
+}
+
+.right-module-li-selected{
+    color:#1198E3;
+    background-color:#d8e4f9;
+}
+
+.recent-trans-two-btn-wall{
+    width:96%; margin:6px auto;
+    height:32px; line-height:32px;
+    text-align:center;
+}
+.recent-trans-two-btn-wall span{
+    display:inline-block;
+    width:40%;
+    font-size:13px;
+    cursor:pointer;
+    text-align:center;
+    border-radius:4px;
+    background-color:#d8e4f9;
+}
+.recent-trans-two-btn-wall span:hover{
+    background-color:#bad3ff;
+}
+.recent-selected-all-btn{
+    float:left;
+    margin-left:5%;
+}
+.recent-cancel-selected-btn{
+    float:right;
+    margin-right:5%;
+}
+
+
+.light-grey-font{
+    color:#989898;
+}
+/* 下拉li添加的点击样式 */
+.drop-down-li-selected{
+    color:#26abf4;
+    background-color:#d8e4f9;
+}
+/* "最近转账人--ul下拉样式" -- over */
+
+
+
+/* "常用联系人"--下拉模块 ~~ start */
+.frequent-contacts-module{
+    background-color:#f5f5f5;
+    overflow:hidden;
+    border-radius:0 0 8px 8px;
+    /*height:586px;*/
+    height:0;
+}
+
+.search-bar-wall{
+    width:96%; margin:10px auto 6px;
+    height:30px; line-height:30px;
+    background-color:#fff;
+    overflow:hidden;
+    border-radius:8px;
+    box-shadow:0 0 2px rgba(0,0,0,0.2);
+}
+.search-bar-wall input{
+    width:86%; height:30px;
+    border:0; text-indent:10px;
+}
+.search-bar-wall span{
+    display:inline-block;height:100%;
+    width:12%; text-align:center;
+}
+.search-bar-wall input.search-bar-input:hover{
+    border:0 !important;
+}
+.search-bar-wall input.search-bar-input:focus{
+    border:0 !important;
+}
+.search-bar-icon{ cursor:pointer;}
+
+.frequent-contacts-ul li{
+    width:96%; margin-left:1%;
+}
+
+.public-group-module{
+    /* height:34px;*/
+    margin:0 auto;
+}
+.public-group-drop-down{
+    border-radius:6px;
+    overflow: hidden;
+}
+.group-header-long-btn{
+    cursor:pointer;
+    line-height:36px;
+    text-align:left;
+    /*color:#4e4e4e;*/
+    /*letter-spacing:1px;*/
+    text-indent:6px;
+    /*background-color:#d8e4f9;*/
+    background-color:#fff;
+    /* border: 1px solid #1198E3;*/
+}
+
+.group-header-long-btn:hover{
+    cursor:pointer;
+    color:#1198E3;
+    /*letter-spacing:1px;*/
+    background-color:#d8e4f9;
+    /*border: 1px solid #1198E3;*/
+
+}
+
+.group-header-long-btn span{
+    margin-right:3px;
+    display:inline-block;
+    /*width:24%; text-align:center;*/
+}
+
+.five-group-module-wall{
+    background-color:#fff;
+    border-radius:8px;
+    width:96%; margin:0 auto;
+    height:542px;
+    overflow:hidden;
+}
+.public-group-drop-down{
+    height:0;
+    width:98%;
+    margin:0 auto;
+    border-radius: 0 0 6px 6px;
+    overflow:hidden;
+    /*box-shadow:0 1px 5px rgba(0,0,0,0.3);*/
+}
+.group-drop-down-ul{
+    /*width:92%;*/ margin:auto;
+    height:272px;
+    overflow:auto;
+}
+.group-drop-down-ul li{
+    margin-top:2px;
+    height:28px;
+    font-size:13px;
+    cursor:pointer; overflow:hidden;
+    border-bottom:1px solid #f6f6f6;
+}
+.group-drop-down-ul li span{
+    float:left; overflow:hidden;
+    height:100%;
+    text-align:center;
+    line-height:28px;
+}
+
+span.group-public-font-icon-span{
+    width:8%; /*padding-left:2%;*/
+}
+span.group-public-font-icon-span i{margin-top:8px;}
+span.group-public-name-span{
+    width:30%;  overflow:hidden;
+}
+span.group-public-bank-img-span{
+    width:10%; text-align:center;
+}
+span.group-public-bank-img-span img{
+    width:18px; height:18px; margin-top:5px;
+}
+span.group-public-bank-name-span{  width:34%; }
+span.group-public-card-num-span{width:18%; text-align:center;}
+
+.group-add-edit-btn-wall{
+    width:100%; height:30px;
+    margin:10px 0 2px;
+}
+.group-add-edit-btn-wall span{
+    display:inline-block;
+    width:36%;
+    font-size:13px;
+    cursor:pointer;
+    line-height:30px;
+    text-align:center;
+    border-radius:4px;
+    /* color:#1198E3;*/
+    background-color:#d8e4f9;
+}
+.group-add-edit-btn-wall span:hover{
+    /* color:#1198E3;*/
+    background-color:#bad3ff;
+}
+.group-add-edit-btn-wall .add-freq-per-btn{
+    float:left; margin-left:6%;
+}
+.group-add-edit-btn-wall .edit-freq-per-btn{
+    float:right; margin-right:6%;
+}
+.group-add-edit-btn-wall .complete-freq-per-span{
+    float:right; margin-right:6%;
+    background-color:#bad3ff !important;
+}
+
+
+.group-four-edit-btn-wall{
+    width:92%; margin:0 auto;
+    height:24px; line-height:30px;
+    overflow: hidden;
+}
+.group-four-edit-btn-wall span{
+    margin:0 2% 0 2%;
+    padding: 0 2%;
+    float:left;
+    cursor:pointer;
+    color:#1198E3;
+    font-size:13px;
+}
+.group-four-edit-btn-wall span:hover{
+    cursor:pointer;
+    color: #1198E3;
+}
+.public-group-drop-down hr{
+    height:1px;
+    border:0;
+    width:96%;
+    margin:6px auto 0;
+    background-color: #ccc;
+}
+
+.frequent-contact-img-span img{
+    margin-top:5px !important;
+}
+
+/* "常用联系人"--下拉模块 ~~ over */
+
+
+/* 批量转账-主体(main)-右侧模块(right module)-样式 */

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq-拷贝继承</title>
+</head>
+<body>
+    <div class="container">
+
+    </div>
+    <script type="text/javascript">
+
+        window.onload = function(){
+
+            (function(window, undefined){
+                var rootjQuery;
+
+                var document = window.document;
+
+
+
+                var class2type = {};
+
+                var core_deletedIds = [];
+                var core_version = "2.0.3";
+
+
+                var core_indexOf = core_deletedIds.indexOf; // [].indexOf
+                var core_toString = class2type.toString;    // {}.toString
+                var core_hasOwn = class2type.hasOwnProperty;// {}.hasOwnProperty
+
+                 var jQuery = function (selector, context) {
+                    return new jQuery.fn.init(selector, context, rootjQuery);
+                };
+
+                /*var jQuery = (function(selector, context){
+                    var jQuery = new jQuery.fn.init(selector, context, rootjQuery);
+                });*/
+
+                var completed = function () {
+                    document.removeEventListener("DOMContentLoader", completed, false);
+                    window.removeEventListener("load", completed, false);
+                    jQuery.ready();
+                };
+
+                jQuery.fn = jQuery.prototype = {
+                    constructor: jQuery,
+                    init: function(selector, context, rootjQuery){
+                    }
+                };
+                jQuery.fn.init.prototype = jQuery.fn;
+
+                jQuery.extend = jQuery.fn.extend = function(){
+                    var options, name, src, copy, copyIsArray, clone,
+                        target = arguments[0] || {},
+                        i = 1,
+                        length = arguments.length, //参数的长度
+                        deep = false;
+                    // Handle a deep copy situation 处理深拷贝的情况
+                    if(typeof target === "boolean"){  //深拷贝的情形: $.extend(true, a, b);
+                        deep = target;
+                        target = arguments[1] || {};
+                        //skip the boolean and the target 跳过布尔值和目标对象
+                        i = 2;
+                    }
+                    // Handle case when target is a string or something(possible in deep copy)
+                    // 处理当目标对象为5中基本类型，target不是对象也不是函数，则强制设置为空对象。
+                    if(typeof target !== "object" && !jQuery.isFunction(target)){
+                        target = {};
+                    }
+                    //Extend jQuery itself if only one argument is passed 当参数只有一个，扩展jQuery本身。
+                    if(length === i){
+                        target = this;
+                        --i;
+                    }
+
+                    // 函数内部定义 i=1 所以从1开始，
+                    for (; i < length; i++) {
+                        // Only deal with non-null/undefined values 仅仅只处理没有null/undefined的值
+                        if ((options = arguments[i]) != null) {
+                            // Extend the base object 扩展基础对象
+                            for (name in options) {
+                                src = target[name];
+                                copy = options[name];
+
+                                // Prevent never-ending loop: 防止永无止境的循环(排除要拷贝的对象和当前对象全等的情况)
+                                if(target === copy){
+                                    continue;
+                                }
+                                // recursion /rɪ'kɜːʃ(ə)n/  n. 递归
+                                // Recurse if we're merging plain objects or arrays. 深拷贝的条件是: 源文件--
+                                // --必须为"对象字面量创建的对象"或者"数组"，才会递归进行遍历挂载
+                                if(deep && copy && (jQuery.isPlainObject(copy) ||(copyIsArray = jQuery.isArray(copy)))){
+                                    if(copyIsArray){
+                                        //copyIsArray代表是数组的情况
+                                        copyIsArray = false;
+                                        clone = src &&  jQuery.isArray(src) ? src : [];
+                                    }else{
+                                        //把"要嵌套的对象"和"源对象"中的所有信息都取出，递归挂载
+                                        clone = src && jQuery.isPlainObject(src) ? src : {};
+                                    }
+
+                                    // Never move original objects, clone them 永远不要移动原始对象，只是克隆
+                                    target[name] = jQuery.extend(deep, clone, copy);
+
+                                    //Don't bring in undefined values 不要带入未定义的值
+                                }else if( copy !== undefined){
+                                    //copy中不全等undefined就是说有的项可能为undefined,这样就把copy的值赋值给当前项的相应属性
+                                    target[name] = copy;
+                                }
+                            }
+                        }
+                    }
+
+                    // Return the modified object 返回修改的对象
+                    return target;
+                };
+                jQuery.extend({
+                    isFunction: function(obj) {
+                        return jQuery.type(obj) === "function";
+                    },
+                    isArray: Array.isArray,
+                    type: function(obj) {
+                        if(obj == null) {
+                            // 如果传进来的对象为null，使用String()构造函数返回null的字符串表示
+                            return String(obj);
+                        }
+
+                        // typeof obj === "function" 是为了兼容 Safari < 5.1 的，因为在小于5.1的版本 Safari
+                        // 会把 RegExp 正则类型判断为 function，现在的浏览器已经不需要兼容了。
+                        return typeof obj === "object" || typeof obj === "function" ?
+                            class2type[core_toString.call(obj)] || "object" : // 引用类型
+                            typeof obj; // 值类型
+                    },
+                    isPlainObject: function(obj) {
+                        // Not plain objects:
+                        // - Any object or value whose internal [[Class]] property is not "[object Object]"
+                        // - DOM nodes
+                        // - window
+                        // 非对象字面量的对象包括：
+                        // 任何内部属性[[Class]]不是"[object Object]"对象、DOM节点还有window对象
+                        if(jQuery.type(obj) !== "object" || obj.nodeType || jQuery.isWindow(obj)) {
+                            return false;
+                        }
+
+                        // Support: Firefox <20
+                        // The try/catch suppresses exceptions thrown when attempting to access
+                        // the "constructor" property of certain host objects, ie. |window.location|
+                        // https://bugzilla.mozilla.org/show_bug.cgi?id=814622
+                        // $.isPlainObject( document.location )会抛出一个异常
+                        // 在window上人为的 添加isPrototypeOf属性,也不是纯粹的对象字面量
+                        try {
+                            if(obj.constructor &&
+                                // 通过调用hasOwnProperty("isPrototypeOf")，来判断传进来的对象是否是通过对象字面量
+                                // 直接创建的。如果obj是通过对象字面量直接创建的对象，那么obj默认等于是通过
+                                // new object()创建的对象，所以obj.constructor.prototype指向Object对象，
+                                // 所以在Object对象上具有isPrototypeOf方法。
+                                !core_hasOwn.call(obj.constructor.prototype, "isPrototypeOf")) {
+                                return false;
+                            }
+                        } catch(e) {
+                            return false;
+                        }
+
+                        // If the function hasn't returned already, we're confident that
+                        // |obj| is a plain object, created by {} or constructed with new Object
+                        return true;
+                    },
+                    inArray: function(elem, arr, i) {
+                        return arr == null ? -1 : core_indexOf.call(arr, elem, i);
+                    },
+                    isWindow: function(obj) {
+                        return obj != null && obj === obj.window;
+                    }
+                });
+
+
+              /*  if(typeof module === "object" && typeof module.exports === "object") {
+                    module.exports = jQuery;
+                } else {
+                    if(typeof define === "function" && define.amd) {
+                        define("jquery", [], function() {
+                            return jQuery;
+                        });
+                    }
+                }*/
+                if(typeof window === "object" && typeof window.document === "object") {
+                    window.jQuery = window.$ = jQuery;
+                }
+            })(window);
+
+            var a = {
+                name: "Wang",
+                age : 28
+            };
+            var b = {
+                sex: "male",
+                age: 29
+            };
+
+            console.log(jQuery.extend(b, a));
+            //console.log(ToolSet.extend(b, a));  //{sex: undefined, age: 28}
+        };
+
+
+
+
+
+    </script>
+</body>
+</html>

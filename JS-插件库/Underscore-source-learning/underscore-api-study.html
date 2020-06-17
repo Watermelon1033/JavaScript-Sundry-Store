@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>underscore-api-学习</title>
+    <script type="text/javascript" src="underscore.analysis.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        // underscore /ʌndə'skɔː/   vt. 划线于…下,强调    n. 底线
+        // wrap /ræp/               vt. 包；隐藏         n. 外套；围巾
+
+
+        // 1. _ 对象:
+        //      underscore有下划线的意思，所以underscore通过一个下划线变量 _ 来表示自身，值得注意的是，
+        //      _是一个函数对象， 之后所有的api都会挂载到这个对象上， 如: _each, _.map等:
+        var _ = function(obj){
+            if(obj instanceof _){
+                return obj;
+            }
+            if(!(this instanceof _)){
+                return new _(obj);
+            }
+            this._wrapped = obj;    //把obj赋值给当前对象的 ）_wrapped 属性
+        };
+        //-------------------------------------------------
+
+        // 2. 执行环境判断:
+        //      判断当前环境是浏览器还是诸如nodejs所搭建的服务器, 对象 _ 会依托于当前所有环境，挂载到不同的
+        //      全局空间中(浏览器全局对象时window, Node的全局对象是global)
+        //      在浏览器环境下，self 保存的就是当前 window 对象的引用。但是 self 还能用于一些不具有窗口的上下文环境中，
+        //      比如 Web Workers。所以，为了服务于更多场景，underscore 选择了更加通用的 self 对象。
+        var root = typeof self == "object" && self.self === self && self || typeof global == "object" && global.global === global && global || this;
+
+        //      其次，如果处于 node 环境，那么 underscore 的对象 _ 还将被作为模块导出
+        if(typeof exports != "undefined" && !exports.nodeType){
+            if(typeof module != "undefined" && !module.nodeType && module.exports){
+                exprots = module.exports = _;
+            }
+            exports._ = _;
+        }else{
+            root._ = _;
+        }
+        //-------------------------------------------------
+
+        // 3. 松弛绑定:
+
+
+
+    </script>
+</body>
+</html>

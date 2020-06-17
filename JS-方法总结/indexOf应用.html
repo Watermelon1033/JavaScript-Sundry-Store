@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" style="width:200px; height:40px; line-height:40px; border:1px solid #ccc; margin:100px;" id="input1">
+<script type="text/javascript" >
+    var school=[
+        {
+            "name": "Alaska Bible College (Glennallen)",
+            "value": "701002",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "Alaska Pacific University (Anchorage)",
+            "value": "701003",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "Alaska VocationalTechnical Center (Seward)",
+            "value": "701004",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "Albert Einstein College of Medicine of Yeshiva University",
+            "value": "701015",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "Career Academy (Anchorage)",
+            "value": "701005",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "Charter College (Anchorage)",
+            "value": "701006",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "Galena City Schools (Galena)",
+            "value": "701007",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "Ilisagvik College (Barrow)",
+            "value": "701008",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "Prince William Sound Community College (Valdez)",
+            "value": "701009",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "Sheldon Jackson College (Sitka)",
+            "value": "701010",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "TransPac Aviation Academy",
+            "value": "701013",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "University of Alaska Anchorage (Anchorage)",
+            "value": "701011",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "University of Alaska Fairbanks",
+            "value": "701001",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "University of Alaska Southeast (Juneau)",
+            "value": "701012",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "University of Illinois at Urbana- Champaign",
+            "value": "701016",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "University Prep ",
+            "value": "701014",
+            "prov": "AK",
+            "country": "美国",
+            "provId": "8001",
+            "countryId": "7"
+        },
+        {
+            "name": "Air University (Maxwell AFB)",
+            "value": "702011",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        },
+        {
+            "name": "Alabama A&M University",
+            "value": "702001",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        },
+        {
+            "name": "Alabama Southern Community College (Monroeville)",
+            "value": "702012",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        },
+        {
+            "name": "Alabama State College of Barber Styling (Birmingham)",
+            "value": "702013",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        },
+        {
+            "name": "Alabama State University (Montgomery)",
+            "value": "702014",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        },
+        {
+            "name": "Army Academy of Health Sciences Branch Campus (Fort Rucker)",
+            "value": "702015",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        },
+        {
+            "name": "Athens State University (Athens)",
+            "value": "702016",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        },
+        {
+            "name": "Auburn University",
+            "value": "702002",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        },
+        {
+            "name": "Auburn University at Montgomery (Montgomery)",
+            "value": "702017",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        },
+        {
+            "name": "Beeson Divinity School of Samford University (Birmingham)",
+            "value": "702018",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        },
+        {
+            "name": "Bessemer State Technical College (Bessemer)",
+            "value": "702019",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        },
+        {
+            "name": "Bevill State Community College (Sumiton)",
+            "value": "702020",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        },
+        {
+            "name": "Birmingham - Southern College",
+            "value": "702008",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        },
+        {
+            "name": "Bishop State Community College (Mobile)",
+            "value": "702021",
+            "prov": "AL",
+            "country": "美国",
+            "provId": "8002",
+            "countryId": "7"
+        }
+    ]
+</script>
+<script type="text/javascript">
+    var EventUtil = {
+        addHandler: function (element, type, handler) {
+            if (element.addEventListener) {
+                element.addEventListener(type, handler, false);
+            } else if (element.attachEvent) {
+                element.attachEvent("on" + type, handler);
+            } else {
+                element["on" + type] = handler;
+            }
+        }, //添加跨浏览器的事件
+
+        removeHandler: function (element, type, handler) {
+            if (element.removeEventListener) {
+                element.removeEventListener(element, type, handler);
+            } else if (element.detachEvent) {
+                element.detachEvent("on" + type, handler);
+            } else {
+                element["on" + type] = null;
+            }
+        },//移除跨浏览器的事件
+
+        getEvent: function (event) {
+            return event ? event : window.event;
+        },//取得跨浏览器的事件event
+
+        getTarget: function (event) {
+            return event.target || event.srcElement;
+        },//取得事件的目标
+
+        preventDefault: function (event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = null;
+            }
+        },//取消事件的默认行为
+
+        stopPropagation: function (event) {
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            } else {
+                event.cancelBubble = true;
+            }
+        },//取消事件的进一步传播和冒泡
+
+        getRelatedTarget: function (event) {
+            if (event.relatedTarget) {
+                return event.relatedTarget;
+            } else if (event.toElement) {
+                return event.toElement;
+            } else if (event.fromElement) {
+                return event.fromElement;
+            } else {
+                return null;
+            }
+        }, //取得相关元素的方法
+
+        getButton: function (event) {
+            if (document.implementation.hasFeature("MouseEvents", "2.0")) {
+                return event.button;
+            } else {
+                switch (event.button) {
+                    case 0:
+                    case 1:
+                    case 3:
+                    case 5:
+                    case 7:
+                        return 0;
+                    case 2:
+                    case 6:
+                        return 2;
+                    case 4:
+                        return 1;
+                }
+            }
+        },// 取得跨浏览器的鼠标按钮事件
+
+        getWheelDelta: function (event) {
+            if (event.wheelDelta) {
+                return event.wheelDelta;
+            } else {
+                return -event.detail * 40;
+            }
+        }, //鼠标滚轮事件
+
+        getCharCode: function (event) {
+            if (typeof event.charCode == "number") {
+                return event.charCode;
+            } else {
+                return event.keyCode;
+            }
+        } //取得字符编码
+    };
+    var input1 = document.getElementById("input1");
+    var arr = [];
+    EventUtil.addHandler(input1, "keyup", function(){
+        if(arr.length > 0){
+            arr.length= 0;
+        }
+        for (var i = 0; i < school.length; i++) {
+            var inputVal = input1.value; //取得input的值
+            var indexName = school[i].name;
+            if (typeof indexName == "string") {
+                //console.log("是字符串");
+            }
+            var pos = indexName.indexOf(inputVal);
+            if (pos > -1) {
+                arr.push(indexName);
+            }
+        }
+        console.log(arr);
+    });
+
+</script>
+</body>
+</html>

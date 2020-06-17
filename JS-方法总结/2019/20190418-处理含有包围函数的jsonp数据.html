@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        let str = 'MusicJsonCallback(' +
+                    '{"code":0,"subcode":0,"message":"","default":0,"data":' +
+                        '{"topList":' +
+                            '[' +
+                                '{"id":4,"listenCount":19700000,"picUrl":"http://y.gtimg.cn/music/photo_new/T003R300x300M000004ZLF8M3w4Kr9.jpg",' +
+                                    '"songList":[' +
+                                        '{"singername":"吴青峰","songname":"歌颂者"},' +
+                                        '{"singername":"鹿晗","songname":"体会（Nature）"},' +
+                                        '{"singername":"毛不易","songname":"东北民谣 (Live)"}' +
+                                    '],' +
+                                '"topTitle":"巅峰榜·流行指数",' +
+                                '"type":0},' +
+                                '{"id":26,"listenCount":19300000,"picUrl":"http://y.gtimg.cn/music/photo_new/T003R300x300M000003qXz5T0P2clJ.jpg",' +
+                                    '"songList":[' +
+                                        '{"singername":"陈雪凝","songname":"绿色"},' +
+                                        '{"singername":"陈雪凝","songname":"你的酒馆对我打了烊"},' +
+                                        '{"singername":"吴青峰","songname":"歌颂者"}' +
+                                    '],' +
+                                '"topTitle":"巅峰榜·热歌",' +
+                                '"type":0}' +
+                            ']' +
+                        '}' +
+                    '}' +
+                ') ';
+
+        function parser() {
+            if (typeof str === "string") {
+
+                // \w: 匹配字母，数字，下划线
+                // const reg = /^\w+\(({.+})\)$/;
+                // str = str.replace(/(^\s*)|(\s*$)/g, "");
+                // const matches = str.match(reg);
+                // console.log(matches);
+                // if (matches) {
+                //     str = JSON.parse(matches[1]);
+                //     console.log("str: ", str);
+                // }
+
+                let first = str.indexOf("{");
+                let last = str.lastIndexOf("}");
+                // slice() 和 substring() 的第二个参数指定的是子字符串最后一个字符后面的位置。(tips: 不包含结束位置的数字，即包含头不包尾)
+                let slice = str.substring(first, (last+1));
+                console.log("slice: ", slice);
+
+            }
+        }
+        parser(str);
+    </script>
+</body>
+</html>

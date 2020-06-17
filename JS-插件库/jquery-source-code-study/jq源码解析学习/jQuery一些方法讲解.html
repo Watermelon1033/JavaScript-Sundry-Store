@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery一些方法讲解</title>
+    <script type="text/javascript" src="jquery-v2.0.3.js"></script>
+</head>
+<body>
+    <ul>
+    </ul>
+
+    <script type="text/javascript">
+        $(function(){
+            var str = "<li>1</li><li>2</li><li>3</li>";
+            var arr = jQuery.parseHTML(str);  //parseHTML()方法的用法
+            $.each(arr, function(i){
+                $("ul").append(arr[i]);
+            })
+        });
+        /*----------------------------------------------*/
+
+
+        $(function(){
+           //jQuery.merge()方法:(1)对外是数组和数组合并，(2)对内可以对象和数组合并
+            var arr = {
+                0 : "aaa",
+                1 : "bbb",
+                length: 2
+            };
+            var arr2 = ["c" , "d"];
+            console.log($.merge(arr, arr2));
+            //输出 火狐下是： Object [ "aaa", "bbb", "c", "d" ]
+            //输出 Chrome下是： Object   0: "aaa"    1: "bbb"    2: "c"  3: "d"  length: 4   __proto__: Object
+        });
+        /*----------------------------------------------*/
+
+        //关于for...in循环的讲解示例 来自 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/for...in
+        $(function(){
+            var obj = {a:1, b:2, c:3};
+            for(var prop in obj){
+                console.log(prop + "=" + obj[prop])
+            }
+        })
+        /*----------------------------------------------*/
+
+
+    </script>
+</body>
+</html>

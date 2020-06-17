@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>比较2个小数点的数字大小-2-17-4-14</title>
+</head>
+<body>
+    <script type="text/javascript">
+        var str1 = "1.1.0",
+            str2 = "1.1.1";
+        var removeDot1 = str1.replace(/\./g, ""),
+            removeDot2 = str2.replace(/\./g, "");
+        var num1 = Number(removeDot1),
+            num2 = Number(removeDot2);
+        console.log(num1);
+        console.log(num2);
+        if(num1 < num2){
+            console.log(true);
+        }
+    </script>
+</body>
+</html>

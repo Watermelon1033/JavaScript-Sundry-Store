@@ -1,0 +1,184 @@
+@charset "UTF-8";
+
+/* ------ 银行卡信息弹框 bank card information popups(弹出窗口)--start ------ */
+.black-full-screen-popups{
+    background:#000000; opacity: 0.7;
+    filter:alpha(opacity:70);
+    position:absolute; z-index:2;
+    width:100%; height:100%;
+    left:0; top:0; bottom:0; right:0;
+}
+
+.add-bank-card-popups{
+    position:absolute;
+    background-color:#fff;
+    z-index:100; overflow:auto;
+    width:620px; height:650px;
+}
+
+/* 弹框的头部有公用的可能，所以单独命名比价好 */
+.popups-main-head{
+    height:45px; line-height:45px;
+    width:100%;  background:#d8e4f9;
+}
+.popups-main-head-title{
+    width:30%; font-size:16px;
+    background:#44a8f2;
+    height:100%;
+}
+
+.add-bank-card-popups-main{
+   margin-top:40px;  margin-left:36px;
+}
+.add-bank-card-popups-main div.same-css-line{
+    height:70px;
+}
+
+.popups-close-btn{
+    float:right; position:relative;
+    margin-right:10px; margin-top:12px;
+    width:20px; height:20px;
+    /*background-color:#fe4b4e;*/
+    overflow:hidden; cursor:pointer;
+}
+
+
+/* ---弹框中用到的公共样式---start */
+.same-css-line > div:nth-child(1){
+    float:left; width:24%;
+    height:40px; line-height:40px;
+    text-align:right; margin-right:8%;
+    letter-spacing: 1px;
+    /*background-color:#f7f7f7;
+    border-left: 2px solid #1198E3;*/
+    /*border-radius: 0 2px 2px 0;*/
+}
+.same-css-line > div:nth-child(2){
+    float:left;
+    width:67%;
+    height:100%;
+}
+
+.public-save-val-wall{
+    width:268px; height:38px;
+    border: 1px solid #a8abb0;
+    letter-spacing:1px; overflow:hidden;
+    cursor:pointer; border-radius:4px;
+    line-height:38px;  position:relative;
+}
+.public-save-val-wall:hover{ border: 1px solid #44a8f2; }
+
+.public-save-val-wall > span:nth-child(1){
+    float:left; width:87%;
+    text-indent:10px;
+    border-right:1px solid #dce0e0;
+}
+.public-save-val-wall > span:nth-child(2){
+    float:right; height:38px;
+    width:12%;  position:relative;
+}
+.popups-error-span{
+    font-size:12px; color:#f34f50;
+    line-height:20px; display:block;
+}
+
+.public-drop-down-module{
+    position:absolute; margin-top:40px;
+    width:268px; border-radius:2px;
+    overflow:auto; z-index:110;
+    border: 1px solid #a8abb0;
+    background-color:#fff;
+}
+/* ---弹框中用到的公共样式---over */
+
+
+/* 弹框中-- 收款人姓名 + 银行卡号 */
+ input.card-name-input, input.bank-card-input{
+    height:38px;
+    line-height:38px; width:268px;
+    border: 1px solid #a8abb0;
+    letter-spacing:1px;
+    border-radius:4px; text-indent:10px;
+}
+
+
+/* ---开户银行---start */
+.open-bank-ul{  height:250px;}
+ul.open-bank-ul li{
+    height:34px; line-height:34px;
+    border-bottom:1px solid #f7f7f7;
+    /*background:#ecf2fd;*/
+    cursor:pointer; letter-spacing:1px;
+}
+ul.open-bank-ul li:hover{
+    background-color:#bad3ff;
+}
+
+
+ul.open-bank-ul li .open-bank-icon-span{
+    float:left; width:16%; margin-left:2%;
+    height:100%; text-align:center;
+}
+ul.open-bank-ul li .open-bank-icon-span img{
+    width:18px; height:18px;
+    margin-top:8px;
+}
+ul.open-bank-ul li .open-bank-name{
+    float:left; width:82%;
+    text-indent:10px; text-align:left;
+}
+/* ---开户银行---over */
+
+
+/* ---所在省市: 单独引用---start~over */
+
+
+/* ---开户支行---start */
+.open-branch-bank-ul{
+    height:240px; width:294px;
+    overflow:auto;
+}
+.open-branch-bank-ul li{
+    line-height:20px; min-height:28px;
+    border-bottom:1px solid #eee;
+    cursor:pointer; padding:4px 4px 2px 10px;
+    word-break:break-all;
+}
+.open-branch-bank-ul li:hover{
+    background-color:#bad3ff;
+}
+/* ---开户支行---over */
+
+/* ---分组--- start */
+.every-group-wall{
+    float:left;
+    width:80px;
+    height:30px;
+    line-height:30px;
+    cursor:pointer;
+    /*background-color:#f7f7f7;*/
+    border-radius:4px;
+    margin:0 30px 5px 0; 
+}
+.popups-group-icon-span{
+    margin-right:2px;
+}
+/* ---分组--- over */
+
+
+
+/* ---弹出窗口确定按钮---start */
+.add-group-module{
+    height:90px ;
+    overflow:hidden;
+}
+.popups-confirm-btn{
+    width:148px; cursor:pointer;
+}
+
+/* ---弹出窗口确定按钮---over */
+
+
+
+
+/* ------ 银行卡信息弹框 bank card information popups(弹出窗口)--start ------ */

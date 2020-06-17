@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时间倒计时</title>
+    <style>
+        * { margin:0; padding:0; font-size:14px; }
+        .time-box {
+            margin:20px;
+            width:200px; height:50px;
+            text-align: center;
+            line-height:50px;
+            border:1px solid #ccc;
+            background:lightseagreen; border-radius:6px;  }
+    </style>
+</head>
+<body>
+
+    <div class="time-box"></div>
+    <div class="time-box"></div>
+    <div class="time-box"></div>
+    <div class="time-box"></div>
+    <div class="time-box"></div>
+
+    <script>
+        window.onload = function () {
+
+            var timeBox = document.getElementsByClassName("time-box");
+
+            // 时间倒计时对象: time countdown
+
+            var language = "zh_CN";
+
+            // var TimeCd = new Object();   TimeCd是 Object
+
+            var TimeCd = {
+                init:       function (createTime) {
+                    // getTime() 方法可返回距 1970 年 1 月 1 日之间的毫秒数
+
+                    // 倒计时的时间为: 7天 - (当前时间-创建时间)
+
+                    // createTime = String(createTime);
+                    createTime = Date.parse(createTime.replace(/-/g, "/"));
+
+                    var now = new Date();
+
+                    console.log("当前时间毫秒数 " + now.getTime());
+                    console.log("创建时间毫秒数 " + createTime);
+                    console.log("当前时间-创建时间后毫秒数 " + (now.getTime() - createTime));
+
+                    if(createTime > now.getTime()){
+                        alert("创建时间大于当前时间");
+                        return;
+                    }
+
+
+                    var sevenDaysMs   =  604800000,
+                        milliseconds = sevenDaysMs - (now.getTime() - createTime);
+
+                    console.log("sevenDaysMs七天时间毫秒数 " + sevenDaysMs);
+                    return milliseconds;
+                },
+
+                interval:   function (createTime, language, timeBox) {
+                    var milliseconds = this.init(createTime);
+
+                    setInterval(function () {
+                        milliseconds = milliseconds - 1000;
+
+                        // 把总的毫秒数转换位 "天--时--分--秒"
+                        var day, hour, min, sec, totalTime;
+
+                        // 1s = 1000ms, 1min = 60s， 1h = 3600s ==> 1h = 3600x1000 = 3600000ms
+                        // day : milliseconds/1000 = 秒/60 = 分钟/60 = 小时/24 = 天
+                        day     = parseInt(milliseconds / 1000 / 3600 / 24);
+                        hour    = parseInt( (milliseconds - day * 24 * 3600 * 1000) / 3600 / 1000 );
+                        min     = parseInt( (milliseconds - day * 24 * 3600 * 1000 - hour * 3600 * 1000) / 60 / 1000);
+                        sec     = parseInt( (milliseconds - day * 24 * 3600 * 1000 - hour * 3600 * 1000 - min * 60 * 1000) / 1000);
+
+                        // console.log(day)
+                        // console.log(hour)
+                        // console.log(min)
+                        // console.log(sec)
+
+                        if(day >= 0 && hour >= 0 && min >=0 && sec >=0 ) {
+                            if(language == "zh_CN"){
+                                totalTime ="剩余：" +day + "天&nbsp;&nbsp;" + hour + ":" + min + ":" + sec;
+                            } else if (language == "en_US")  {
+                                totalTime ="remain:" +day + "days&nbsp;" + hour + ":" + min + ":" + sec;
+
+                            }
+
+                            timeBox.innerHTML =  totalTime;
+                        } else {
+                            timeBox.innerHTML =  "倒计时已结束";
+                        }
+
+                    }, 1000)
+                }
+
+            };
+
+            var createTime = "2019-2-12 15:30:45";
+           /* var createTime2 = "2017-12-16 12:30:45";
+            var createTime3 = "2017-12-12 15:30:45";
+            var createTime4 = "2017-12-10 09:10:45";
+            var createTime5 = "2017-12-21 20:04:45";*/
+
+            TimeCd.interval(createTime, language, timeBox[0]);
+            /*TimeCd.interval(createTime2, language, timeBox[1]);
+            TimeCd.interval(createTime3, language, timeBox[2]);
+            TimeCd.interval(createTime4, language, timeBox[3]);
+            TimeCd.interval(createTime5, language, timeBox[4]);
+*/
+        }
+    </script>
+</body>
+</html>

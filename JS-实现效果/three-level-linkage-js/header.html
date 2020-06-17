@@ -1,0 +1,119 @@
+<div class="headerTop">
+    <div class="headerTopBox">
+        <div class="fl header-logo"></div>
+        <div class="fr tipsAndLanguage">
+            <a class="fl informationTips font14" href="#">
+                <span>消息</span>
+                <span class="tipsNum">52</span>
+            </a>
+            <a class="fl helpCenter font14" href="#">帮助中心</a>
+            <a class="fl changeLanguage font14" href="#">EN</a>
+            <a class="fl businessSystem font14" href="#">商家系统</a>
+            <a class="fl safetyExit font14" href="2-101-LoginInterface.html">安全退出</a>
+        </div>
+    </div>
+</div>
+<div class="headerContent">
+    <div class="headerContentBox">
+        <div class="headerSelfImg fl">
+            <a href="#">
+                <img src="static/img/personalHeader.png" alt="">
+            </a>
+        </div>
+        <div class="fl headerContentLeft">
+            <div class="headerWelcome">欢迎您！<span class="headerWelcomeName">文冰</span></div>
+            <div class="headerSign">签名：<span class="headerSignContent">你是谁，你要什么</span></div>
+        </div>
+        <div class="fr headerContentRight">
+            <div class="headerLoginTime fr">
+                上次登录时间：2016年9月07日 18:28:30
+            </div>
+            <div class="headerAccount fr">
+                账号：<span class="headerAccountNum">158****1236</span>
+            </div>
+            <div class="fr headerContentIcon">
+                <a href="javascript:"><span class="fl headPortrait"></span></a>
+                <a href="javascript:"><span class="fl telephone"></span></a>
+                <a href="javascript:"><span class="fl email"></span></a>
+                <a href="javascript:"><span class="fl counter"></span></a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="headerNav">
+    <ul class="headerNavBox">
+        <li class="fl">
+            <a href="01-homepage.html">
+                <span class="headerSameIcon myAccountIcon"></span>
+                <span class="sameIconFonts">我的账户</span>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="#" class="cursorDefault">
+                <span class="headerSameIcon transboundaryCol"></span>
+                <span class="sameIconFonts">跨境业务</span>
+            </a>
+            <ul class="accountManUl displayNone">
+                <li class="">
+                    <a href="09-0-transboundaryCollection.html" class="disInlBlock lanse"  >跨境收款</a>
+                </li>
+                <li class="clearMarTop marginBottom">
+                    <a href="2-1201-remitMoney.html" class="disInlBlock lanse">跨境汇款(B2C业务)</a>
+                </li>
+                <div class="clear"></div>
+            </ul>
+        </li>
+        <li class="fl">
+            <a href="02-0-manageMoneyCenter.html">
+                <span class="headerSameIcon financialIcon"></span>
+                <span class="sameIconFonts">理财</span>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="05-serviceForLife.html">
+                <span class="headerSameIcon lifeServiceIcon"></span>
+                <span class="sameIconFonts">生活服务</span>
+            </a>
+        </li>
+        <li class="fl">
+            <a href="#" class="cursorDefault">
+                <span class="headerSameIcon AccountManageIcon"></span>
+                <span class="sameIconFonts cursorDefault">账户管理</span>
+            </a>
+            <ul class="accountManUl displayNone">
+                <li class="">
+                    <a href="03-myBill.html" class="disInlBlock lanse">我的账单</a>
+                </li>
+                <li class="clearMarTop marginBottom">
+                    <a href="04-1-baseInformation.html" class="disInlBlock lanse">账户中心</a>
+                </li>
+                <div class="clear"></div>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    //01首页导航nav
+    $(".headerNavBox li").mouseenter(function (event) {
+
+        if ($(this).hasClass("navHot")) {
+        } else {
+            $(this).addClass("navHover").siblings().removeClass("navHover");
+        }
+        if ($(this).children(".accountManUl").hasClass("displayNone")) {
+            $(this).children(".accountManUl").stop().slideDown("fast");
+        }
+
+        $(".accountManUl li").mouseenter(function () {
+            $(this).addClass("manLiHover").siblings().removeClass("manLiHover");
+        }).mouseleave(function () {
+            $(this).removeClass("manLiHover");
+        });
+    }).mouseleave(function () {
+        $(this).removeClass("navHover");
+        $(this).children(".accountManUl").stop().slideUp("fast");
+    });
+
+</script>

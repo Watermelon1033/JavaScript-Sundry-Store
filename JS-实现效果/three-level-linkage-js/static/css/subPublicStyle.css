@@ -1,0 +1,73 @@
+/*201 modifyEmail*/
+.lineHr{width:100%; height:1px; background:#e5e5e5;}
+.modifyEmailMain{width:610px;}
+.modifyEmailMain div p{width:80%;}
+.modifyEmailMain div p.butWall{width:20%;}
+/*201 modifyEmail*/
+
+/*202 verify password and phone main*/
+.verifyPasPhoMain, .setNewEmailMain{width:478px; height:400px;}
+.verifyPasPhoMain div, .setNewEmailMain div{overflow:hidden;}
+
+.numberWall span.numberIcon{width:26px; margin-left:10px; height:25px; background:url("../img/numberIcon01.png") no-repeat;}
+.numberWall span.numberIcon1{background-position:1px -42px;}
+.numberWall span.numberIcon1-1{background-position:1px 0;}
+.numberWall span.numberIcon2{background-position:-40px -42px;}
+.numberWall span.numberIcon2-1{background-position:-40px 0;}
+.numberWall span.numberIcon3{background-position:-82px -42px;}
+.numberWall span.numberIcon3-1{background-position:-82px 0;}
+.numberWall span.numberIcon4{background-position:-122px -42px;}
+.numberWall span.numberIcon4-1{background-position: -122px 0;}
+
+.blueLine{width:170px; margin-top:10px; height:1px; background:#99d9f6;}
+.passwordInput{width:230px;}
+/*202 verify password and phone main*/
+
+/*203-set new email*/
+.darkBlueLine{width:170px; margin-top:10px; height:1px; background:#00a0e9;}
+/*203 set new email*/
+
+.marLeft50{margin-left:50px;}
+.marLeft54{margin-left:54px;}
+.marLeft100{margin-left:100px;}
+.marLeft105{margin-left:105px;}
+.marLeft110{margin-left:110px;}
+.marLeft748{margin-left:748px;}
+
+.marRig2Per{margin-right:2%;}
+
+
+.height984{height:984px;}
+
+.width90{width:90px;}
+.width220{width:220px;}
+.width320{width:320px;}
+.width350{width:350px;}
+.width480{width:480px;}
+.width748{width:748px;}
+.width756{width:756px;}
+
+.wid8Per{width:8%;}
+.wid90Per{width:90%;}
+.wid19Per{width:19%;}
+.textInd30{text-indent:30px;}
+.textInd35{text-indent:35px;}
+.textInd66{text-indent:66px;}
+
+.lightDashedGreyBor{border:1px dashed #d2d2d2;}
+
+/*0-508-password retrieve*/
+.openEmail{background:url("../img/openEmailIcon.jpg") no-repeat;}
+.downArrowIcon{background:url("../img/downArrow.png") no-repeat;}
+.upArrowIcon{background:url("../img/upArrow.png") no-repeat;}
+/*0-508-password retrieve*/
+
+/**0-700-转账-transfer account*/
+.contactCloseBut{background: url("../img/icon/contactClose.png") no-repeat;}
+.contactPeopleIcon{background: url("../img/icon/topContact.png") no-repeat left center;}
+.singlePerTransferIcon{background:url("../img/icon/oneContact.png") no-repeat left center;}
+.plusSign{background:url("../img/addBank.png") no-repeat center center;}
+.chargeDesTable{border-collapse: collapse;}
+.chargeDesTable tr td{border:1px solid #d2d2d2; text-align:center;}
+/**0-700-转账-transfer account*/
+

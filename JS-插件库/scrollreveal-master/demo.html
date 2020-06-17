@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>8-25-github下载之后学习demo</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="global.css">
+    <script type="text/javascript" src="dist/scrollreveal.js"></script>
+    <script type="text/javascript" src="global-functions.js"></script>
+    <script>
+        window.sr = ScrollReveal();
+        // Add class to <html> if ScrollReveal is supported
+        // Note: this method is deprecated, and only works in version 3
+        if (sr.isSupported()) {
+            document.documentElement.classList.add('sr');
+        }
+    </script>
+    <style type="text/css">
+        body{color:#f0f0f0;}
+        p{font-size:14px;}
+    </style>
+</head>
+<body>
+    <div class="container  green-bg  over-hid" style="">
+        <div class="foo wid-30-per hei-5-per margin-auto light-blue-bg mar-bot-30 mar-top-20 dis-none">
+            <h3 class="font-24"> Foo</h3>
+            <p >Be honest rather clever.</p>
+            <p >Four short words sum up what has lifted most successful individuals above the crowd: a little bit more.</p>
+            <p >唾液其实是被过滤了的血液，血液经由唾液腺过滤成唾液。</p>
+            <p >唾液腺负责把红血球筛选，拦截在血管里。</p>
+            <p >相反地，钙，激素或者免疫系统的抗体会顺利通过唾液腺的筛选被保留在唾液中。</p>
+        </div>
+
+
+        <div class="foo wid-40-per hei-5-per margin-auto mar-top-25">
+            <h3 class="font-24">Foo</h3>
+            <p >Four short words sum up what has lifted most successful individuals above the crowd: a little bit more.</p>
+        </div>
+        <div class="bar wid-40-per hei-5-per margin-auto mar-top-2 mar-bot-2 lin-hei-2">
+            <h3 class="font-24">Bar</h3>
+            <p >Be honest rather clever.</p>
+        </div>
+        <div class="tea wid-40-per hei-5-per margin-auto mar-bot-2 lin-hei-2 ">
+            <h3 class="font-24">Tea</h3>
+            <p >Be honest rather clever.</p>
+        </div>
+        <div class="coffee wid-40-per hei-5-per margin-auto mar-bot-2 lin-hei-2 ">
+            <h3 class="font-24">Coffee</h3>
+            <p >唾液其实是被过滤了的血液，血液经由唾液腺过滤成唾液。</p>
+        </div>
+        <div class="beer wid-40-per hei-5-per margin-auto mar-bot-2 lin-hei-2 ">
+            <h3 class="font-24">Beer</h3>
+            <p >唾液腺负责把红血球筛选，拦截在血管里。</p>
+        </div>
+        <div class="wine wid-40-per hei-5-per margin-auto mar-bot-2 lin-hei-2 ">
+            <h3 class="font-24">Wine</h3>
+            <p >相反地，钙，激素或者免疫系统的抗体会顺利通过唾液腺的筛选被保留在唾液中。</p>
+        </div>
+
+    </div>
+
+
+
+    <script type="text/javascript">
+        window.onload = function(){
+            /*  Scroll Reveal 滚动显示
+                1. scroll       /skrəʊl/        vt 滚动
+                2. reveal       /rɪ'viːl/       vt 显示
+                3. scale        /skeɪl/         n  比例
+                4. rotate       /rə(ʊ)'teɪt/    vi 旋转， 循环
+                5. transition:  /træn'zɪʃ(ə)n/  n  过渡， 转换
+                7. delay        /dɪ'leɪ/        n  延迟， 延期
+                8. consider     /kən'sɪdə/      v  考虑，关心，体谅
+
+                6. linear /'lɪnɪə/: adj.线的     线性动画-->     没有任何缓动的动画称为线性动画。 css3的动画效果为:
+                   ease-out：                    缓出动画-->     缓出使动画在开头处比线性动画更快但在结尾处减速。缓出一般最适合界面，开头时快速使动画有反应快的感觉，在结尾仍允许有一点自然的减速。
+                   ease-in:                      缓入动画-->     缓入动画开头慢结尾快，与缓出动画正好相反。(页面中几乎用不到)
+                   ease-in-out:                  缓入缓出动画-->  缓入并缓出与汽车加速和减速相似，使用得当时，可以实现比单纯缓出更生动的效果
+             */
+
+            var container = getClassName("container")[0];
+            container.style.height = window.innerHeight + 800 + "px";
+            container.style.width = window.innerWidth + "px";
+
+
+            /**2.2 The Starting Defaulting: 默认项设置 **/
+            var  defaultConfig = {
+                origin:     "bottom",
+                distance:   "100px",
+                opacity:    0,
+                scale:      1,
+                /*delay:      200,*/
+                /*over:       ".7s",*/
+                easing:     "ease-in-out",
+                reset:      true,
+                duration:   1000
+            };
+            var customizeConfig = {
+                origin:     "bottom",
+                distance:   "100px",
+                duration:   1500,
+                delay:      500,
+                opacity:    0,
+                scale:      1,
+               /* over:       ".7s",*/
+                easing:     "ease-in-out",
+                reset:      true,
+                mobile:     true
+            };
+
+
+
+            // window.sr = ScrollReveal(); 此句写在head中有助于去除闪烁
+            // 1.2 The Basics 基础用法
+            // sr.reveal(".foo");
+            // sr.reveal(".bar");
+
+
+            /** 2. configuration(配置):
+             Passing a configuration object to ScrollReveal() changes the defaults for all reveals, and passing reveal() a configuration object customizes that reveal set further.
+             将配置对象传递给ScrollReveal（）会更改所有显示的默认值，并传递一个配置对象，以便进一步显示该组件。
+             **/
+            //Customizing a reveal set  自定义显示设置
+            sr.reveal(".foo", defaultConfig);
+            sr.reveal(".bar", customizeConfig);
+            sr.reveal(".tea", {
+                origin:     "bottom",
+                distance:   "100px",
+                duration:   1500,
+                delay:      700,
+                opacity:    0,
+                scale:      1,
+                /* over:       ".7s",*/
+                easing:     "ease-in-out",
+                reset:      true,
+                mobile:     true
+            });
+            sr.reveal(".coffee", {
+                origin:     "bottom",
+                distance:   "100px",
+                duration:   1500,
+                delay:      900,
+                opacity:    0,
+                scale:      1,
+                /* over:       ".7s",*/
+                easing:     "ease-in-out",
+                reset:      true,
+                mobile:     true
+            });
+            sr.reveal(".beer", {
+                origin:     "bottom",
+                distance:   "100px",
+                duration:   1500,
+                delay:      1100,
+                opacity:    0,
+                scale:      1,
+                /* over:       ".7s",*/
+                easing:     "ease-in-out",
+                reset:      true,
+                mobile:     true
+            });
+            sr.reveal(".wine", {
+                origin:     "bottom",
+                distance:   "100px",
+                duration:   1500,
+                delay:      1300,
+                opacity:    0,
+                scale:      1,
+                /* over:       ".7s",*/
+                easing:     "ease-in-out",
+                reset:      true,
+                mobile:     true
+            });
+        }
+    </script>
+</body>
+</html>

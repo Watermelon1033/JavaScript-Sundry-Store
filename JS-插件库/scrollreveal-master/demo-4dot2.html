@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>4.2 Improve User Experience</title>
+    <link rel="stylesheet" href="../../reset.css">
+    <link rel="stylesheet" href="../../global-app.css">
+    <script type="text/javascript" src="dist/scrollreveal.js"></script>
+    <script type="text/javascript" src="../../functions.js"></script>
+    <script>
+        window.sr = ScrollReveal();
+        // Add class to <html> if ScrollReveal is supported
+        // Note: this method is deprecated, and only works in version 3
+        if (sr.isSupported()) {
+            document.documentElement.classList.add('sr');
+        }
+    </script>
+
+    <style>
+        /* Ensure elements load hidden before ScrollReveal runs */
+        .sr .fooReveal { visibility: hidden; width:20%; height:6rem; background:#0DBA8F;  margin-left:10%; margin-top:5%; }
+    </style>
+
+</head>
+<body>
+    <div class="fooContainer">
+        <div class="fooReveal"> Foo </div>
+        <div class="fooReveal"> Foo </div>
+        <div class="fooReveal"> Foo </div>
+    </div>
+
+    <!-- make reveal calls last -->
+    <script type="text/javascript">
+        sr.reveal('.fooReveal', { container: '.fooContainer' });
+    </script>
+</body>
+</html>

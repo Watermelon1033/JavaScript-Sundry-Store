@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+/* ------ header-start ------ */
+.header-wall{
+    /*background-color: #24282c;*/
+    background-color: #373d41;
+    /*background-color: #eeeeee;*/
+    /*background-color:#373d41;*/
+}
+.header{
+    width:1198px;
+}
+.header-logo{
+    width:160px; height:47px;
+    margin-top:13px;
+}
+
+.header-nav{
+    margin-left:86px; font-size:16px;
+    height:72px; line-height:72px;
+}
+.header-nav-ul {
+    width:560px;
+}
+.header-nav-ul li{
+    float:left;  cursor:pointer;
+    height:72px; line-height:inherit;
+    overflow:hidden;
+    width:140px;  text-align:center;
+    position:relative;
+}
+.header-nav-ul li a{
+    color:#fff; letter-spacing:1px;
+    display:inline-block;
+    height:100%; width:100%;
+}
+.header-nav-ul li span{
+    display:block;  position:absolute;
+    width:0; height:0; bottom:0;
+    background-color: #1198E3;
+}
+
+.tips-language{
+    margin-top:20px;
+    line-height:22px;
+}
+.tips-language .head-vertical-line{
+    margin-top:6px;
+}
+.tips-language a{
+    padding:0 8px;  height:22px;
+    color:#fff;
+    margin-top:7px;
+}
+.tips-language .old-version{
+    margin-right:4px;
+}
+
+.tips-language .info-tips{
+   text-align:left; padding-right:24px;
+}
+.tips-num{
+    position:absolute; top:-7px;
+    left:28px; width:23px;
+    height:14px;  color:#fff;
+    border-radius:5px;
+    font: 9px normal;
+    line-height:12px;
+    background-color: #fe4b4e;
+    text-align:center; overflow:hidden;
+}
+.tips-language .language{
+    padding-left:14px;
+}
+.tips-language .safety-exit{
+    padding-right:0;
+}
+/* ------ header-over ------ */
+
+
+/* ------ footer-start ------ */
+.footer-wall{
+    width:100%;  height:75px;
+    bottom:0; left:0;
+    background-color:#dcdcdc;
+}
+.footer{
+    width:1198px; height:50px;
+    padding-top:16px; padding-bottom:6px;
+}
+.footer .footer-nav{
+    width:616px; line-height:28px;
+}
+.footer-nav a {
+    display:inline-block; width:92px;
+}
+.copy-right{
+    width:700px; height:28px;
+    line-height:28px; text-align:center;
+}
+/* ------ footer-over ------ */

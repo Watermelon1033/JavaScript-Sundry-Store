@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq语法讲解用到的具体示例</title>
+    <style type="text/css">
+        *{
+            margin: 0;    padding:0;
+            border:0;
+            /* 豆瓣的字体 + 大小 */
+            font: 13px  Helvetica, Arial, Sans-serif;
+        }
+        #my-ul{
+            width:600px; height:400px;
+            background-color:#ccc;
+        }
+        li{
+            width:200px; height:30px;
+            margin-bottom:10px; border-radius:2px;
+            background-color:#00AA88;
+        }
+        input{
+            width:180px; height:45px; background:#7cb98e;
+            border-radius:4px; margin:10px;
+        }
+    </style>
+</head>
+<body>
+    <ul id="my-ul"></ul>
+
+    <div></div>
+    <div></div>
+    <div></div>
+
+    <div>
+        <input type="button" value="点击">
+        <input type="button" value="取消点击绑定">
+    </div>
+
+
+
+    <script type="text/javascript">
+    var regExp = /(abc){3}/;
+    var str = "abcabcabc";
+    console.log(regExp.test(str)); //true //精确匹配 abc 次
+    /*---------------------------*/
+
+    var str2 = "abcabcabcabcabcefg";
+    console.log(str2.match(/(abc)+/)); // [ "abcabcabcabcabc", "abc" ]
+    console.log(str2.match(/(abc)+(.+)/)); // [ "abcabcabcabcabcefg", "abc", "efg" ]
+
+    var str3 = "abcabcabcabcabcefg";
+    console.log(str3.match(/(?:abc)+/)); // [ "abcabcabcabcabcefg"]
+    console.log(str3.match(/(?:abc)+(.+)/)); // [ "abcabcabcabcabcefg", "efg" ]
+    </script>
+
+
+    <script type="text/javascript" src="jquery-v2.0.3.js"></script>
+    <script type="text/javascript">
+
+        /*---------------- holdReady 使用示例-start -----------------*/
+        // a.js  --> alert(1);
+        $(function(){
+
+            // 示例:
+            $.holdReady(true);
+            $.getScript("a.js", function(){
+                $.holdReady(false);
+            });
+            $(function(){
+                //alert(2);
+            });
+
+            // holdReady源码
+            /*var readyWait = 1;
+            jQuery.holdReady(hold){
+                // hold传进来为true时就走if
+                if(hold){
+                    jQuery.readyWait++;
+                }else{
+                    jQuery.ready(true);
+                }
+            }*/
+
+        });
+        /*---------------- holdReady 使用示例-over -----------------*/
+
+        console.log($().jquery);
+
+
+
+        /*----------------jQuery的延迟对象(Deferred)的使用-----------------*/
+
+        setTimeout(function(){
+            console.log("1111");
+        }, 1000);
+        console.log("2222");
+
+            /*var dfd = $.Deferred();
+            setTimeout(function(){
+                console.log("1111");
+                dfd.resolve();
+            }, 1000);
+            dfd.done(function(){
+                console.log("2222");
+            });*/
+
+
+
+        var dfd = $.Deferred();
+        setTimeout(function(){
+            asy1();
+            dfd.resolve();
+        }, 1000);
+        dfd.done(function(){
+           asy2();
+        });
+
+        function asy1(){
+            console.log("1111");
+        }
+
+        function asy2(){
+            console.log("2222");
+        }
+
+
+        /*----------------jQuery的延迟对象(Deferred)的使用-----------------*/
+
+
+        /*----------------rquickExpr正则的用法 ~~ start -----------------*/
+            //测试jq中 rquickExpr正则的用法
+            /*1. \s* 用来匹配一个到多个空格。
+              2. (<[\w\W]+>)：用来匹配HTML标签的，比如 <div>， <DIV>, <span>类似的
+              3. [^>]*：用来匹配除>之外的任意字符，0个到多个。
+              4. #([\w-]*)用来匹配带上#的任意字符，包括连字符-与下划线_。
+             */
+            var rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]*))$/;         //标签匹配(检测是否为HTML标签或ID)
+            console.log(rquickExpr.exec("<li>hello"));      // [ "<li>hello", "<li>", undefined ]
+            console.log(rquickExpr.exec("<li>hello</li>")); // [ "<li>hello</li>", "<li>hello</li>", undefined ]
+            console.log(rquickExpr.exec("#div1"));          // [ "#div1", undefined, "div1" ]
+            console.log(rquickExpr.exec("li"));             // null
+            /*-------------------------------------------------------*/
+            var match;
+            var selector = "<li>hello</li>";
+            if(selector.charAt(0) === "<" && selector.charAt(selector.length -1) === ">" && selector.length > 3) {
+                //如果字符串就是一个html的标签，跳过正则匹配，直接放入到匹配集合中
+                match = [null, selector, null];  //match在init()方法的第一行有声明
+            }
+            console.log(match);  //[ null, "<li>hello</li>", null ]
+
+        /*----------------rquickExpr正则的用法 ~~ over -----------------*/
+
+
+        /*-------------------------------------------------------*/
+
+        /*$("<button></button>", {
+            text: "click",
+            on: {
+                click: function(event){
+                    console.log(1111);
+                }
+            }
+        })*/
+        /*-------------------------------------------------------*/
+
+
+
+
+
+        console.log("\n\n------------$.parseHTML~~start------------");
+        // $.parseHTML()解析节点
+            var str = "<li></li><li></li><li></li>";
+            var arr = $.parseHTML(str); //[ <li>, <li>, <li> ]
+            console.log("解析的3个li为: ");
+            console.log(arr);
+            $.each(arr, function(i){
+                $("#my-ul").append(arr[i]);
+            })
+        console.log("------------$.parseHTML~~start------------\n");
+
+
+
+
+
+
+        console.log("\n\n------------$.merge~~start------------");
+        // $.merge()合并数组
+        //平时我们使用$.merge()方法是这样用的
+            var arr1 = ["a", "b" ];
+            var arr2 = ["c", "d" ];
+            console.log($.merge(arr1, arr2));  //[ "a", "b", "c", "d" ]
+
+            //但是jquery内部可以把数组合并到对象上，例如:
+            var arr = {
+                0 : "a",
+                1 : "b",
+                length : 2
+            };
+            var arr3 = ["c", "d"];
+            console.log($.merge(arr, arr3));
+        console.log("---------------$.merge~~start------------\n");
+
+
+
+        console.log("\n\n------------$().toArray~~start------------");
+        //toArray(): 转数组
+            console.log($("div").toArray());  //[ <div>, <div>, <div> ]
+            //实际上上面这里在jq中实现只有一行代码 return core_slice.call(this);
+
+            //自己用原生实现的写法为:
+            var aDiv = document.getElementsByTagName("div");
+            console.log("原生方法实现类数组转换为数组:");
+            console.log(Array.prototype.slice.call(aDiv)); //[ <div>, <div>, <div> ]
+
+        console.log("---------------$().toArray~~start------------\n");
+
+
+
+
+        console.log("\n\n------------$.extend~~start------------");
+        // $.extend(拷贝继承): 把多个对象的内容添加到第一个对象中去
+        // 示例1.
+            var a = {
+                name: "Wang",
+                age : 28
+            };
+            var b = {
+                sex: "male",
+                age: 29
+            };
+            //把对象b的内容添加到a对象中，实行深拷贝
+            $.extend(true, a, b);
+            console.log(a);  //{ name: "Wang", age: 29, sex: "male" }
+
+
+            // 示例2: 在jQuery的原型上拓展了一个nicenav方法
+            //"交易记录"选项卡切换下面的蓝色横条
+            (function ($) {
+                //extend中接受一个对象，既把此对象的内容添加到jQuery构造函数(对象)中
+                $.extend({
+                    'nicenav': function (time) {
+                        time = typeof time === 'number' ? time : 400;
+                        var $lis = $('.tradeRecord ul li'),
+                            $h = $('#addSelectedBg');
+                        $lis.hover(function () {
+                            $h.stop().animate({
+                                'left': $(this).offsetParent().context.offsetLeft
+                            }, time);
+                        })
+                    }
+                });
+            }(jQuery));
+            $.nicenav(100);
+
+        console.log("---------------$.extend~~start------------\n");
+
+
+
+
+        console.log("\n\n------------$.makeArray~~start------------");
+        // makeArray()把类数组转换为数组
+            var aDiv = document.getElementsByTagName("div");
+            console.log(aDiv);              // HTMLCollection [ <div>, <div>, <div> ]
+            console.log($.makeArray(aDiv)); // Array [ <div>, <div>, <div> ]
+            // 如果在jq内部使用还可以传入第二个参数,输出结果是json格式的数据
+            console.log($.makeArray(aDiv, {length: 0}));    // { 0: div, 1: div, 2: div, length:3}}
+
+            var num = Object(123455);
+            console.log(num);   // Number { 123455 }
+
+            var str = Object("Hello");
+            console.log(str);   // String {0: "H", 1: "e", 2: "l", 3: "l", 4: "o", length: 5, [[PrimitiveValue]]: "Hello"}
+
+        console.log("---------------$.makeArray~~start------------\n");
+
+
+
+
+        console.log("\n\n------------$.inArray~~start------------");
+        // 数组版的indexOf()
+        $(function(){
+            var inArr = ["a", "b", "c", "d"];
+            console.log($.inArray("w", inArr));   // 无 w 所以返回 -1
+            console.log($.inArray("a", inArr));   // 0
+        });
+
+        console.log("---------------$.inArray~~start------------\n");
+
+
+
+
+        console.log("\n\n------------$.grep~~start------------");
+        // grep()过滤返回新数组
+            var grepArr = [1, 2, 3, 4, 5, 6];
+            var grepArray1, grepArray2;
+
+            // 第三个参数true有类似于取反的意思
+            grepArray1 = $.grep(grepArr, function(n, i){
+                return n >2;
+            }, true);
+            console.log(grepArray1);    // [1, 2]
+
+            grepArray2 = $.grep(grepArr, function(n, i){
+                return n >2;
+            });
+            console.log(grepArray2);    // [3, 4, 5, 6]
+
+        console.log("---------------$.grep~~over------------\n");
+
+
+
+
+        console.log("\n\n------------$.map~~start------------");
+        // map()映射新数组
+            var mapArr = [6,7,8,9,10];
+            var mapArray = $.map(mapArr, function(n){
+                return [n, 2*n];
+            });
+            console.log(mapArray);      // [6, 12, 7, 14, 8, 16, 9, 18, 10, 20]
+
+        console.log("---------------$.map~~over------------\n");
+
+
+
+
+        console.log("\n\n------------$.proxy~~start------------");
+        // proxy /'prɒksɪ/ 代理, n.代理权, 代理人
+        // proxy 更改this指向
+
+            function proxyShow(n1, n2){
+                console.log(n1);
+                console.log(n2);
+                console.log(this);
+            }
+            // 调用方式包括下面几种
+            // $.proxy(proxyShow, document, 3, 4);
+            // $.proxy(proxyShow, document)(3, 4);
+            $.proxy(proxyShow, document,3)(4);
+
+
+            const proxyObj = {
+                show: function(){
+                    alert(this);
+                }
+            };
+            // $(document).click(proxyObj.show);                      // [object HTMLDocument]
+
+            // $(document).click($.proxy(proxyObj.show, proxyObj));   // [object Object]
+            // 下面这个写法是上面的简写: 意思是把proxyObj下的show指向proxyObj
+            $(document).click($.proxy(proxyObj, "show"));           // [object Object]
+
+        console.log("---------------$.proxy~~start------------\n");
+
+
+
+        console.log("\n\n---------------$.access()~~start------------\n");
+            /**
+             * 详细教程: http://www.webfront-js.com/articaldetail/90.html
+             *          http://www.cnblogs.com/chaojidan/p/4158786.html (说的更贴地气一点)
+             */
+            // $().css(); $().attr(); set/get
+            // access方法设置属性的调用有以下几种:
+            /*
+                $("div1").css("position","absolute");
+                $("div2").css({color:"red",border:"1px solid blue"});
+                $("div3").css(width: function(index,value){return parseFloat(value)*1.2+index;});
+            */
+            // 调用方式分为3种:
+            // @1: (name, value) 传入名称和值的方式
+            // @2: ({key:value, key:value}) 传入一个键值对map对象
+            // @3: (name: fn(index,value){}) 传入一个名称和一个运算函数，函数接受2个值: index-元素中集合中的序列值，value-元素原来的值。
+
+
+
+        console.log("-------------------$.access()~~start------------\n");
+
+
+
+        console.log("\n\n-------------------$.swap()~~start------------\n");
+
+        // <div id="div1" style="width:100px;height:100px;background:red;display:none;">ddd</div>　
+        // <div id="div1" style="width:100px;height:100px;background:red;display:block;visibility:hidden;position:absolute">ddd</div>
+        // 正常情况下我们获取不到设置了display:none元素的样式，但是jq是可以的，原因是他利用$.swap()做了上面的转换，
+
+        console.log("-----------------------$.swap()~~start------------\n");
+
+
+    </script>
+
+</body>
+</html>
+
+

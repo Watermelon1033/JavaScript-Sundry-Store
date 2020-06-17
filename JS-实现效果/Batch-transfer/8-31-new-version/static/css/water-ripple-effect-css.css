@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.ripple-container {
+    display: inline-block;
+    position: absolute;
+    top: 0;  left: 0;
+    overflow: hidden;
+}
+
+.ripple {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    /*background-color: #8bb5fe;*/
+    /*background-color: #518efa;*/
+}
+
+.ripple.animate-transition{
+    transition: transform 1s cubic-bezier(0, 0, 0.2, 1),
+    width 1s cubic-bezier(0, 0, 0.2, 1),
+    height 1s cubic-bezier(0, 0, 0.2, 1),
+    opacity 1s cubic-bezier(0, 0, 0.2, 1);
+    /*
+        此时在通过js添加(animate-transition)class时，已经添加的style设置的样式有:
+        width: 368.782px;
+        height: 368.782px;
+        transform: translate(-50%, -50%) scale(1, 1);
+     */
+}

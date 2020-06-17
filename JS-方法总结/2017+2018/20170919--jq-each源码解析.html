@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq-each源码解析</title>
+</head>
+<body>
+    <!--<script type="text/javascript">
+      /*  var value;
+        var arr = [1, 2, 3, 4];
+        var theCallBack = function(){};
+        console.log(fnEach(arr, theCallBack));
+        function fnEach(arr, theCallBack){
+            for(var i=0; i<arr.length; i++){
+                value = theCallBack.call(arr[i], i, arr[i]);
+                if(value === false){
+                    break;
+                }
+            }
+            return arr;
+        }*/
+
+
+        // jq-earch()源码 ~~ start
+        function each(obj, callback){
+            var val,
+                i      = 0,
+                length = obj.length;
+            for(; i < length; i++){
+                val = callback.call(obj[i], i, obj[i]);
+
+                if(val === false){
+                    break;
+                }
+            }
+            return obj;
+        }
+        // jq-earch()源码 ~~ over
+
+
+        /* $.each(groupBtn, function (i) {
+             $(this).click(function () {
+                 basicAnimation(dropDownMod[i], {height: 330}, 12);
+             })
+         });*/
+
+        var callback = function(i){
+            this.onclick = function(){
+                basicAnimation(dropDownMod[i], {height: 330}, 12);
+            }
+        };
+        function copyEach(groupBtn, callback){
+            var val,
+                i      = 0,
+                length = groupBtn.length;
+            for(; i < length; i++){
+                val = callback.call(groupBtn[i], i, groupBtn[i]);
+
+                if(val === false){
+                    break;
+                }
+            }
+            return groupBtn;
+        }
+        console.log(copyEach(groupBtn, callback));
+
+
+
+
+
+
+    </script>-->
+
+    <script>
+       /* var oJson = {
+            cur1: [
+                {
+                    index0:{id: 38, unitId: 1, inTimeHour: 22, inTimeMinute: 21, outTimeHour: 22},
+                    index1:{id: 39, unitId: 1, inTimeHour: 22, inTimeMinute: 40, outTimeHour: 22},
+                    index2:{id: 42, unitId: 1, inTimeHour: 15, inTimeMinute: 30, outTimeHour: 15},
+                    index3:{id: 43, unitId: 1, inTimeHour: 15, inTimeMinute: 0, outTimeHour: 15},
+                }
+            ],
+            cur2: [
+                {
+                    0:{id: 38, unitId: 1, inTimeHour: 22, inTimeMinute: 21, outTimeHour: 22},
+                    1:{id: 39, unitId: 1, inTimeHour: 22, inTimeMinute: 40, outTimeHour: 22},
+                    2:{id: 42, unitId: 1, inTimeHour: 15, inTimeMinute: 30, outTimeHour: 15},
+                    3:{id: 43, unitId: 1, inTimeHour: 15, inTimeMinute: 0, outTimeHour: 15},
+                }
+            ],
+            cur3: [
+                {
+                    0:{id: 38, unitId: 1, inTimeHour: 22, inTimeMinute: 21, outTimeHour: 22},
+                    1:{id: 39, unitId: 1, inTimeHour: 22, inTimeMinute: 40, outTimeHour: 22},
+                    2:{id: 42, unitId: 1, inTimeHour: 15, inTimeMinute: 30, outTimeHour: 15},
+                    3:{id: 43, unitId: 1, inTimeHour: 15, inTimeMinute: 0, outTimeHour: 15},
+                }
+            ],
+        };
+        var i = 0;*/
+        /*for(; i< oJson.cur1.length; i++){
+            console.log(oJson.cur1[i].index0.id);
+           /!* for(var j=0; j< oJson.cur1[i].index0.length; j++){
+
+            }*!/
+        }*/
+
+       (function(){
+           function createFunctions(){
+               var result = [];
+               for (var i=0; i < 10; i++){
+                   result[i] = function(){
+                       return i;
+                   };
+               }
+               return result;
+           }
+           createFunctions();
+       }());
+
+    </script>
+</body>
+</html>

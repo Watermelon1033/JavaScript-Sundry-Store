@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsonp的实现方式</title>
+    <style type="text/css">
+        *{ margin:0; padding:0; }
+        #result {
+            width: 600px; height: 720px;
+            background: lightgoldenrodyellow;
+            margin: 20px;
+            border-radius: 4px;
+            overflow: auto;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="result"></div>
+
+    <script type="text/javascript">
+
+        /** Create on 20190120  */
+
+        // 参考代码: https://blog.csdn.net/zxiang248/article/details/52633920#commentsedit
+
+        function jsonp(url, options, callback) {
+            //1 挂载回调函数
+            var fnSuffix=Math.random().toString().replace('.','');
+            var cbFuncName='my_json_cb_'+fnSuffix;
+            window[cbFuncName]=function(data) {
+                if (callback) { callback(data) }
+            };
+
+            //2 将 options 转化成url字符串的形式
+            // {id:1,name:'zhangsan'} =>id=1&name=zhangsan
+            var querystring=url.indexOf('?')===-1?'?':'&';
+            for(var key in options){
+                querystring+=key+'='+options[key]+'&';
+            }
+
+            querystring+='callback='+cbFuncName;
+
+            var scriptElement=document.createElement('script');
+            scriptElement.src=url+querystring;
+            console.log(scriptElement);
+
+            var target = document.getElementsByTagName('script')[0] 
+                || document.head;
+            target.parentNode.insertBefore(scriptElement, target);
+        }
+
+        jsonp(
+            // 地址
+            "http://api.douban.com/v2/movie/in_theaters?",
+            // 回调函数
+            { count: 10, start: 5 },
+            function (data) {
+                document.getElementById("result").innerHTML = JSON.stringify(data);
+            }
+        );
+
+
+    </script>
+</body>
+</html>

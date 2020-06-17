@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jq-each源码解析</title>
+</head>
+<body>
+    <script type="text/javascript">
+      /*  var value;
+        var arr = [1, 2, 3, 4];
+        var theCallBack = function(){};
+        console.log(fnEach(arr, theCallBack));
+        function fnEach(arr, theCallBack){
+            for(var i=0; i<arr.length; i++){
+                value = theCallBack.call(arr[i], i, arr[i]);
+                if(value === false){
+                    break;
+                }
+            }
+            return arr;
+        }*/
+
+
+        // jq-v2.0.3--earch()源码 ~~ start
+        /*function each(obj, callback, args){
+            var val,        // 设置回调函数执行的返回值，确定是否继续执行后面的元素
+                i      = 0,
+                length = obj.length,
+                isArray = isArraylike(obj);
+            if(args){
+                if(isArray){
+                    for(; i < length; i++){
+                        val = callback.apply(obj[i], args);
+
+                        if(val === false){
+                            break;
+                        }
+                    }
+                }else{
+                    for(i in obj){
+                        val = callback.apply(obj[i], args);
+                        if(val === false){
+                            break;
+                        }
+                    }
+                }
+            }else{
+                if(isArray){
+                    for(; i < length; i++){
+                        val = callback.call(obj[i], i, obj[i]);
+                        if(val === false){
+                            break;
+                        }
+                    }
+                }else{
+                    for(i in obj){
+                        val = callback.call(obj[i], i, obj[i]);
+                        if(val === false){
+                            break;
+                        }
+                    }
+                }
+
+            }
+            return obj;
+        }*/
+        // jq-v2.0.3--earch()源码 ~~ over
+
+        // jq-v3.1.0~~each()源码
+        function each(obj, callback){
+            var length,
+                i = 0;
+            if( Object.prototype.toString.call( obj ) === "[object Array]" ){
+                length = obj.length;
+                for( ; i < length; i++ ){
+                    // 20180617-add: 既然 call() 方法的第一個參數只是確定當前 this 指向, 那麼這裡 obj[i] 是不是寫 obj 更合適？
+                    if(callback.call(obj[i], i, obj[i]) === false){
+                        break;
+                    }
+                }
+            }else{
+                for( i in obj ){
+                    if( callback.call(obj[i], i, obj[i]) === false){
+                        break;
+                    }
+                }
+            }
+            return obj;
+        }
+
+        each( [1,3,5,6,7], function (i, n) {
+            console.log( i, n );
+        } )
+
+
+
+
+        /*------jq-v3.1.0~~each()源码-over ------*/
+
+
+
+
+        /* $.each(groupBtn, function (i) {
+             $(this).click(function () {
+                 basicAnimation(dropDownMod[i], {height: 330}, 12);
+             })
+         });*/
+
+        /**
+         * (1) apply()方法接收两个参数：一个是在其中运行函数的作用域，另一个是参数数组。其中，第二个参数可以是Array的实例，也可以是arguments对象。
+         * (2) call()方法也是接收两个参数: 第一个参数是this值没有变化，变化的是其余参数都是直接传递给函数。换句话说就是在使用call()方法时，传递给函数的参数必须逐个列举出来。
+         */
+
+        // var callback = function(i){
+        //     this.onclick = function(){
+        //         basicAnimation(dropDownMod[i], {height: 330}, 12);
+        //     }
+        // };
+        // function copyEach(groupBtn, callback){
+        //     var val,
+        //         i      = 0,
+        //         length = groupBtn.length;
+        //     for(; i < length; i++){
+        //         val = callback.call(groupBtn[i], i, groupBtn[i]);
+        //
+        //         if(val === false){
+        //             break;
+        //         }
+        //     }
+        //     return groupBtn;
+        // }
+        // console.log(copyEach(groupBtn, callback));
+
+
+
+    </script>
+</body>
+</html>

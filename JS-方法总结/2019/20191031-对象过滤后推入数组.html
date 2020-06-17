@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script type="text/javascript">
+        (function() {
+            let arr = [];
+            const product = {
+                product_model: ["项目介绍1", "商业模式1"],
+                competitive_analysis: [null, "竞争力分1析"],
+                financial_data: [null, "竞财务数1据"],
+                id: "b76383c5-8228-407a-be8c-05736e30b981",
+                operation: "update",
+            };
+
+            // - 单独成一项
+            // for (let key in product) {
+            //     let generate = {};
+            //     if (product[key] instanceof Array) {
+            //         generate[key] = product[key];
+            //         arr.push(generate);
+            //     }
+            // }
+            // console.log("arr: ", arr);
+
+            // - 把几项推入一项.
+            let generate = {};
+            for (let key in product) {
+                if (product[key] instanceof Array) {
+                    generate[key] = product[key];
+                }
+            }
+            arr.push(generate);
+            generate = {};
+            console.log("arr: ", arr);
+
+        })();
+    </script>
+</body>
+</html>
