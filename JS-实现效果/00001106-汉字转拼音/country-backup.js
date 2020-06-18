@@ -1,7 +1,3 @@
-/**
- * Created on 2017/11/7.
- */
-
 
 var countryList = [
 
