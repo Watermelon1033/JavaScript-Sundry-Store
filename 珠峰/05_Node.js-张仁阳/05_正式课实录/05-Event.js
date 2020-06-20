@@ -12,6 +12,9 @@ function Bell() {
 // - Node.js 的 util.js 文件中是使用:
 //   `Object.setPropertyOf(ctor.prototype, superCtor.prototype);` 来实现的,
 //   也等于下面这中写法: `ctor.prototype.__proto__ = superCtor.prototype;`
+// - 注意: Node 中这个继承只是继承了父构造函数的方法,
+//   子构造函数并没有在其构造函数的内部调用父构造函数来继承属性. 原因是 Node
+//   的事件循环只需要 EventEmitter 的方法, 其上并没有属性.
 util.inherits(Bell, EventEmitter);
 
 let bell = new Bell();
