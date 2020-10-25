@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修剪字符串</title>
+    <link rel="stylesheet" href="../typo.css">
+    <style>
+        body {
+            /* - 1em = 16px;
+             *     + 1px = 0.0625em;
+             *     + 4px = 0.25em;
+             *     + 5px = 0.315em; (约等于 0.32em)
+             *     + 6px = 0.375em;
+             *     + 10px = 0.625em; (写为 0.62)
+             *     + 20px = 1.25em; 
+             */
+            font-size: 1em;
+            letter-spacing: 0;
+        }
+        #wrapper {
+            min-width: 660px; max-width: 1260px; margin: 0 auto;
+            overflow: hidden; border: 1px solid #fafafa;
+        }
+
+        /* - promo-area */
+        #promo-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top: 4px solid #f7be84;
+        }
+        #promo-area  article{
+            flex: 0 0 50%;
+            padding: .625em 0;
+            background: #fff;
+        }
+        #promo-area article .origin, .trim {
+            margin: .625em 1em;
+            padding: 1em;
+            font-weight:300;
+            font-size: 1em;
+            line-height:1.5em;
+            color:#616161;
+            background: #e5e8ed;
+        }
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <!-- promotion area 宣传区域 -->
+        <section id="promo-area">
+            <article>
+                <div class="origin">
+                    110.neighbourhood n.四邻；街坊 111.local adj.地方的；局部的 112.suburb n.城郊；郊区
+                    113.hometown n.家乡
+                    114.attractive adj.有吸引力的；吸引人的 115.fortunate adj.幸运的；吉祥的 116.pretty
+                    adv.很；相当 117.sound vi.听起来
+                    118.tourist n.旅游者；观光客 119.bother vt.打扰；烦扰；麻烦 120.nuisance n.令人讨厌的
+                    人或事 121.rent n.租金
+                    122.district n.地域；区域；行政区 123.approach vt.接近 124.harbour n.海港
+                    125.gorgeous adj.美丽的；宜人的 126.architecture n.建筑 127.starve vi.饿死 128.park
+                    vt.停车 129.traffic n.交通
+                    130.committee n.委员会 131.organisation = organization n.组织
+                    132.unemployed adj.失业的；没有工作的 133.household n.家属；家人 134.occupation n.职业
+                    135.professional adj.专业的 136.manual adj.用手的；手的
+                    137.employment n.就业；工作；职业 138.gallery n.美术馆；画廊 139.exchange vt.交换
+                    140.fascinating adj.迷人的；吸引人的 141.afford vt.买得起；有能力支付 142.survive
+                    vi.死里逃生；大难不死 143.contact vt.联络；联系（某人） 144.liquid n.液体 145.expand
+                    vi.膨胀 146.contract vi.收缩 147.substance n.物质 148.mixture n.混合物 149.oxygen
+                    n.氧气 150.electricity n.电
+                    151.stage n.阶段；时期 152.conclusion n.结论 153.aim n.目标；目的 154.reaction n.反应
+                    155.electrical adj.与电有关的；用电的 156.equipment n.设备；装备 157.react vi.（化学
+                    ）反应 158.potassium n.钾 159.sodium n.钠 160.calcium n.钙 161.magnesium n.镁
+                    162.aluminium n.铝 163.zinc n.锌
+                </div>
+            </article>
+            
+            <article>
+                <div class="trim">
+                </div>
+            </article>
+        </section>
+        <!-- end promo-area -->
+    </div>
+
+    <script>
+        const origin = document.querySelector('.origin');
+        const trim = document.querySelector('.trim');
+
+        let originText = origin.innerText;
+        // console.log(originText);
+
+        let reg = /[0-9]{3,}\.([^0-9]{1,})/g;
+        let characters = originText.match(reg);
+        // console.log(characters);
+
+
+        String.prototype.insetAt = function(str,offset){
+            // - 使用 RegExp() 构造函数 创建正则表达式
+            var regx = new RegExp("(.{" + offset + "})");
+
+            return this.replace(regx, "$1" + str);
+        };
+
+        var result = '';
+        for (i = 0; i < characters.length; i++) {
+            let currentItem = characters[i]
+            let dotIndex = (currentItem.indexOf('.'));
+            let charTrim = null;
+            if (dotIndex === 3) {
+                charTrim = currentItem.insetAt(' ', 4);
+            }
+            else if (dotIndex === 4) {
+                charTrim = currentItem.insetAt(' ', 5);
+            }
+            console.log("charTrim.indexOf('adv'): ", charTrim.indexOf('adv'));
+            result += '<p>' + charTrim + '</p>';
+        }
+        console.log(result);
+        trim.innerHTML = result;
+    </script>
+</body>
+</html>
